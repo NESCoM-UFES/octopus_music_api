@@ -8,3 +8,5 @@ Aqui todo mundo escreve o proprio nome…cada nome em uma linha!
 
 4 - MaiccoYYYY
 4 - MaiccoXXXXX
+
+% Dentro o Eclipse...egit
