@@ -14,6 +14,7 @@ public class AppGitExample {
 		System.out.println("llcostalonga wrote this!");
 		llcostalongaSaysDoWhatever();
 
+		Equipamentos equip = new Equipamentos();
 	}
 
 	
