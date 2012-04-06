@@ -13,7 +13,7 @@ public class AppTesteEGIT {
 			System.out.println("llcostalonga wrote this!");
 			llcostalongaSaysDoWhatever();
 			
-			System.out.println("Clayton488 wrote this!");
+			System.out.println("Clayton488 waiting test response!");
 			llcostalongaSaysDoWhatever();
 			
 		}
