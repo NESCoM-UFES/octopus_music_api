@@ -5,6 +5,9 @@ public class AppTesteEGIT {
 			System.out.println("llcostalonga says: whatever!");
 		}
 		
+		public static void clayton488SaysDoWhatever(){
+			System.out.println("llcostalonga says: whatever!");
+		}
 		public static void main(String[] args) {
 		  /*How this will work: Every developer just write a line similar to the one bellow. 
 		   * Then, add your own method to do whatever. The goal is to see how GIT merge things.
@@ -14,7 +17,7 @@ public class AppTesteEGIT {
 			llcostalongaSaysDoWhatever();
 			
 			System.out.println("Clayton488 waiting test response!");
-			llcostalongaSaysDoWhatever();
+			clayton488SaysDoWhatever();
 			
 		}
 }
