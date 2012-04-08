@@ -6,7 +6,7 @@ public class AppTesteEGIT {
 		}
 		
 		public static void clayton488SaysDoWhatever(){
-			System.out.println("llcostalonga says: whatever!");
+			System.out.println("Clayton says: whatever!");
 		}
 		public static void main(String[] args) {
 		  /*How this will work: Every developer just write a line similar to the one bellow. 
