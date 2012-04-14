@@ -11,6 +11,18 @@ public class MyMusic {
 			harmony = PlayableThings.getHarmonyToPlay();
 			System.out.println(harmony); 
 			musician.play(harmony);
+			
+		RhythmPattern ritmo = new RhythmPattern("ritmo1");
+		Bar barM = new Bar(4,2);
+		
+		barM.addRhythmEvent(10, 2);
+		barM.addRhythmEvent(RhythmConstants.HALF_NOTE, 3);
+		
+		ritmo.insertMark("beginning");
+		ritmo.insertBar(barM);
+		ritmo.insertReturn("beginning",3);	
+		
+			
 		} catch (ChordNotationException e) {
 			System.out.println("Ops...it seems that your musician is having troubles with the notes of the harmony: ");
 		}
