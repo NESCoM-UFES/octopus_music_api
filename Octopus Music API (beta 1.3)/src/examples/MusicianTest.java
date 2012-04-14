@@ -45,14 +45,14 @@ public class MusicianTest {
 
 
 			// ====  BLOCK 5: Testing Melody Playing ==== 
-			/*try{
+			try{
 				Melody melody = PlayableThings.getMelodyToPlay();
 				System.out.println(melody); // NAO ESTA FUNCIONANDO - IMPLEMENTAR TOSTRING()
 				musician.play(melody);
 			}catch (NoteException e) {
 				System.out.println("Ops...it seems that your musician is having troubles with the notes of the Melody: ");
 				e.printStackTrace();
-			}*/
+			}
 			 
 
 			// ====  BLOCK 6: Testing HarmonicProgression Playing ==== 

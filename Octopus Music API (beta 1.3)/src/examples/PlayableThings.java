@@ -54,7 +54,7 @@ public class PlayableThings implements OMC {
 	}
 
 	public static Melody getMelodyToPlay() throws NoteException{
-		String[] freeSoloMelody = {"C", "E", "F", "G", "F", "C","C", "E", "F", "G", "F", "C"};
+		String[] freeSoloMelody = {"C", "C", "C","C","B", "A", "G", "C","C", "B", "C", "B", "B", "B"};
 		Melody melody = new Melody(freeSoloMelody,getRhythmPatternToPlay());
 		return melody;
 	}
