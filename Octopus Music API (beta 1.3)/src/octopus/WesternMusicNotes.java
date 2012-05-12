@@ -10,7 +10,7 @@ package octopus;
  */
 public class WesternMusicNotes {
 
-  /* public static final int DOUBLE_FLAT = -2;
+/* public static final int DOUBLE_FLAT = -2;
    public static final int FLAT = -1;
    public static final int NATURAL= 0;
    public static final int SHARP = 1;
@@ -22,7 +22,7 @@ public class WesternMusicNotes {
   private static Note E = new Note("E","Mi",IntervalFactory.getMajorSecond(),IntervalFactory.getMinorSecond(),64);
   private static Note F = new Note("F","Fá",IntervalFactory.getMinorSecond(),IntervalFactory.getMajorSecond(),65);
   private static Note G = new Note("G","Sol",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond(),67);
-  private static Note A = new Note("A","Lá",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond(),69);
+  private static Note A = new Note("A","L",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond(),69);
   private static Note B = new Note("B","Si",IntervalFactory.getMajorSecond(),IntervalFactory.getMinorSecond(),71);
 
   // contém apenas notas naturais
@@ -541,7 +541,6 @@ public class WesternMusicNotes {
     }
    return indexNotaRetorno;
   }
-
 
 /*
    * Retorna a posição da nota na relação de Notas (Notas naturais).

@@ -68,25 +68,25 @@ public class Scale implements Playable{ //Diatonic
       IntervalFactory.getMinorThird(), IntervalFactory.getMajorSecond(),
       IntervalFactory.getMinorThird()};
 
-  private static Note notaDo = new Note("C", "C",
+  private static Note noteC = new Note("C", "C",
                                         IntervalFactory.getMinorSecond(),
                                         IntervalFactory.getMajorSecond());
-  private static Note notaRe = new Note("D", "D",
+  private static Note noteD = new Note("D", "D",
                                         IntervalFactory.getMajorSecond(),
                                         IntervalFactory.getMajorSecond());
-  private static Note notaMi = new Note("E", "E",
+  private static Note noteE = new Note("E", "E",
                                         IntervalFactory.getMajorSecond(),
                                         IntervalFactory.getMinorSecond());
-  private static Note notaFa = new Note("F", "F",
+  private static Note noteF = new Note("F", "F",
                                         IntervalFactory.getMinorSecond(),
                                         IntervalFactory.getMajorSecond());
-  private static Note notaSol = new Note("G", "G",
+  private static Note noteG = new Note("G", "G",
                                          IntervalFactory.getMajorSecond(),
                                          IntervalFactory.getMajorSecond());
-  private static Note notaLa = new Note("A", "A",
+  private static Note noteA = new Note("A", "A",
                                         IntervalFactory.getMajorSecond(),
                                         IntervalFactory.getMajorSecond());
-  private static Note notaSi = new Note("B", "A",
+  private static Note noteB = new Note("B", "A",
                                         IntervalFactory.getMajorSecond(),
                                         IntervalFactory.getMinorSecond());
 
@@ -95,27 +95,27 @@ public class Scale implements Playable{ //Diatonic
    * Contains only natural notes;
    */
   protected static Note CmajDiatonicNotes[] = {
-      notaDo, notaRe, notaMi, notaFa, notaSol, notaLa, notaSi};
+      noteC, noteD, noteE, noteF, noteG, noteA, noteB};
   protected static Note CmajPentaNotes[] = {
-      notaDo, notaRe, notaMi, notaSol, notaLa};
+      noteC, noteD, noteE, noteG, noteA};
 
   protected static Note cromaticSharpNotes[] = {
-      notaDo, WesternMusicNotes.getC(Note.SHARP),
-      notaRe, WesternMusicNotes.getD(Note.SHARP),
-      notaMi, 
-      notaFa, WesternMusicNotes.getF(Note.SHARP),
-      notaSol, WesternMusicNotes.getG(Note.SHARP),
-      notaLa, WesternMusicNotes.getA(Note.SHARP),
-      notaSi};
+      noteC, WesternMusicNotes.getC(Note.SHARP),
+      noteD, WesternMusicNotes.getD(Note.SHARP),
+      noteE, 
+      noteF, WesternMusicNotes.getF(Note.SHARP),
+      noteG, WesternMusicNotes.getG(Note.SHARP),
+      noteA, WesternMusicNotes.getA(Note.SHARP),
+      noteB};
  
     protected static Note cromaticFlatNotes[] = {
-      WesternMusicNotes.getC(Note.FLAT),notaDo, 
-      WesternMusicNotes.getD(Note.FLAT),notaRe,
-      WesternMusicNotes.getE(Note.FLAT),notaMi, 
-      notaFa, 
-      WesternMusicNotes.getG(Note.FLAT),notaSol,
-      WesternMusicNotes.getA(Note.FLAT),notaLa, 
-      WesternMusicNotes.getB(Note.FLAT),notaSi};
+      WesternMusicNotes.getC(Note.FLAT),noteC, 
+      WesternMusicNotes.getD(Note.FLAT),noteD,
+      WesternMusicNotes.getE(Note.FLAT),noteE, 
+      noteF, 
+      WesternMusicNotes.getG(Note.FLAT),noteG,
+      WesternMusicNotes.getA(Note.FLAT),noteA, 
+      WesternMusicNotes.getB(Note.FLAT),noteB};
   
   
 

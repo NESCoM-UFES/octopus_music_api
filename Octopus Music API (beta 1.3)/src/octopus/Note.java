@@ -34,7 +34,6 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
  */
   protected String symbol;
 
-
 /**
  * For example, C sharp;
  */
@@ -141,9 +140,6 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
   public Interval getNextInterval() {return nextInterval;}
 
 
-
-
-
 /*
  * Obtém a região onde a nota está localizada.
  * @return Região onde a nota está localizada.
@@ -167,8 +163,6 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
     }
   }
 
-
-
 /*
  * Verifica se uma nota possui alteração (sustenido ou bemol).
  * @return Verdadeiro de encontrar a alteração e falso caso contrário.
@@ -182,10 +176,7 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
     }
     return retorno;
   }
-  
-  
-  
-
+    
 /*
    * Obtém o caracter que representa a nota natural, ou seja, nota sem alteração
    * (sustenido ou bemol).
@@ -199,7 +190,6 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
       return WesternMusicNotes.getNote(getBaseNoteSymbol());
   }
   
-
   public int getMidiValue() throws NoteException {
     WesternMusicNotes.calculateMidiValue(this);    
     return MidiValue;
@@ -213,7 +203,8 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
     return false;
 
   }
-  public boolean isDoubleSharp(){
+  
+public boolean isDoubleSharp(){
   String acc = this.getAccident();
   if (acc != null) {
     return this.getAccident().equals("##");
@@ -221,7 +212,6 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
   return false;
 
 }
-
 
   public boolean isFlat(){
     String acc = this.getAccident();
@@ -239,13 +229,10 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
   return false;
 }
 
-
-
  //Valor Calculado no NoteCollection a partir da nota e do pitch
    void setMidiValue(int midiValue) {
        this.MidiValue = midiValue;
    }
-
 
 /*
  * Obtém a alteração (sustenido ou bemol) de uma nota. Caso a nota não possua
@@ -261,7 +248,6 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
     return retorno;
   }
   
-
 public String toString(){
      return this.symbol + this.octavePitch;
  }
@@ -299,6 +285,18 @@ public int compareTo(Object o) {
     return 0;
   }
 
+public static Note getNote(String noteSymbol, int octavePitch) throws NoteException{
+	return WesternMusicNotes.getNote(noteSymbol,octavePitch);
+}
+
+public static Note getNote(String noteSymbol) throws NoteException {
+
+	    return WesternMusicNotes.getNote(noteSymbol);
+	 
+	  }
+public static Note getNote(String simbFundamental, String simbIntervalo)  throws NoteException {
+	return WesternMusicNotes.getNote(simbFundamental, simbIntervalo);
+}
 /**
  * Returns the MusicalEventSequence of a single note. To be used only
  * when the note needs to be heard out of musical context (just to see
