@@ -84,7 +84,7 @@ package octopus;
 	    ponteiro = simbAlteracao.getPosition(ponteiro);
 	  }else{
 	     notaFundamental = simbNota.getNote();
-	   }
+	   }                                                             
 	  reconheceuSimbolo = true;
 	  estadoOrigem = 2;
           estadoFinal = true;
