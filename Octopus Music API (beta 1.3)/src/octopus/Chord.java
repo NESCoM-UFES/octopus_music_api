@@ -271,7 +271,7 @@ public class Chord implements Serializable,Playable{
 
 			 if (rootPitchOctave > 0) {
 				 try{
-					 bassNote.setOctavePicth(bassPitchOctave - 1);
+					 bassNote.setOctavePitch(bassPitchOctave - 1);
 				 }catch(NoteException ex){
 					 throw new ChordException("The ocatve value can not be lower than 0.", this);
 				 }

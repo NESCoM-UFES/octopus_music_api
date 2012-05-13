@@ -129,9 +129,6 @@ public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceE
         }
         catch (InvalidMidiDataException ex1) {
           throw new octopus.MusicPerformanceException(ex1.getMessage(),ex1);
-        } catch (NoteException e) {
-			// TODO Auto-generated catch block
-        	 throw new octopus.MusicPerformanceException(e.getMessage(),e);
 		}
 
       }

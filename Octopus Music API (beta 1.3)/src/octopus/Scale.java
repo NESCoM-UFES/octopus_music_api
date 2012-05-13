@@ -271,11 +271,9 @@ public class Scale implements Playable{ //Diatonic
 		retorno+=(
 				"------------------------------------------------------------------- \n");
 		for (int i = 0; i < notes.length; i++) {
-			try {
-				retorno+=(notes[i].toString() + " Midi: " + notes[i].getMidiValue() + "\n");
-			} catch (NoteException e) {
-				e.printStackTrace();
-			}
+
+			retorno+=(notes[i].toString() + " Midi: " + notes[i].getMidiValue() + "\n");
+
 		}
 		return retorno;
 	}

@@ -719,7 +719,7 @@ public PerformableHarmony learn(Harmony harmony) throws MusicPerformanceExceptio
              Notes.getE()};
 
          for (int i = 0; i < notes.length; i++) {
-           notes[i].setOctavePicth(4);
+           notes[i].setOctavePitch(4);
          }
 
          Melody m = new Melody(notes, RhythmPattern.getDemoRhythmPattern());

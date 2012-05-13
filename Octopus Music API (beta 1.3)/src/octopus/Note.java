@@ -17,34 +17,30 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 	/**{@value} */ 
 	public static final int DOUBLE_FLAT = -2;
 	/**{@value} */ 
+	public static final int DOUBLE_SHARP = 2;
+	/**{@value} */ 
 	public static final int FLAT = -1;
 	/**{@value} */ 
 	public static final int NATURAL= 0;
 	/**{@value} */ 
 	public static final int SHARP = 1;
-	/**{@value} */ 
-	public static final int DOUBLE_SHARP = 2;
 
 
-	/** The number of semitones over/under the note; For example, SHARP = 1.
-  protected int accident = 0;
+	public static Note getNote(String noteSymbol) throws NoteException {
 
- /**
-	 * For example, C#
-	 */
-	protected String symbol;
+		return Notes.getNote(noteSymbol);
+
+	}
+
+	public static Note getNote(String noteSymbol, int octavePitch) throws NoteException{
+		return Notes.getNote(noteSymbol,octavePitch);
+	}
+
 
 	/**
 	 * For example, C sharp;
 	 */
 	protected String name;
-
-	/** The interval distance for the previous note in the tempered scale (or any other).*/
-	/* Exemplos: C(previous natural note) - D = Second Major Interval
-	 *           D(previous natural note) - D sustenido = Segunda Menor
-	 *           Dó(nota natural imediatamente anterior) - Ré bemol = Segunda Menor.
-	 */
-	protected Interval previousInterval;
 
 	/**
 	 * The interval distance for the previous note in the tempered scale (or any other)*/
@@ -59,14 +55,26 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 	 */
 	protected int octavePitch;
 
-	/** Midi value; Automatically calculated.*/
-	protected int MidiValue = -1;
-
-	/** Note Frequency; Automatically calculated.*/
-	protected double frequency = -1;
 
 
 
+	/** The interval distance for the previous note in the tempered scale (or any other).*/
+	/* Exemplos: C(previous natural note) - D = Second Major Interval
+	 *           D(previous natural note) - D sustenido = Segunda Menor
+	 *           Dó(nota natural imediatamente anterior) - Ré bemol = Segunda Menor.
+	 */
+	protected Interval previousInterval;
+
+	/** The number of semitones over/under the note; For example, SHARP = 1.
+  protected int accident = 0;
+
+ /**
+	 * For example, C#
+	 */
+	protected String symbol;
+
+	//Usado pelo método clone;
+	private Note(){}
 
 	/*
 	 * Instancia as propriedades da nota.
@@ -78,161 +86,49 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 	 * @param nextInterval Interval formado com a nota natural imediatamente
 	 * posterior a uma nota dada. Exemplo: sexta menor.
 	 */
-	public Note(String idSymbol,String noteName, Interval previousInterval, Interval nextInterval){
+	protected Note(String idSymbol,String noteName, Interval previousInterval, Interval nextInterval){
 		this.symbol = idSymbol;
 		this.name = noteName;
 		this.previousInterval = previousInterval;
 		this.nextInterval = nextInterval;
 		octavePitch = 4; //Why %? So inflexible!
-		MidiValue = -1; //Só é calculado quando se deseja o valor;
+		
+	};
 
-	}
 
-	public Note(String idSymbol,String noteName, Interval previousInterval, Interval nextInterval, int octavePitch, int MidiValue){
+	protected Note(String idSymbol,String noteName, Interval previousInterval, Interval nextInterval, int octavePitch){
 		this.symbol = idSymbol;
 		this.name = noteName;
 		this.previousInterval = previousInterval;
 		this.nextInterval = nextInterval;
 		this.octavePitch =  octavePitch;
-		this.MidiValue = MidiValue; //Só é calculado quando se deseja o valor;
+	
 	}
 
-	public Note(String idSymbol,String noteName, Interval previousInterval, Interval nextInterval, int MidiValue){
-		this.symbol = idSymbol;
-		this.name = noteName;
-		this.previousInterval = previousInterval;
-		this.nextInterval = nextInterval;
-		octavePitch = 5;
-		this.MidiValue = MidiValue; //Só é calculado quando se deseja o valor;
-	}
+	@Override
+	public Object clone(){
+		Note retorno = new Note();
+		retorno.octavePitch = octavePitch;
+		retorno.previousInterval = previousInterval;
+		retorno.nextInterval = nextInterval;
+		retorno.name = name;
+		retorno.symbol = symbol;
 
-	//Usado pelo método clone;
-	private Note(){};
-
-	/*
-	 * Obtém o nome da nota. Exemplo: "Mi".
-	 * @return Nome da nota.
-	 */
-	public String getName() {return name;}
-
-	/*
-	 * Obtém o símbolo identificador da nota. Exemplo: "E".
-	 * @return Símbolo identificador de uma nota.
-	 */
-	public String getSymbol() {return symbol;}
-
-	/*
-	 * Obtém o intervalo formado com a nota natural imediatamente anterior a uma nota dada.
-	 * Exemplos: Dó(nota natural imediatamente anterior) - Ré = Segunda Maior
-	 *           Ré(nota natural imediatamente anterior) - Ré sustenido = Segunda Menor
-	 *           Dó(nota natural imediatamente anterior) - Ré bemol = Segunda Menor.
-	 * @return Interval formado com a nota natural imediatamente anterior a uma nota dada.
-	 */
-	public Interval getPreviousInterval() {return previousInterval;}
-
-	/*
-	 * Obtém o intervalo formado com a nota natural imediatamente posterior a uma nota dada.
-	 * Exemplos: Sol - Lá(nota natural imediatamente posterior) = Segunda Maior
-	 *           Sol sustenido - Lá(nota natural imediatamente posterior) = Segunda Menor
-	 *           Sol bemol - Sol(nota natural imediatamente posterior) = Segunda Menor.
-	 * @return Interval formado com a nota natural imediatamente posterior a uma nota dada.
-	 */
-	public Interval getNextInterval() {return nextInterval;}
-
-
-	/*
-	 * Obtém a região onde a nota está localizada.
-	 * @return Região onde a nota está localizada.
-	 */
-	public int getOctavePitch() {return octavePitch;}
-
-	/*
-	 * Inicializa a região onde a nota está localizada.
-	 * O - Mais Grave
-	 * 11 - Mais Aguda
-	 * @param pitch Região onde a nota está localizada.
-	 */
-	public void setOctavePicth(int octavePitch) throws NoteException{
-		/*@todo Verificar range de escalas do MIDI*/
-		if ((octavePitch >= 0)&&(octavePitch <= 11)){
-			this.octavePitch = octavePitch;
-			Notes.calculateMidiValue(this);
-			Notes.calculateFrequency(this);
-		}else{
-			throw new NoteException("Pitch's octave out of range",this.name);
-		}
-	}
-
-	/*
-	 * Verifica se uma nota possui alteração (sustenido ou bemol).
-	 * @return Verdadeiro de encontrar a alteração e falso caso contrário.
-	 */
-	public boolean isAccidental() {
-		boolean retorno;
-		if ((symbol.indexOf('#')!= -1)||(symbol.indexOf('b')!= -1)){
-			retorno = true;
-		}else{
-			retorno= false;
-		}
 		return retorno;
 	}
 
-	/*
-	 * Obtém o caracter que representa a nota natural, ou seja, nota sem alteração
-	 * (sustenido ou bemol).
-	 * @return Note natural.
-	 */
-	public String getBaseNoteSymbol() {
-		return symbol.substring(0,1);
-	}
-
-	public Note getBaseNote() throws NoteException{
-		return Notes.getNote(getBaseNoteSymbol());
-	}
-
-	public int getMidiValue() throws NoteException {
-		Notes.calculateMidiValue(this);    
-		return MidiValue;
-	}
-
-	public boolean isSharp(){
-		String acc = this.getAccident();
-		if (acc != null) {
-			return this.getAccident().equals("#");
+	public int compareTo(Object o) {
+		int midiValue = (((Note)o).getMidiValue());
+		if(this.getMidiValue() < midiValue){
+			return -1;
+		}else{
+			if(this.getMidiValue() > midiValue){
+				return 1;
+			}
 		}
-		return false;
-
+		return 0;
 	}
 
-	public boolean isDoubleSharp(){
-		String acc = this.getAccident();
-		if (acc != null) {
-			return this.getAccident().equals("##");
-		}
-		return false;
-
-	}
-
-	public boolean isFlat(){
-		String acc = this.getAccident();
-		if(acc!=null){
-			return this.getAccident().equals("b");
-		}
-		return false;
-	}
-
-	public boolean isDoubleFlat(){
-		String acc = this.getAccident();
-		if(acc!=null){
-			return this.getAccident().equals("bb");
-		}
-		return false;
-	}
-
-	//Valor Calculado no NoteCollection a partir da nota e do pitch
-	void setMidiValue(int midiValue) {
-		this.MidiValue = midiValue;
-	}
 
 	/*
 	 * Obtém a alteração (sustenido ou bemol) de uma nota. Caso a nota não possua
@@ -248,55 +144,31 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 		return retorno;
 	}
 
-	public String toString(){
-		return this.symbol + this.octavePitch;
-	}
+	public  double getFrequency(){
+		
+		 double freq = (440 * Math.pow(2,((double)(getMidiValue() - 69)/12))); 
+		 return freq;
+	
+	 }
 
-	@Override
-	public Object clone(){
-		Note retorno = new Note();
-		retorno.octavePitch = octavePitch;
-		retorno.previousInterval = previousInterval;
-		retorno.nextInterval = nextInterval;
-		retorno.name = name;
-		retorno.symbol = symbol;
-		retorno.MidiValue = MidiValue;
-		return retorno;
+	public int getMidiValue()  {
+		 int posEscala = Notes.getCromaticNoteIndex(this);
+		    if (this.getOctavePitch() == 4) { //I've changed from 5 to for...not sure why it was 5 before, but must have a good reason!
+		      return (60 + posEscala);
+		    }
+		    else {
+		      if (getOctavePitch() < 4) { //same here
+		        //Calcula a oitava e soma a posição na escala cromática.
+		        int fator = 60 - ( (5 - getOctavePitch()) * 12);
+		        return(fator + posEscala);
+		      }
+		      else {
+		        int fator = 60 + ( (getOctavePitch() - 4) * 12); //same here
+		        return(fator + posEscala);
+		      }
+		    }
 	}
-
-	public double getFrequency() throws NoteException {
-		Notes.calculateFrequency(this);
-		return frequency;
-	}
-
-	void setFrequency(double frequency) {
-		this.frequency = frequency;
-	}
-
-	public int compareTo(Object o) {
-		int midiValue = (((Note)o).MidiValue);
-		if(this.MidiValue < midiValue){
-			return -1;
-		}else{
-			if(this.MidiValue > midiValue){
-				return 1;
-			}
-		}
-		return 0;
-	}
-
-	public static Note getNote(String noteSymbol, int octavePitch) throws NoteException{
-		return Notes.getNote(noteSymbol,octavePitch);
-	}
-
-	public static Note getNote(String noteSymbol) throws NoteException {
-
-		return Notes.getNote(noteSymbol);
-
-	}
-	public static Note getNote(String simbFundamental, String simbIntervalo)  throws NoteException {
-		return Notes.getNote(simbFundamental, simbIntervalo);
-	}
+ 	
 	/**
 	 * Returns the MusicalEventSequence of a single note. To be used only
 	 * when the note needs to be heard out of musical context (just to see
@@ -310,5 +182,111 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 		p.addMusicalEvent(new MusicalEvent(1,200,this,RhythmConstants.WHOLE_NOTE,0));
 
 		return p;
+	}
+	 /*
+	 * Obtém o nome da nota. Exemplo: "Mi".
+	 * @return Nome da nota.
+	 */
+	public String getName() {return name;}	
+	/*
+	 * Obtém o intervalo formado com a nota natural imediatamente posterior a uma nota dada.
+	 * Exemplos: Sol - Lá(nota natural imediatamente posterior) = Segunda Maior
+	 *           Sol sustenido - Lá(nota natural imediatamente posterior) = Segunda Menor
+	 *           Sol bemol - Sol(nota natural imediatamente posterior) = Segunda Menor.
+	 * @return Interval formado com a nota natural imediatamente posterior a uma nota dada.
+	 */
+	public Interval getNextInterval() {return nextInterval;}
+
+	/*
+	 * Obtém a região onde a nota está localizada.
+	 * @return Região onde a nota está localizada.
+	 */
+	public int getOctavePitch() {return octavePitch;}
+
+	/*
+	 * Obtém o intervalo formado com a nota natural imediatamente anterior a uma nota dada.
+	 * Exemplos: Dó(nota natural imediatamente anterior) - Ré = Segunda Maior
+	 *           Ré(nota natural imediatamente anterior) - Ré sustenido = Segunda Menor
+	 *           Dó(nota natural imediatamente anterior) - Ré bemol = Segunda Menor.
+	 * @return Interval formado com a nota natural imediatamente anterior a uma nota dada.
+	 */
+	public Interval getPreviousInterval() {return previousInterval;}
+
+	/*
+	 * Obtém o símbolo identificador da nota. Exemplo: "E".
+	 * @return Símbolo identificador de uma nota.
+	 */
+	public String getSymbol() {return symbol;}
+
+
+
+	/*
+	 * Verifica se uma nota possui alteração (sustenido ou bemol).
+	 * @return Verdadeiro de encontrar a alteração e falso caso contrário.
+	 */
+	public boolean isAccidental() {
+		boolean retorno;
+		if ((symbol.indexOf('#')!= -1)||(symbol.indexOf('b')!= -1)){
+			retorno = true;
+		}else{
+			retorno= false;
+		}
+		return retorno;
+	}
+
+	public boolean isDoubleFlat(){
+		String acc = this.getAccident();
+		if(acc!=null){
+			return this.getAccident().equals("bb");
+		}
+		return false;
+	}
+
+	public boolean isDoubleSharp(){
+		String acc = this.getAccident();
+		if (acc != null) {
+			return this.getAccident().equals("##");
+		}
+		return false;
+
+	}
+
+
+
+
+	public boolean isFlat(){
+		String acc = this.getAccident();
+		if(acc!=null){
+			return this.getAccident().equals("b");
+		}
+		return false;
+	}
+
+	public boolean isSharp(){
+		String acc = this.getAccident();
+		if (acc != null) {
+			return this.getAccident().equals("#");
+		}
+		return false;
+
+	}
+
+	/*
+	 * Inicializa a região onde a nota está localizada.
+	 * O - Mais Grave
+	 * 11 - Mais Aguda
+	 * @param pitch Região onde a nota está localizada.
+	 */
+	public void setOctavePitch(int octavePitch) throws NoteException{
+		/*@todo Verificar range de escalas do MIDI*/
+		if ((octavePitch >= 0)&&(octavePitch <= 11)){
+			this.octavePitch = octavePitch;
+		}else{
+			throw new NoteException("Pitch's octave out of range",this.name);
+		}
+	}
+
+	public String toString(){
+		return this.symbol + this.octavePitch;
 	}
 }

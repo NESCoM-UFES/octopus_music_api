@@ -11,13 +11,13 @@ package octopus;
 public class Notes {
 
 
-  private static Note C = new Note("C","DO",IntervalFactory.getMinorSecond(),IntervalFactory.getMajorSecond(), 60);
-  private static Note D = new Note("D","Ré",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond(), 62);
-  private static Note E = new Note("E","Mi",IntervalFactory.getMajorSecond(),IntervalFactory.getMinorSecond(),64);
-  private static Note F = new Note("F","Fá",IntervalFactory.getMinorSecond(),IntervalFactory.getMajorSecond(),65);
-  private static Note G = new Note("G","Sol",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond(),67);
-  private static Note A = new Note("A","L",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond(),69);
-  private static Note B = new Note("B","Si",IntervalFactory.getMajorSecond(),IntervalFactory.getMinorSecond(),71);
+  private static Note C = new Note("C","C",IntervalFactory.getMinorSecond(),IntervalFactory.getMajorSecond(), 60);
+  private static Note D = new Note("D","D",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond(), 62);
+  private static Note E = new Note("E","E",IntervalFactory.getMajorSecond(),IntervalFactory.getMinorSecond(),64);
+  private static Note F = new Note("F","F",IntervalFactory.getMinorSecond(),IntervalFactory.getMajorSecond(),65);
+  private static Note G = new Note("G","G",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond(),67);
+  private static Note A = new Note("A","A",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond(),69);
+  private static Note B = new Note("B","B",IntervalFactory.getMajorSecond(),IntervalFactory.getMinorSecond(),71);
 
   //Diatonic Scale: Used to find the relationship between natural notes.
   static Note notes[] = {C, D, E, F, G, A, B};
@@ -158,18 +158,16 @@ public class Notes {
     Note notaAlteradaRetorno;
     String simbNovaNota = notaBase.getSymbol() + "#";
     String nomeNovaNota = notaBase.getName() + " Sharp";
-    int midi = notaBase.MidiValue +1;
     notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota,IntervalFactory.getMinorSecond(),
-                                 IntervalFactory.getMinorSecond(), midi);
+                                 IntervalFactory.getMinorSecond());
     return notaAlteradaRetorno;
   }
   public static Note getDoubleSharp(Note notaBase) {
     Note notaAlteradaRetorno;
     String simbNovaNota = notaBase.getSymbol() + "##";
     String nomeNovaNota = notaBase.getName() + " Double Sharp";
-    int midi = notaBase.MidiValue +2;
     notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota,IntervalFactory.getMinorSecond(),
-                                 IntervalFactory.getMinorSecond(), midi);
+                                 IntervalFactory.getMinorSecond());
     return notaAlteradaRetorno;
   }
 
@@ -187,8 +185,7 @@ public class Notes {
     Note notaAlteradaRetorno;
     String simbNovaNota = notaBase.getSymbol() + "b";
     String nomeNovaNota = notaBase.getName() + " Flat";
-    int midi = notaBase.MidiValue -1;
-    notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota, IntervalFactory.getMinorSecond(),IntervalFactory.getMinorSecond(), midi);
+    notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota, IntervalFactory.getMinorSecond(),IntervalFactory.getMinorSecond());
     
     return notaAlteradaRetorno;
   }
@@ -198,8 +195,7 @@ public class Notes {
     String simbNovaNota = notaBase.getSymbol() + "bb";
     String nomeNovaNota = notaBase.getName() + " Double Flat";
     /*@todo errado*/
-    int midi = notaBase.MidiValue -2;
-    notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota, IntervalFactory.getMinorSecond(),IntervalFactory.getMinorSecond(), midi);
+    notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota, IntervalFactory.getMinorSecond(),IntervalFactory.getMinorSecond());
     return notaAlteradaRetorno;
 }
 
@@ -264,9 +260,7 @@ public class Notes {
     }
 
     if(notaRetorno!= null){
-    notaRetorno.setOctavePicth(octavePitch);
-    calculateMidiValue(notaRetorno);
-    calculateFrequency(notaRetorno);
+    notaRetorno.setOctavePitch(octavePitch);
     }
 
    return notaRetorno;
@@ -295,8 +289,8 @@ public class Notes {
 
    Note returnNote= null;
    int cont = 1;
-   Note baseNote = Notes.getNote(fundamentalNote.getBaseNoteSymbol());
-   baseNote.setOctavePicth(fundamentalNote.getOctavePitch());
+   Note baseNote = Notes.getNote(getBaseNoteSymbol(fundamentalNote));
+   baseNote.setOctavePitch(fundamentalNote.getOctavePitch());
    int posNote = Notes.getNoteIndex(baseNote);
    posNote+= (interval.getNumericInterval() -1);
    int octave = fundamentalNote.getOctavePitch();
@@ -338,9 +332,8 @@ public class Notes {
      }
 
    
-   returnNote.setOctavePicth(octave);
-   calculateMidiValue(returnNote);
-   calculateFrequency(returnNote);
+   returnNote.setOctavePitch(octave);
+
    return returnNote;
  }
 /*
@@ -387,7 +380,7 @@ public class Notes {
    * @param nota Note que se busca a posição.
    * @return Posição da Note na relação de notas cromáticas.
    */
-  public static int getCromaticNoteIndex(Note nota) throws NoteException {
+  public static int getCromaticNoteIndex(Note nota) {
     int valorAlteracao = 0;
     int indexNotaRetorno = -1;
 
@@ -410,7 +403,13 @@ public class Notes {
       }
       //valorAlteracao = (nota.getAccident().equals("#"))? (1) :(- 1);
 
-      nota = getNote(nota.getBaseNoteSymbol());
+      try {
+    	
+    	  nota = getNote(getBaseNoteSymbol(nota));
+     
+      } catch (NoteException e) {
+    	  return -1;
+      }
     }
 
     // Buscando a fundamental
@@ -449,39 +448,15 @@ public class Notes {
    return indexRetorno;
   }
 
-  public static void calculateMidiValue(Note nota) throws NoteException{
-    int posEscala = getCromaticNoteIndex(nota);
-    if (nota.getOctavePitch() == 4) { //I've changed from 5 to for...not sure why it was 5 before, but must have a good reason!
-      nota.setMidiValue(60 + posEscala);
-    }
-    else {
-      if (nota.getOctavePitch() < 4) { //same here
-        //Calcula a oitava e soma a posição na escala cromática.
-        int fator = 60 - ( (5 - nota.getOctavePitch()) * 12);
-        nota.setMidiValue(fator + posEscala);
-      }
-      else {
-        int fator = 60 + ( (nota.getOctavePitch() - 4) * 12); //same here
-        nota.setMidiValue(fator + posEscala);
-      }
-    }
-  }
-  
- public static void calculateFrequency(Note note) throws NoteException{
-	 if (note.MidiValue == -1){
-		 calculateMidiValue(note);
-	 }
-	 double freq = (440 * Math.pow(2,((double)(note.getMidiValue() - 69)/12))); 
-	 note.setFrequency(freq);
- }
+
   
  
 
- public String getBaseNoteSymbol(Note note) {
+ public static String getBaseNoteSymbol(Note note) {
    return note.getSymbol().substring(0,1);
  }
 
- public Note getBaseNote(Note note) throws NoteException{
+ public static Note getBaseNote(Note note) throws NoteException{
      return getNote(getBaseNoteSymbol(note));
  }
  

@@ -105,9 +105,7 @@ public void closeDevices() throws MidiUnavailableException {
     }
     catch (MidiUnavailableException ex) {
       throw new octopus.MusicPerformanceException(ex.getMessage(), ex);
-    } catch (NoteException e) {
-    	throw new octopus.MusicPerformanceException(e.getMessage(), e);
-	}
+    }
 
   }
 
@@ -189,10 +187,6 @@ public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceE
         }
         catch (InvalidMidiDataException ex1) {
           throw new octopus.MusicPerformanceException(ex1.getMessage(),ex1);
-        } catch (NoteException e) {
-        	throw new octopus.MusicPerformanceException(e.getMessage(),e);
-		}finally{
-
         }
 
       }
