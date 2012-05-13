@@ -6,7 +6,7 @@ public class AppTest {
 		
 		Note nota1;
 
-			nota1 = Notes.getA();
+			nota1 = Notes.getA(2);
 			
 			System.out.println(nota1.getName());
 			System.out.println(nota1.getMidiValue());

@@ -11,13 +11,13 @@ package octopus;
 public class Notes {
 
 
-  private static Note C = new Note("C","C",IntervalFactory.getMinorSecond(),IntervalFactory.getMajorSecond(), 60);
-  private static Note D = new Note("D","D",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond(), 62);
-  private static Note E = new Note("E","E",IntervalFactory.getMajorSecond(),IntervalFactory.getMinorSecond(),64);
-  private static Note F = new Note("F","F",IntervalFactory.getMinorSecond(),IntervalFactory.getMajorSecond(),65);
-  private static Note G = new Note("G","G",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond(),67);
-  private static Note A = new Note("A","A",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond(),69);
-  private static Note B = new Note("B","B",IntervalFactory.getMajorSecond(),IntervalFactory.getMinorSecond(),71);
+  private static Note C = new Note("C","C",IntervalFactory.getMinorSecond(),IntervalFactory.getMajorSecond());
+  private static Note D = new Note("D","D",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond());
+  private static Note E = new Note("E","E",IntervalFactory.getMajorSecond(),IntervalFactory.getMinorSecond());
+  private static Note F = new Note("F","F",IntervalFactory.getMinorSecond(),IntervalFactory.getMajorSecond());
+  private static Note G = new Note("G","G",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond());
+  private static Note A = new Note("A","A",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond());
+  private static Note B = new Note("B","B",IntervalFactory.getMajorSecond(),IntervalFactory.getMinorSecond());
 
   //Diatonic Scale: Used to find the relationship between natural notes.
   static Note notes[] = {C, D, E, F, G, A, B};
@@ -36,8 +36,10 @@ public class Notes {
   public static Note getC(int accident) {
    Note retorno = (Note)C.clone();
       switch (accident)    {
+       case -2: retorno = getDoubleFlat(retorno); break;
        case -1: retorno = getFlat(retorno); break;
        case 1: retorno = getSharp(retorno); break;
+       case 2: retorno = getDoubleSharp(retorno); break;
    }
 
    return retorno;
@@ -52,8 +54,10 @@ public class Notes {
   public static Note getD(int accident) {
    Note retorno = (Note)D.clone();
       switch (accident)    {
-       case -1: retorno = getFlat(retorno); break;
-       case 1: retorno = getSharp(retorno); break;
+      case -2: retorno = getDoubleFlat(retorno); break;
+      case -1: retorno = getFlat(retorno); break;
+      case 1: retorno = getSharp(retorno); break;
+      case 2: retorno = getDoubleSharp(retorno); break;
    }
       return retorno;
 
@@ -66,8 +70,10 @@ public class Notes {
   public static Note getE(int accident) {
    Note retorno = (Note)E.clone();
       switch (accident)    {
-       case -1: retorno = getFlat(retorno); break;
-       case 1: retorno = getSharp(retorno); break;
+      case -2: retorno = getDoubleFlat(retorno); break;
+      case -1: retorno = getFlat(retorno); break;
+      case 1: retorno = getSharp(retorno); break;
+      case 2: retorno = getDoubleSharp(retorno); break;
    }
       return retorno;
 
@@ -80,8 +86,10 @@ public class Notes {
   public static Note getF(int accident) {
    Note retorno = (Note)F.clone();
       switch (accident)    {
-       case -1: retorno = getFlat(retorno); break;
-       case 1: retorno = getSharp(retorno); break;
+      case -2: retorno = getDoubleFlat(retorno); break;
+      case -1: retorno = getFlat(retorno); break;
+      case 1: retorno = getSharp(retorno); break;
+      case 2: retorno = getDoubleSharp(retorno); break;
    }
       return retorno;
 
@@ -94,8 +102,10 @@ public class Notes {
   public static Note getG(int accident) {
    Note retorno = (Note)G.clone();
       switch (accident)    {
-       case -1: retorno = getFlat(retorno); break;
-       case 1: retorno = getSharp(retorno); break;
+      case -2: retorno = getDoubleFlat(retorno); break;
+      case -1: retorno = getFlat(retorno); break;
+      case 1: retorno = getSharp(retorno); break;
+      case 2: retorno = getDoubleSharp(retorno); break;
    }
       return retorno;
 
@@ -108,8 +118,10 @@ public class Notes {
   public static Note getA(int accident) {
    Note retorno = (Note)A.clone();
       switch (accident)    {
-       case -1: retorno = getFlat(retorno); break;
-       case 1: retorno = getSharp(retorno); break;
+      case -2: retorno = getDoubleFlat(retorno); break;
+      case -1: retorno = getFlat(retorno); break;
+      case 1: retorno = getSharp(retorno); break;
+      case 2: retorno = getDoubleSharp(retorno); break;
    }
       return retorno;
 
@@ -122,8 +134,10 @@ public class Notes {
   public static Note getB(int accident) {
    Note retorno = (Note)B.clone();
       switch (accident)    {
-       case -1: retorno = getFlat(retorno); break;
-       case 1: retorno = getSharp(retorno); break;
+      case -2: retorno = getDoubleFlat(retorno); break;
+      case -1: retorno = getFlat(retorno); break;
+      case 1: retorno = getSharp(retorno); break;
+      case 2: retorno = getDoubleSharp(retorno); break;
    }
       return retorno;
 
