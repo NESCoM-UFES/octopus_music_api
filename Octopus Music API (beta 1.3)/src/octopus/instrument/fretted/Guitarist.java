@@ -711,12 +711,12 @@ public PerformableHarmony learn(Harmony harmony) throws MusicPerformanceExceptio
 
 
            Note[] notes = {
-             WesternMusicNotes.getA(),
-             WesternMusicNotes.getF(),
-             WesternMusicNotes.getB(),
-             WesternMusicNotes.getE(),
-             WesternMusicNotes.getG(),
-             WesternMusicNotes.getE()};
+             Notes.getA(),
+             Notes.getF(),
+             Notes.getB(),
+             Notes.getE(),
+             Notes.getG(),
+             Notes.getE()};
 
          for (int i = 0; i < notes.length; i++) {
            notes[i].setOctavePicth(4);

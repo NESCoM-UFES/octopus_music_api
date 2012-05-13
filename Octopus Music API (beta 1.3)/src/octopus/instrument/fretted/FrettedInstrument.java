@@ -84,7 +84,7 @@ public String toString(){
    int fret = -1;
    Note openStringNote = string.getOpenStringNote();
 
-        fret = WesternMusicNotes.getDistance(openStringNote, note, octavesDiscern);
+        fret = Notes.getDistance(openStringNote, note, octavesDiscern);
         if ((fret>= startingFret)&& (fret<= endingFret)){
           guitarNotePosition = new GuitarNotePosition(fret,string.getStringNumber());
         }
@@ -100,7 +100,7 @@ public String toString(){
    Vector<GuitarNotePosition> guitarNotePositions = new Vector<GuitarNotePosition>();
    for (int i = 0; i < strings.length; i++) {
      Note openStringNote = strings[i].getOpenStringNote();
-     int fret = WesternMusicNotes.getDistance(openStringNote, note, octavesDiscern);
+     int fret = Notes.getDistance(openStringNote, note, octavesDiscern);
      while (fret <= this.nFrets) {
        guitarNotePositions.add(new GuitarNotePosition(fret, strings[i].getStringNumber()));
        fret+=12; // 12 semitons
@@ -117,7 +117,7 @@ public String toString(){
      int nFret = guitarNotePosition.getFret();
 
      Note openStringNote = strings[nGuitarString-1].getOpenStringNote();
-     Note returnNote = WesternMusicNotes.getNote(openStringNote,nFret);
+     Note returnNote = Notes.getNote(openStringNote,nFret);
 
      return returnNote;
 

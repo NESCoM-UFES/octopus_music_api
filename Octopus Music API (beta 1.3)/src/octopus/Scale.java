@@ -100,22 +100,22 @@ public class Scale implements Playable{ //Diatonic
 		noteC, noteD, noteE, noteG, noteA};
 
 	protected static Note cromaticSharpNotes[] = {
-		noteC, WesternMusicNotes.getC(Note.SHARP),
-		noteD, WesternMusicNotes.getD(Note.SHARP),
+		noteC, Notes.getC(Note.SHARP),
+		noteD, Notes.getD(Note.SHARP),
 		noteE, 
-		noteF, WesternMusicNotes.getF(Note.SHARP),
-		noteG, WesternMusicNotes.getG(Note.SHARP),
-		noteA, WesternMusicNotes.getA(Note.SHARP),
+		noteF, Notes.getF(Note.SHARP),
+		noteG, Notes.getG(Note.SHARP),
+		noteA, Notes.getA(Note.SHARP),
 		noteB};
 
 	protected static Note cromaticFlatNotes[] = {
-		WesternMusicNotes.getC(Note.FLAT),noteC, 
-		WesternMusicNotes.getD(Note.FLAT),noteD,
-		WesternMusicNotes.getE(Note.FLAT),noteE, 
+		Notes.getC(Note.FLAT),noteC, 
+		Notes.getD(Note.FLAT),noteD,
+		Notes.getE(Note.FLAT),noteE, 
 		noteF, 
-		WesternMusicNotes.getG(Note.FLAT),noteG,
-		WesternMusicNotes.getA(Note.FLAT),noteA, 
-		WesternMusicNotes.getB(Note.FLAT),noteB};
+		Notes.getG(Note.FLAT),noteG,
+		Notes.getA(Note.FLAT),noteA, 
+		Notes.getB(Note.FLAT),noteB};
 
 
 
@@ -138,10 +138,10 @@ public class Scale implements Playable{ //Diatonic
 		Scale scale = new Scale();
 		scale.notes = new Note[notesScale.length];
 		scale.notes[0] = key;
-		int octaveSum = WesternMusicNotes.getDistance(WesternMusicNotes.getC(),scale.notes[0],false);
+		int octaveSum = Notes.getDistance(Notes.getC(),scale.notes[0],false);
 
 		for (int i = 1; i < scale.notes.length; i++) {
-			scale.notes[i] = WesternMusicNotes.getNote(scale.notes[i - 1],
+			scale.notes[i] = Notes.getNote(scale.notes[i - 1],
 					intervals[i - 1]);
 
 			// Checks is the a full cycle of the scale waa completed and update the octavePitch to next octave.
@@ -167,7 +167,7 @@ public class Scale implements Playable{ //Diatonic
 
 
 		int cont=0;
-		int i = WesternMusicNotes.getCromaticNoteIndex(key);
+		int i = Notes.getCromaticNoteIndex(key);
 		while(cont<12){
 			if(i>cromaticNotes.length){
 				i=0;

@@ -8,7 +8,7 @@ import java.io.*;
  * A musical Interval. For example,  3rd minor.
  * <p> Instead of instantiate the intervals directly,prefer use the IntervalFactory static methods. 
  * For example: </p>
- * <code> WesternMusicNotes.getMinorThird()</code> 
+ * <code> Notes.getMinorThird()</code> 
  * 
  * @see java.lang.Object
  * @author Leandro Lesqueves Costalonga

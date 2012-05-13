@@ -218,7 +218,7 @@ public class Chord implements Serializable,Playable{
 
 	 public Interval getInterval(Note note){
 		 for(int i=0;i<notes.size();i++){     
-			 if(notes.get(i).getNoteName().equalsIgnoreCase(note.getNoteName())){
+			 if(notes.get(i).getName().equalsIgnoreCase(note.getName())){
 				 return intervals.get(i);
 			 }
 		 }
@@ -261,8 +261,8 @@ public class Chord implements Serializable,Playable{
 		 bassPos = bassNotePos;
 		 Note bassNote =  notes.get(bassNotePos);
 		 Note rootNote =  notes.get(rootPos);
-		 int cromaticIndexBassNote = WesternMusicNotes.getCromaticNoteIndex(bassNote);
-		 int cromaticIndexRootNote = WesternMusicNotes.getCromaticNoteIndex(
+		 int cromaticIndexBassNote = Notes.getCromaticNoteIndex(bassNote);
+		 int cromaticIndexRootNote = Notes.getCromaticNoteIndex(
 				 rootNote);
 
 		 if (cromaticIndexBassNote > cromaticIndexRootNote) {
@@ -314,7 +314,7 @@ public class Chord implements Serializable,Playable{
 
 			 for (int i = 0; i < validChordName.getIntervalsSize(); i++) {
 				 interval = validChordName.getInterval(i);
-				 note = WesternMusicNotes.getNote(rootNote, interval);       
+				 note = Notes.getNote(rootNote, interval);       
 				 addNote(note, interval);
 
 				 Note bassNote = validChordName.getBassNote().getNote();
@@ -330,7 +330,7 @@ public class Chord implements Serializable,Playable{
 
 			 if (!isBassNoteSet) {
 				 Note bassNote = validChordName.getBassNote().getNote();
-				 int distanceRootBass = WesternMusicNotes.getDistance(validChordName.getRootNote().
+				 int distanceRootBass = Notes.getDistance(validChordName.getRootNote().
 						 getNote(),
 						 bassNote, false);
 				 Interval bassNoteFundamentalInterval = IntervalFactory.getInterval(
@@ -353,7 +353,7 @@ public class Chord implements Serializable,Playable{
 				 note = key;
 			 }
 			 else {
-				 note = WesternMusicNotes.getNote(key,IntervalFactory.getInterval(
+				 note = Notes.getNote(key,IntervalFactory.getInterval(
 						 String.valueOf(scaleDegree.numericValue)));
 
 			 }
@@ -361,20 +361,20 @@ public class Chord implements Serializable,Playable{
 			 // 3th addition
 			 if (scaleDegree.mode == 0) {
 				 interval = IntervalFactory.getMinorThird();
-				 chord.addNote(WesternMusicNotes.getNote(note,interval),interval);
+				 chord.addNote(Notes.getNote(note,interval),interval);
 			 }
 			 else {
 				 interval = IntervalFactory.getMajorThird();
-				 chord.addNote(WesternMusicNotes.getNote(note,interval),interval);
+				 chord.addNote(Notes.getNote(note,interval),interval);
 			 }
 			 // 5th addtion
 			 interval = IntervalFactory.getPerfectFifth();
-			 chord.addNote(WesternMusicNotes.getNote(note,interval),interval);
+			 chord.addNote(Notes.getNote(note,interval),interval);
 
 			 if (scaleDegree.intervals != null) {
 				 for (int i = 0; i < scaleDegree.intervals.length; i++) {
 					 interval = scaleDegree.intervals[i];
-					 chord.addNote(WesternMusicNotes.getNote(note,interval),interval);
+					 chord.addNote(Notes.getNote(note,interval),interval);
 				 }
 			 }
 
@@ -410,7 +410,7 @@ public class Chord implements Serializable,Playable{
 
 		 for (int i=0; i < validChordName.getIntervalsSize(); i++) {
 			 interval = validChordName.getInterval(i);
-			 notaSimples = WesternMusicNotes.getNote(rootNote, interval);     
+			 notaSimples = Notes.getNote(rootNote, interval);     
 			 acordeRetorno.addNote(notaSimples, interval);
 
 			 /* @todo Considerar a possibilidade de identificar
@@ -431,7 +431,7 @@ public class Chord implements Serializable,Playable{
 
 		 if(!baixoSet){
 			 Note bassNote = validChordName.getBassNote().getNote();
-			 int distanciaFundamentalBaixo =    WesternMusicNotes.getDistance(validChordName.getRootNote().getNote(),
+			 int distanciaFundamentalBaixo =    Notes.getDistance(validChordName.getRootNote().getNote(),
 					 bassNote, false);
 			 Interval bassFundamentalInterval = IntervalFactory.getInterval(distanciaFundamentalBaixo);      
 			 acordeRetorno.addNote(bassNote,bassFundamentalInterval);

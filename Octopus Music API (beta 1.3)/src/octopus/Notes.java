@@ -1,20 +1,14 @@
 package octopus;
 
 /**
- * The WesternMusicNotes class creates and performs computations over Note objects.   
+ * The Notes class creates and performs computations over Note objects.   
  *
  * @see Interval
  * @see Note
  * @author Leandro Lesqueves Costalonga
  * @version 1.1
  */
-public class WesternMusicNotes {
-
-/* public static final int DOUBLE_FLAT = -2;
-   public static final int FLAT = -1;
-   public static final int NATURAL= 0;
-   public static final int SHARP = 1;
-   public static final int DOUBLE_SHARP = 2;*/
+public class Notes {
 
 
   private static Note C = new Note("C","DO",IntervalFactory.getMinorSecond(),IntervalFactory.getMajorSecond(), 60);
@@ -25,27 +19,20 @@ public class WesternMusicNotes {
   private static Note A = new Note("A","L",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond(),69);
   private static Note B = new Note("B","Si",IntervalFactory.getMajorSecond(),IntervalFactory.getMinorSecond(),71);
 
-  // contém apenas notas naturais
-/*
- * Relação de notas naturais.
- */
+  //Diatonic Scale: Used to find the relationship between natural notes.
   static Note notes[] = {C, D, E, F, G, A, B};
-
-  // contém tons e semitons
-/*
- * Relação de notas cromáticas, ou seja, todos os doze sons da escala cromática.
- */
+  //Cromatic Scles: Udes to deal with de flat and sharp notes. 
   static Object cromaticNotes[] = {C,"accidented note ", D,"accidented note ", E, F,
 	                  "accidented note ", G, "accidented note ", A, "accidented note ",
 			   B};
 
-  public WesternMusicNotes () {}
 
-/*
- * Obtém a nota Dó.
- * @return A nota Dó.
+/**
+ * Return a clone of the C note;
+ * @return
  */
   public static Note getC() { return (Note)C.clone();}
+ 
   public static Note getC(int accident) {
    Note retorno = (Note)C.clone();
       switch (accident)    {
@@ -170,7 +157,7 @@ public class WesternMusicNotes {
   public static Note getSharp(Note notaBase) {
     Note notaAlteradaRetorno;
     String simbNovaNota = notaBase.getSymbol() + "#";
-    String nomeNovaNota = notaBase.getNoteName() + " Sharp";
+    String nomeNovaNota = notaBase.getName() + " Sharp";
     int midi = notaBase.MidiValue +1;
     notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota,IntervalFactory.getMinorSecond(),
                                  IntervalFactory.getMinorSecond(), midi);
@@ -179,7 +166,7 @@ public class WesternMusicNotes {
   public static Note getDoubleSharp(Note notaBase) {
     Note notaAlteradaRetorno;
     String simbNovaNota = notaBase.getSymbol() + "##";
-    String nomeNovaNota = notaBase.getNoteName() + " Double Sharp";
+    String nomeNovaNota = notaBase.getName() + " Double Sharp";
     int midi = notaBase.MidiValue +2;
     notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota,IntervalFactory.getMinorSecond(),
                                  IntervalFactory.getMinorSecond(), midi);
@@ -199,7 +186,7 @@ public class WesternMusicNotes {
   public static Note getFlat(Note notaBase) {
     Note notaAlteradaRetorno;
     String simbNovaNota = notaBase.getSymbol() + "b";
-    String nomeNovaNota = notaBase.getNoteName() + " Flat";
+    String nomeNovaNota = notaBase.getName() + " Flat";
     int midi = notaBase.MidiValue -1;
     notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota, IntervalFactory.getMinorSecond(),IntervalFactory.getMinorSecond(), midi);
     
@@ -209,7 +196,7 @@ public class WesternMusicNotes {
   public static Note getDoubleFlat(Note notaBase) {
     Note notaAlteradaRetorno;
     String simbNovaNota = notaBase.getSymbol() + "bb";
-    String nomeNovaNota = notaBase.getNoteName() + " Double Flat";
+    String nomeNovaNota = notaBase.getName() + " Double Flat";
     /*@todo errado*/
     int midi = notaBase.MidiValue -2;
     notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota, IntervalFactory.getMinorSecond(),IntervalFactory.getMinorSecond(), midi);
@@ -308,9 +295,9 @@ public class WesternMusicNotes {
 
    Note returnNote= null;
    int cont = 1;
-   Note baseNote = WesternMusicNotes.getNote(fundamentalNote.getBaseNoteSymbol());
+   Note baseNote = Notes.getNote(fundamentalNote.getBaseNoteSymbol());
    baseNote.setOctavePicth(fundamentalNote.getOctavePitch());
-   int posNote = WesternMusicNotes.getNoteIndex(baseNote);
+   int posNote = Notes.getNoteIndex(baseNote);
    posNote+= (interval.getNumericInterval() -1);
    int octave = fundamentalNote.getOctavePitch();
    while (posNote >6){
@@ -320,7 +307,7 @@ public class WesternMusicNotes {
    returnNote = (Note)notes[posNote].clone();
 
 
-   int distNotes = WesternMusicNotes.getDistance(fundamentalNote,returnNote,false);
+   int distNotes = Notes.getDistance(fundamentalNote,returnNote,false);
    int dif = interval.getDistanceFromRoot() - distNotes;
    while (dif > 11) {
      dif -= 12; // Diminuo pela quantidade de elementos do vetor!
@@ -331,14 +318,14 @@ public class WesternMusicNotes {
 
 
  switch(dif){
-   case 1: returnNote= WesternMusicNotes.getSharp(returnNote);break;
-   case -11: returnNote = WesternMusicNotes.getSharp(returnNote);break;
-   case 2: returnNote = WesternMusicNotes.getDoubleSharp(returnNote);break;
-   case -10: returnNote = WesternMusicNotes.getDoubleSharp(returnNote);break;
-   case -1: returnNote= WesternMusicNotes.getFlat(returnNote);break;
-   case 11: returnNote = WesternMusicNotes.getFlat(returnNote);break;
-   case -2: returnNote = WesternMusicNotes.getDoubleFlat(returnNote);break;
-   case 10: returnNote = WesternMusicNotes.getDoubleFlat(returnNote);break;
+   case 1: returnNote= Notes.getSharp(returnNote);break;
+   case -11: returnNote = Notes.getSharp(returnNote);break;
+   case 2: returnNote = Notes.getDoubleSharp(returnNote);break;
+   case -10: returnNote = Notes.getDoubleSharp(returnNote);break;
+   case -1: returnNote= Notes.getFlat(returnNote);break;
+   case 11: returnNote = Notes.getFlat(returnNote);break;
+   case -2: returnNote = Notes.getDoubleFlat(returnNote);break;
+   case 10: returnNote = Notes.getDoubleFlat(returnNote);break;
 
      }
 
@@ -347,7 +334,7 @@ public class WesternMusicNotes {
 	  (dif > -10)&&(dif < -2)){
        throw new NoteException(
            "Is not allowed double sharp or flat for this note and this interval. \n"
-           + "Try to use next natural note instead.",fundamentalNote.getNoteName());
+           + "Try to use next natural note instead.",fundamentalNote.getName());
      }
 
    
@@ -488,6 +475,16 @@ public class WesternMusicNotes {
 	 note.setFrequency(freq);
  }
   
+ 
+
+ public String getBaseNoteSymbol(Note note) {
+   return note.getSymbol().substring(0,1);
+ }
+
+ public Note getBaseNote(Note note) throws NoteException{
+     return getNote(getBaseNoteSymbol(note));
+ }
+ 
  public static void main(String args[]) {
  Interval[] intervals = IntervalFactory.getIntervals();
   for(int i=0;i< notes.length;i++){

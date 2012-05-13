@@ -540,7 +540,7 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 
 			//Note note  =rhythmPattern.pitchRhythmNote;
 			try{
-				rhythmPattern.pitchRhythmNote = WesternMusicNotes.getNote(rhythmPattern.pitchRhythmNote,(i * 5));
+				rhythmPattern.pitchRhythmNote = Notes.getNote(rhythmPattern.pitchRhythmNote,(i * 5));
 			}catch(NoteException ex){
 				ex.printStackTrace();
 			}

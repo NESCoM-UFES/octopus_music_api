@@ -219,7 +219,7 @@ public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceE
       MidiSynthesizerController p = new MidiSynthesizerController();
       Musician m = new Musician();
 
-      MusicalEvent me = new MusicalEvent(0, 0, WesternMusicNotes.getA(), RhythmConstants.QUARTER_NOTE,
+      MusicalEvent me = new MusicalEvent(0, 0, Notes.getA(), RhythmConstants.QUARTER_NOTE,
                                          127);
 
       // p.play(me);

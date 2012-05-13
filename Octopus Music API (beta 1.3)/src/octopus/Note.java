@@ -9,7 +9,7 @@ import octopus.communication.MusicalEventSequence;
  * 
  * 
  * @see Interval
- * @see WesternMusicNotes
+ * @see Notes
  * @author Leandro Lesqueves Costalonga
  * @version 1.1
  */
@@ -113,7 +113,7 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 	 * Obtém o nome da nota. Exemplo: "Mi".
 	 * @return Nome da nota.
 	 */
-	public String getNoteName() {return name;}
+	public String getName() {return name;}
 
 	/*
 	 * Obtém o símbolo identificador da nota. Exemplo: "E".
@@ -156,8 +156,8 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 		/*@todo Verificar range de escalas do MIDI*/
 		if ((octavePitch >= 0)&&(octavePitch <= 11)){
 			this.octavePitch = octavePitch;
-			WesternMusicNotes.calculateMidiValue(this);
-			WesternMusicNotes.calculateFrequency(this);
+			Notes.calculateMidiValue(this);
+			Notes.calculateFrequency(this);
 		}else{
 			throw new NoteException("Pitch's octave out of range",this.name);
 		}
@@ -187,11 +187,11 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 	}
 
 	public Note getBaseNote() throws NoteException{
-		return WesternMusicNotes.getNote(getBaseNoteSymbol());
+		return Notes.getNote(getBaseNoteSymbol());
 	}
 
 	public int getMidiValue() throws NoteException {
-		WesternMusicNotes.calculateMidiValue(this);    
+		Notes.calculateMidiValue(this);    
 		return MidiValue;
 	}
 
@@ -265,7 +265,7 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 	}
 
 	public double getFrequency() throws NoteException {
-		WesternMusicNotes.calculateFrequency(this);
+		Notes.calculateFrequency(this);
 		return frequency;
 	}
 
@@ -286,16 +286,16 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 	}
 
 	public static Note getNote(String noteSymbol, int octavePitch) throws NoteException{
-		return WesternMusicNotes.getNote(noteSymbol,octavePitch);
+		return Notes.getNote(noteSymbol,octavePitch);
 	}
 
 	public static Note getNote(String noteSymbol) throws NoteException {
 
-		return WesternMusicNotes.getNote(noteSymbol);
+		return Notes.getNote(noteSymbol);
 
 	}
 	public static Note getNote(String simbFundamental, String simbIntervalo)  throws NoteException {
-		return WesternMusicNotes.getNote(simbFundamental, simbIntervalo);
+		return Notes.getNote(simbFundamental, simbIntervalo);
 	}
 	/**
 	 * Returns the MusicalEventSequence of a single note. To be used only

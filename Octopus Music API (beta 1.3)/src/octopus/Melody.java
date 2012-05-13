@@ -57,7 +57,7 @@ public class Melody  extends MusicalComponent implements Playable{
 	public void setNotes(String[] noteNames) throws NoteException{
 		this.notes = new Vector<Note>();
 		for (int i=0;i<noteNames.length;i++){
-			notes.add(WesternMusicNotes.getNote(noteNames[i]));
+			notes.add(Notes.getNote(noteNames[i]));
 		}
 	}
 

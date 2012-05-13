@@ -142,7 +142,7 @@ public String toString(){
  */
 public MusicalEventSequence getMusicalEventSequence() {
 
-    Chord[] chords =  this.getChords(WesternMusicNotes.getC());
+    Chord[] chords =  this.getChords(Notes.getC());
 
 
     RhythmPattern rhythmPattern = RhythmPattern.getDemoRhythmPattern();

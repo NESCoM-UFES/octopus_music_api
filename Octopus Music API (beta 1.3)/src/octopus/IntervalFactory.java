@@ -328,7 +328,7 @@ public class IntervalFactory {
   }
 
   public static Interval getInterval(Note note1, Note note2) throws NoteException {
-    int d = WesternMusicNotes.getDistance(note1, note2,false);
+    int d = Notes.getDistance(note1, note2,false);
     return getInterval(d);
   }
 

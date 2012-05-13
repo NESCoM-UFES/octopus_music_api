@@ -378,13 +378,13 @@ import java.io.*;
  */
   private void configSymbols(){
     // Notas
-    noteA = new NoteSymbol(strNotes[0], WesternMusicNotes.getA());
-    noteB = new NoteSymbol(strNotes[1], WesternMusicNotes.getB());
-    noteC = new NoteSymbol(strNotes[2], WesternMusicNotes.getC());
-    noteD = new NoteSymbol(strNotes[3], WesternMusicNotes.getD());
-    noteE = new NoteSymbol(strNotes[4], WesternMusicNotes.getE());
-    noteF = new NoteSymbol(strNotes[5], WesternMusicNotes.getF());
-    noteG = new NoteSymbol(strNotes[6],WesternMusicNotes.getG());
+    noteA = new NoteSymbol(strNotes[0], Notes.getA());
+    noteB = new NoteSymbol(strNotes[1], Notes.getB());
+    noteC = new NoteSymbol(strNotes[2], Notes.getC());
+    noteD = new NoteSymbol(strNotes[3], Notes.getD());
+    noteE = new NoteSymbol(strNotes[4], Notes.getE());
+    noteF = new NoteSymbol(strNotes[5], Notes.getF());
+    noteG = new NoteSymbol(strNotes[6],Notes.getG());
     // Alimentando lista de notas com os objetos instanciados
     NoteSymbol auxNotes [] = {noteA, noteB, noteC, noteD, noteE, noteF, noteG};
     notes = auxNotes;

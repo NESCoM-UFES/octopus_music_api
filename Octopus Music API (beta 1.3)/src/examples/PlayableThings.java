@@ -5,7 +5,7 @@ import octopus.*;
 public class PlayableThings implements OMC {
 
 	public static Note getNoteToPlay(){
-		return WesternMusicNotes.getA();
+		return Notes.getA();
 	}
 
 	public static Bar getBarToPlay(){ 
@@ -61,7 +61,7 @@ public class PlayableThings implements OMC {
 
 	public static Scale getScaleToPlay() throws NoteException{
 
-		return Scale.getPentatonicScale(WesternMusicNotes.getC(), Scale.MODE_MINOR);
+		return Scale.getPentatonicScale(Notes.getC(), Scale.MODE_MINOR);
 
 
 	}
@@ -85,7 +85,7 @@ public static Chord getChordToPlay() throws  NoteException, ChordException, Chor
 
 public static Harmony getHarmonyToPlay() throws ChordNotationException  {
 	HarmonicProgression progression = getHarmonicProgressionToPlay();
-	Chord[] chords = progression.getChords(WesternMusicNotes.getC());
+	Chord[] chords = progression.getChords(Notes.getC());
 	RhythmPattern rhythmPattern  = RhythmPattern.getConstantRhythmPattern(4, RhythmPattern.QUARTER_NOTE);
 	Harmony harmony = new Harmony(chords, rhythmPattern);
 	

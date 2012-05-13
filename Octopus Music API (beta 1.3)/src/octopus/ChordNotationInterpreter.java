@@ -80,7 +80,7 @@ package octopus;
 	  NotationalSymbol simbAlteracao = currentChordNotation.getAlterationSymbol(chordName,ponteiro);
 	  if (simbAlteracao != null){
 	    fundamental += simbAlteracao.getSymbol();
-	    notaFundamental = WesternMusicNotes.getNote(fundamental);
+	    notaFundamental = Notes.getNote(fundamental);
 	    ponteiro = simbAlteracao.getPosition(ponteiro);
 	  }else{
 	     notaFundamental = simbNota.getNote();
@@ -1446,11 +1446,11 @@ package octopus;
             NoteSymbol simbBaixo;
             if (simbAlteracao != null) {
               ponteiro = simbAlteracao.getPosition(ponteiro);
-              simbNotaBaixo = WesternMusicNotes.getNote(simbNota.getUsedSymbol()
+              simbNotaBaixo = Notes.getNote(simbNota.getUsedSymbol()
                                    + simbAlteracao.getUsedSymbol());
               simbBaixo = new NoteSymbol(simbNotaBaixo.getSymbol(), simbNotaBaixo);
             }else if (ponteiro == (chordName.length())) {
-               simbNotaBaixo = WesternMusicNotes.getNote(simbNota.getUsedSymbol());
+               simbNotaBaixo = Notes.getNote(simbNota.getUsedSymbol());
                simbBaixo = new NoteSymbol(simbNotaBaixo.getSymbol(), simbNotaBaixo);
             }else{throw new ChordNotationException("Symbol not found: "+chordName + " Symbol: " + simbNota, chordName);}
             cifraValida = configuraAcordeInvertido(cifraValida, simbBaixo);

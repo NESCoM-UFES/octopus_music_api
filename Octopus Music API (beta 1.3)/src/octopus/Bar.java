@@ -472,7 +472,7 @@ public class RhythmEvent implements Serializable{
        double velocity = type == 1 ? getAccentuation(i): 0;
        
        if(type==1){
-    	  Note note = WesternMusicNotes.getC();
+    	  Note note = Notes.getC();
     	   MusicalEvent meOct = new MusicalEvent(i, time,note, duration, velocity);
           MusicalEvent meOctOff = new MusicalEvent(i, time + duration,note, 0, 0);
           p.addMusicalEvent(meOct);

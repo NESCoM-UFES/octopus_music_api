@@ -25,7 +25,7 @@ public class RhythmPattern  implements Serializable, Playable,RhythmConstants{
 	//float bpm = 120;
 	protected Hashtable<String, Integer> repetitionMarks = new Hashtable<String, Integer>();
 
-	Note pitchRhythmNote = WesternMusicNotes.getC();   
+	Note pitchRhythmNote = Notes.getC();   
 
   // Working, but not according to the new project. Bust me adpated to create a
   // RhythmPAttern from a MusicalEventSequence.

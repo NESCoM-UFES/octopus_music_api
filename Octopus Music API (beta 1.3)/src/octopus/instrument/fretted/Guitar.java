@@ -44,28 +44,28 @@ public GuitarChordShapeBuilder chordShapeBuilder;
         Note tempNote;
 
         InstumentString[] strings = new InstumentString[6];
-        tempNote = WesternMusicNotes.getE();
+        tempNote = Notes.getE();
         tempNote.setOctavePicth(5);
 
         strings[0] = new InstumentString(1, tempNote);
 
-        tempNote = WesternMusicNotes.getB();
+        tempNote = Notes.getB();
         tempNote.setOctavePicth(4);
         strings[1] = new InstumentString(2, tempNote);
 
-        tempNote = WesternMusicNotes.getG();
+        tempNote = Notes.getG();
         tempNote.setOctavePicth(4);
         strings[2] = new InstumentString(3, tempNote);
 
-        tempNote = WesternMusicNotes.getD();
+        tempNote = Notes.getD();
         tempNote.setOctavePicth(4);
         strings[3] = new InstumentString(4, tempNote);
 
-        tempNote = WesternMusicNotes.getA();
+        tempNote = Notes.getA();
         tempNote.setOctavePicth(3);
         strings[4] = new InstumentString(5, tempNote);
 
-        tempNote = WesternMusicNotes.getE();
+        tempNote = Notes.getE();
         tempNote.setOctavePicth(3);
         strings[5] = new InstumentString(6, tempNote);
 
