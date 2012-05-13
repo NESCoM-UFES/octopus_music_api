@@ -17,7 +17,6 @@ public class Melody  extends MusicalComponent implements Playable{
 
 	protected Vector<Note> notes;
 
-
 	/**
 	 * Creates a Melody with the specified Note[] and RhythmPattern;  
 	 * @param notes array of notes of the melody;
@@ -26,6 +25,16 @@ public class Melody  extends MusicalComponent implements Playable{
 	public Melody(Note[] notes, RhythmPattern rhythmPattern) {
 		super(rhythmPattern);
 		this.notes = new Vector<Note>(Arrays.asList(notes));
+	}
+
+
+	/**
+	 * Creates a Melody with the specified RhythmPattern; The notes[] must be added separately.  
+	 * @param rhythmPattern
+	 */
+	public Melody(RhythmPattern rhythmPattern) {
+		super(rhythmPattern);
+		notes = new Vector<Note>();
 	}
 
 	/**
@@ -39,39 +48,10 @@ public class Melody  extends MusicalComponent implements Playable{
 		setNotes(noteNames);
 
 	}
-	/**
-	 * Creates a Melody with the specified RhythmPattern; The notes[] must be added separately.  
-	 * @param rhythmPattern
-	 */
-	public Melody(RhythmPattern rhythmPattern) {
-		super(rhythmPattern);
-		notes = new Vector<Note>();
-	}
-
-
-
-	public void setNotes(Note[] notes){
-		this.notes = new Vector<Note>(Arrays.asList(notes));
-	}
-
-	public void setNotes(String[] noteNames) throws NoteException{
-		this.notes = new Vector<Note>();
-		for (int i=0;i<noteNames.length;i++){
-			notes.add(Notes.getNote(noteNames[i]));
-		}
-	}
-
 	public void addNote(Note note){
 		this.notes.add(note);
 	}
 
-	public Note[] getNotes(){
-		return (Note[])notes.toArray(new Note[0]);
-	}
-
-	public void setRhythmPattern(RhythmPattern rp){
-		rhythmPattern = rp;
-	}
 
 
 	public MusicalEventSequence getMusicalEventSequence() {
@@ -80,7 +60,9 @@ public class Melody  extends MusicalComponent implements Playable{
 				this.isCircularListNotes());
 	}
 
-
+	public Note[] getNotes(){
+		return (Note[])notes.toArray(new Note[0]);
+	}
 
 	/**
 	 * @return true if list of notes repeats to match the RhythmPattern;
@@ -89,7 +71,7 @@ public class Melody  extends MusicalComponent implements Playable{
 		 return circularListNotes;
 	 }
 
-	 /**
+	/**
 	  * Set true to repeat the list of notes according to the RhythmPAttern. If false, the RhythmPattern
 	  * will be trimmed to match the number of notes in the list.
 	  * @param circularListNotes true if list of notes repeats to match the RhythmPattern.
@@ -97,5 +79,39 @@ public class Melody  extends MusicalComponent implements Playable{
 	 public void setCircularListNotes(boolean circularListNotes) {
 		 this.circularListNotes = circularListNotes;
 	 }
+
+	public void setNotes(Note[] notes){
+		this.notes = new Vector<Note>(Arrays.asList(notes));
+	}
+
+
+	public void setNotes(String[] noteNames) throws NoteException{
+		this.notes = new Vector<Note>();
+		for (int i=0;i<noteNames.length;i++){
+			notes.add(Notes.getNote(noteNames[i]));
+		}
+	}
+
+
+
+	public void setRhythmPattern(RhythmPattern rp){
+		rhythmPattern = rp;
+	}
+
+	 /* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Melody [circularListNotes=" + circularListNotes + ", notes="
+				+ notes + "] \n" + rhythmPattern.toString();
+		
+	}
+	
+	public void transpose(int semitones) throws NoteException{
+		Note[] notes = (Note[])this.notes.toArray(new Note[0]);
+		notes = Notes.transpose(notes, semitones);
+		this.notes = new Vector(Arrays.asList(notes));
+	}
 
 }

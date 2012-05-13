@@ -47,6 +47,9 @@ public class MusicianTest {
 			// ====  BLOCK 5: Testing Melody Playing ==== 
 			try{
 				Melody melody = PlayableThings.getMelodyToPlay();
+				
+				melody.transpose(-3);
+				
 				System.out.println(melody); // NAO ESTA FUNCIONANDO - IMPLEMENTAR TOSTRING()
 				musician.play(melody);
 			}catch (NoteException e) {
@@ -100,7 +103,7 @@ public class MusicianTest {
 
          /* ====  BLOCK 9: Testing Harmony Playing ==== */
 
-			try{
+			/*try{
 				Harmony harmony;
 
 				harmony = PlayableThings.getHarmonyToPlay();
@@ -108,10 +111,9 @@ public class MusicianTest {
 				musician.play(harmony);
 			} catch (ChordNotationException e) {
 				System.out.println("Ops...it seems that your musician is having troubles with the notes of the harmony: ");
-			}
+			}*/
 
-		}
-		catch (MusicPerformanceException ex) {
+		}catch (MusicPerformanceException ex) {
 			System.out.println("Ops...it seems that your musician had troubles: " +  ex.getMessage());
 		}finally{
 			//Runtime.getRuntime().exit(0);

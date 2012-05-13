@@ -947,7 +947,7 @@ import java.io.*;
     return retorno;
   }
 
-  protected String[] getNotesSymbols(){
+  public String[] getNotesSymbols(){
       String[] retorno = new String[notes.length];
       for (int i = 0; i < this.notes.length;i++){
           retorno[i] = notes[i].getUsedSymbol();

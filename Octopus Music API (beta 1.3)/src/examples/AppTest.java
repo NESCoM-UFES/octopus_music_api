@@ -3,16 +3,27 @@ import octopus.*;
 
 public class AppTest {
 	public static void main(String[] args) {
-		
-		Note nota1;
+		try {
+			Note[] notes = Scale.getDiatonicScale(Notes.getC(), Scale.MODE_MAJOR).getNotes();
 
-			nota1 = Notes.getA(2);
+			for (int i = 0; i < notes.length; i++) {
+				System.out.println(notes[i]);
+			}
+
+            System.out.println("===================");
+			notes = Notes.transpose(notes, -1);
 			
-			System.out.println(nota1.getName());
-			System.out.println(nota1.getMidiValue());
-			System.out.println(nota1.getFrequency());
+			for (int i = 0; i < notes.length; i++) {
+				System.out.println(notes[i]);
+			}
+			
+		
+		} catch (NoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		
-		
+
+
 	}
 }

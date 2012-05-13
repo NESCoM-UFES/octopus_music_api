@@ -25,7 +25,7 @@ public class PlayableThings implements OMC {
 		bM.addRhythmEvent(bM.QUARTER_NOTE,1);
 		double[] duration = {bM.EIGHT_NOTE , bM.EIGHT_NOTE, bM.EIGHT_NOTE};
 		int[] type = {1 ,0,1 };
-		bM.addRhythmEvent(duration, type,bM.QUARTER_NOTE, true);
+		bM.addRhythmEvent(type,bM.QUARTER_NOTE, true);
 
 		bM.addRhythmEvent(bM.EIGHT_NOTE,1);
 		bM.addRhythmEvent(bM.QUARTER_NOTE,1);

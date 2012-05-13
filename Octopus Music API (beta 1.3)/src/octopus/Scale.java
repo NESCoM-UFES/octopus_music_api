@@ -119,8 +119,7 @@ public class Scale implements Playable{ //Diatonic
 
 
 
-	public static Scale getDiatonicScale(Note key, int mode) throws
-	NoteException {
+	public static Scale getDiatonicScale(Note key, int mode) {
 		Scale scale = getScale(key, majorScaleI, CmajDiatonicNotes);
 		scale.setMode(mode);
 		return scale;
@@ -133,16 +132,20 @@ public class Scale implements Playable{ //Diatonic
 		return scale;
 	}
 
-	public static Scale getScale(Note key, Interval[] intervals, Note notesScale[]) throws
-	NoteException {
+	public static Scale getScale(Note key, Interval[] intervals, Note notesScale[])  {
 		Scale scale = new Scale();
 		scale.notes = new Note[notesScale.length];
 		scale.notes[0] = key;
 		int octaveSum = Notes.getDistance(Notes.getC(),scale.notes[0],false);
 
 		for (int i = 1; i < scale.notes.length; i++) {
-			scale.notes[i] = Notes.getNote(scale.notes[i - 1],
-					intervals[i - 1]);
+			try {
+				scale.notes[i] = Notes.getNote(scale.notes[i - 1],
+						intervals[i - 1]);
+			} catch (NoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			// Checks is the a full cycle of the scale waa completed and update the octavePitch to next octave.
 

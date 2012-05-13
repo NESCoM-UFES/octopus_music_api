@@ -47,6 +47,23 @@ public class Bar  implements Serializable,Playable, RhythmConstants{
 
 
 
+
+    
+    /**
+   * Creates a Bar according to the specified metre. e.g 2/4
+   * @param nUnits The number of units in each bar. e.g 2;
+   * @param measurementUnit The unit of measurement, relative to the semibreve. e.g 4 (quarter note)
+   */
+  public Bar(int nUnits, int measurementUnit, double[] durations, int[] types) {
+    this.nUnits = nUnits;
+    this.measurementUnit = measurementUnit;
+    metre =  new Fraction(nUnits, measurementUnit, false);
+    this.autoAccentuation();
+    autoSignature =false;
+    
+    this.addRhythmEvent(durations, types);
+  }
+
   /**
    * Creates a Bar according to the specified metre. e.g 2/4
    * @param nUnits The number of units in each bar. e.g 2;
@@ -59,7 +76,7 @@ public class Bar  implements Serializable,Playable, RhythmConstants{
     this.autoAccentuation();
     autoSignature =false;
   }
-
+  
 
   /**
    * Creates a Bar according to the specified metre and indicates where the beats should be accentuated.
@@ -143,6 +160,21 @@ public class Bar  implements Serializable,Playable, RhythmConstants{
    return nUnits;
  }
 
+ 
+ 
+ /**
+  * Insert tuplets in the bar.
+  *
+  * @param durations Array of note's duration;
+  * @param types Array of the note's type (INPUT_NOTE OR RHYTHM_EVENT_NOTE)
+  */
+ public void addRhythmEvent(double[] durations, int[] types){
+    for (int i=0; i<durations.length;i++){
+      rhythmEvents.add(new RhythmEvent(durations[i], types[i]));
+
+    }
+}
+ 
 
  /**
   * Insert tuplets in the bar.
@@ -151,9 +183,9 @@ public class Bar  implements Serializable,Playable, RhythmConstants{
   * @param types Array of the note's type (INPUT_NOTE OR RHYTHM_EVENT_NOTE)
   * @param tupletValue Duration by which the note's duration will be splitted.
   */
- public void addRhythmEvent(double[] durations, int[] types, double tupletValue){
-    double value = (tupletValue/durations.length);
-    for (int i=0; i<durations.length;i++){
+ public void addRhythmEvent(int[] types, double tupletValue){
+    double value = (tupletValue/types.length);
+    for (int i=0; i<types.length;i++){
       rhythmEvents.add(new RhythmEvent(value, types[i]));
 
     }
@@ -164,15 +196,15 @@ public class Bar  implements Serializable,Playable, RhythmConstants{
 /**
  * @param tie Specifies if the last note of the tuplet is tied with tht next note.
  */
-  public void addRhythmEvent(double[] durations, int[] types, double tupletValue, boolean tie){
-  double value = (tupletValue/durations.length);
+  public void addRhythmEvent( int[] types, double tupletValue, boolean tie){
+  double value = (tupletValue/types.length);
   
-  for (int i=0; i<durations.length-1;i++){
+  for (int i=0; i<types.length-1;i++){
    
 	  rhythmEvents.add(new RhythmEvent(value, types[i]));
 
   }
-  rhythmEvents.add(new RhythmEvent(value, types[durations.length -1], tie));
+  rhythmEvents.add(new RhythmEvent(value, types[types.length -1], tie));
 
 }
 

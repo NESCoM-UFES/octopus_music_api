@@ -47,7 +47,7 @@ public void getTupletBar(){
     boolean isTie = true ;
     double tupletDuration = bar.QUARTER_NOTE;
     
-    bar.addRhythmEvent(reDurations, reTypes, tupletDuration , isTie);
+    bar.addRhythmEvent(reTypes, tupletDuration , isTie);
     bar.addRhythmEvent(Bar.SIXTEENTH_NOTE, Bar.RHYTHM_EVENT_NOTE);
     bar.addRhythmEvent(bar.getDottedValue(Bar.EIGHT_NOTE), 
                        Bar.RHYTHM_EVENT_REST); 

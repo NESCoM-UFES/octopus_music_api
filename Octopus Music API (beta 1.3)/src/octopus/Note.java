@@ -195,7 +195,7 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 	 *           Sol bemol - Sol(nota natural imediatamente posterior) = Segunda Menor.
 	 * @return Interval formado com a nota natural imediatamente posterior a uma nota dada.
 	 */
-	public Interval getNextInterval() {return nextInterval;}
+	protected Interval getNextInterval() {return nextInterval;}
 
 	/*
 	 * Obtém a região onde a nota está localizada.
@@ -210,7 +210,7 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 	 *           Dó(nota natural imediatamente anterior) - Ré bemol = Segunda Menor.
 	 * @return Interval formado com a nota natural imediatamente anterior a uma nota dada.
 	 */
-	public Interval getPreviousInterval() {return previousInterval;}
+	protected Interval getPreviousInterval() {return previousInterval;}
 
 	/*
 	 * Obtém o símbolo identificador da nota. Exemplo: "E".
