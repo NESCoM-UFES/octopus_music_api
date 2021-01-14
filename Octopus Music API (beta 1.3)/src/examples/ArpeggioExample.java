@@ -1,3 +1,5 @@
+package examples;
+
 import octopus.*;
 
 public class ArpeggioExample {
