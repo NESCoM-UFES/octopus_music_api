@@ -1,7 +1,7 @@
 package octopus;
 
 
-import java.util.*;
+import java.util.Vector;
 
 import octopus.communication.MusicalEventSequence;
 
@@ -11,7 +11,7 @@ import octopus.communication.MusicalEventSequence;
  *  <p> The scale degrees symbols that can be used are: I, II, III, IV, V, VI, VII.  Uppercase for Major and
  *   lowercase for  minor chords."</p>
  *  
- *<p><a href="doc-files/HarmonicProgressionExample.java"> Code example: A 12-bar blues HarmonicProgression.</a></p>
+ *<p><a href="../examples/HarmonicProgressionExample.java"> Code example: A 12-bar blues HarmonicProgression.</a></p>
  * @see Harmony
  *
  */

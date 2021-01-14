@@ -1,5 +1,5 @@
 package octopus;
-import octopus.communication.*;
+import octopus.communication.MusicalEventSequence;
 
 /**
  * The Playable Interface indicates that a class that realises it can be "playable" by a <code> Musician </code>.

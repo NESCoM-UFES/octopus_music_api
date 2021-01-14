@@ -1,6 +1,11 @@
 
 package octopus.communication;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Vector;
+
 /**
  * <p>Title: </p>
  *
@@ -13,8 +18,7 @@ package octopus.communication;
  * @author Leandro Costalonga
  * @version 1.0
  */
-import octopus.*;
-import java.util.*;
+import octopus.Note;
 
 
 public class MusicalEventSequence {//implements Playable{

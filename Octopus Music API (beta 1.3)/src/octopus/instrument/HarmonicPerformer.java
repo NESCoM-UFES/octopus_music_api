@@ -1,7 +1,9 @@
 package octopus.instrument;
 
-import octopus.*;
-import octopus.communication.*;
+import octopus.Harmony;
+import octopus.MusicPerformanceException;
+import octopus.NoteException;
+import octopus.communication.SynthesizerController;
 
 /**
  * HarmonicPerformer are Performer that play chord shapes and harmonies in a specific

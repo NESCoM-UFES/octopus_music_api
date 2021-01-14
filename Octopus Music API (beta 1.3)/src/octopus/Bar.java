@@ -1,13 +1,11 @@
 package octopus;
 
+import java.io.Serializable;
+import java.util.Vector;
+
 import octopus.communication.MusicalEvent;
 import octopus.communication.MusicalEventSequence;
-import octopus.util.*;
-
-
-
-import java.util.*;
-import java.io.Serializable;
+import octopus.util.Fraction;
 
   /**
    * A Bar is a container of <code>Bar.RhythmicEvent</code> organised according to the metre. 

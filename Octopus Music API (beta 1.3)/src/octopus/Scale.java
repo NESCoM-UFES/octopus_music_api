@@ -4,7 +4,6 @@ package octopus;
 
 import java.util.Vector;
 
-import octopus.communication.MusicalEvent;
 import octopus.communication.MusicalEventSequence;
 
 /**

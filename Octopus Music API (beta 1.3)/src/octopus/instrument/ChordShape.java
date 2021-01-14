@@ -1,10 +1,10 @@
 package octopus.instrument;
 
-import octopus.*;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Vector;
 
-
-import java.util.*;
-import java.io.*;
+import octopus.Chord;
 
 /* A classe abstrata "Representacao" garante que todas as futuras representações irão conter,
   ao menos, a estrutura básica descrita em seu conteúdo.

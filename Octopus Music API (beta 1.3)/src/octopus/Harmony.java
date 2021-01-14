@@ -1,9 +1,10 @@
 package octopus;
 
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Hashtable;
+import java.util.Vector;
 
-import octopus.communication.MusicalEvent;
 import octopus.communication.MusicalEventSequence;
 
 /**

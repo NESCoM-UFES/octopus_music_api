@@ -12,9 +12,12 @@ package octopus.instrument.fretted;
  * @author Leandro Costalonga
  * @version 1.0
  */
-import java.io.*;
+import java.io.Serializable;
 
-import octopus.*;
+import octopus.Arpeggio;
+import octopus.Bar;
+import octopus.RhythmConstants;
+import octopus.RhythmPattern;
 
 public class GuitarRhythmPattern extends Arpeggio implements Serializable{
 

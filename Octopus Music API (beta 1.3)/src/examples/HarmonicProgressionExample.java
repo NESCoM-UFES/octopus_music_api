@@ -1,4 +1,10 @@
-import octopus.*;
+package examples;
+import octopus.Chord;
+import octopus.ChordNotationException;
+import octopus.HarmonicProgression;
+import octopus.IntervalFactory;
+import octopus.Note;
+import octopus.NoteException;
 
 
 public class HarmonicProgressionExample {
@@ -27,7 +33,7 @@ public class HarmonicProgressionExample {
 			System.out.println(harmonicprogression);
              
 			//Get the chord in a particular key (C Major);
-			Chord[] chords =  harmonicprogression.getChords(NoteFactory.getNote("C", 4));
+			Chord[] chords =  harmonicprogression.getChords(Note.getNote("C", 4));
 			
 			//Print the Chords;
 			for (int i = 0; i < chords.length -1; i++) {

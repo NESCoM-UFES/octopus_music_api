@@ -1,10 +1,11 @@
 package octopus;
 
 
-import java.util.*;
-import javax.sound.midi.*;
-import octopus.communication.*;
-import octopus.communication.midi.*;
+import javax.sound.midi.MidiUnavailableException;
+
+import octopus.communication.MusicalEventSequence;
+import octopus.communication.SynthesizerController;
+import octopus.communication.midi.MidiSynthesizerController;
 /**
  * The Musician is basically an interpreter of the musical structures like:
  * scales, melody, harmony, music, rhythm pattern and so on. The musician knows

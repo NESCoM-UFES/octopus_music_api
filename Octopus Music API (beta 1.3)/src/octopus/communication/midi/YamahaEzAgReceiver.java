@@ -1,7 +1,10 @@
 package octopus.communication.midi;
 
 
-import javax.sound.midi.*;
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.SysexMessage;
 
 
 

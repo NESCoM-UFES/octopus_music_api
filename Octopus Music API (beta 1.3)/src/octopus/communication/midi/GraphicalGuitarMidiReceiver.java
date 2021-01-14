@@ -1,10 +1,12 @@
 package octopus.communication.midi;
 
 
+import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.SysexMessage;
-import javax.sound.midi.InvalidMidiDataException;
-import octopus.instrument.fretted.*;
+
+import octopus.instrument.fretted.GuitarGraphicalInterface;
+import octopus.instrument.fretted.GuitarNotePosition;
 
 
 

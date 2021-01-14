@@ -8,7 +8,7 @@ package octopus;
  * @author Leandro Lesqueves Costalonga
  * @version 1.1
  */
-import java.io.*;
+import java.io.Serializable;
  class IntervalSymbol extends NotationalSymbol implements Serializable{
   private Interval interval;
 

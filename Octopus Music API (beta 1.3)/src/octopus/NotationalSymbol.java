@@ -10,7 +10,7 @@ package octopus;
  * @author Leandro Lesqueves Costalonga
  * @version 1.1
  */
-import java.io.*;
+import java.io.Serializable;
  class NotationalSymbol implements Serializable{
 /**
  * Refere-se ao símbolo utilizado pelo usuário para representar uma cifra.

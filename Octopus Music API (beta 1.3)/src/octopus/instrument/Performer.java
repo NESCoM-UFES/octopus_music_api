@@ -1,11 +1,15 @@
 package octopus.instrument;
 
-import octopus.*;
-
-import java.awt.Toolkit;
-import javax.swing.JFrame;
 import java.awt.Dimension;
-import octopus.communication.*;
+import java.awt.Toolkit;
+
+import javax.swing.JFrame;
+
+import octopus.Melody;
+import octopus.MusicPerformanceException;
+import octopus.Musician;
+import octopus.NoteException;
+import octopus.communication.SynthesizerController;
 
 /**
  * Performers are musicians that know how to play a musical instrument.

@@ -1,7 +1,9 @@
 package octopus.instrument.fretted;
 
 
-import octopus.*;
+import octopus.Note;
+import octopus.NoteException;
+import octopus.Notes;
 
 /**
  *

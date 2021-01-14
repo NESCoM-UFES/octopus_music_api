@@ -1,7 +1,8 @@
 package octopus.instrument.fretted;
 
-import octopus.*;
-import java.io.*;
+import java.io.Serializable;
+
+import octopus.Note;
 
 
 /*

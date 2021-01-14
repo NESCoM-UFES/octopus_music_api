@@ -3,21 +3,30 @@ package octopus.communication.midi;
 
 
 
-import javax.sound.midi.Receiver;
-import javax.sound.midi.Synthesizer;
-import javax.sound.midi.Sequencer;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.Vector;
+
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.MidiEvent;
-import javax.sound.midi.Track;
-import javax.sound.midi.ShortMessage;
+import javax.sound.midi.Receiver;
 import javax.sound.midi.Sequence;
-import javax.sound.midi.InvalidMidiDataException;
-import java.util.*;
+import javax.sound.midi.Sequencer;
+import javax.sound.midi.ShortMessage;
+import javax.sound.midi.Synthesizer;
+import javax.sound.midi.Track;
+import javax.sound.midi.Transmitter;
 
-import javax.sound.midi.*;
-import octopus.*;
-import octopus.communication.*;
+import octopus.MusicPerformanceException;
+import octopus.Note;
+import octopus.communication.MusicalEvent;
+import octopus.communication.MusicalEventSequence;
+import octopus.communication.SynthesizerController;
+
 /**
  *
  * @author Leandro Costalonga
@@ -44,6 +53,15 @@ public class MidiSynthesizerController  implements SynthesizerController {
   }
 
 
+  public MidiSynthesizerController(MidiDevice midiOut) throws MidiUnavailableException {
+
+	   outputDevice =midiOut;
+	   outputDeviceName = midiOut.getDeviceInfo().getName();
+
+	   receivers = new Vector<Receiver>();
+
+	}
+  
   public MidiSynthesizerController(String midiOut) throws MidiUnavailableException {
 
    outputDevice = OctopusMidiSystem.getMidiDevice(midiOut);
@@ -52,6 +70,8 @@ public class MidiSynthesizerController  implements SynthesizerController {
    receivers = new Vector<Receiver>();
 
 }
+
+
 
 // DO NOT WORK ON SUBCLASSES. JAVA SOUND BUG
 /*public void openDevices() throws MidiUnavailableException {
@@ -110,12 +130,49 @@ public void closeDevices() throws MidiUnavailableException {
   }
 
   @SuppressWarnings("unchecked")
-public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceException
+
+  private Sequence getSequence(MusicalEventSequence musicalStructure) throws  InvalidMidiDataException, MusicPerformanceException {
+
+	  //int resolution = 4;
+	  int resolution = 96;
+
+	  Sequence s = new Sequence(Sequence.PPQ, resolution);
+
+	  Track track = s.createTrack();
+	  MusicalEvent[] musicalEvents = musicalStructure.getMusicalEvents();
+	  // track.add(new ShortMessage().setMessage(ShortMessage.PROGRAM_CHANGE);)
+	  for (int i = 0; i < musicalEvents.length; i++) {
+		  ShortMessage msg = new ShortMessage();
+		  // MetaMessage metaMsg = new MetaMessage(
+		  Note note = musicalEvents[i].note;
+		  if(note ==null){ 
+			  //Pauses are not inserted..instead, notes as escalonated in time. 
+			  throw new 	MusicPerformanceException("Number of rhythmic events must be equal to number of notes.");
+		  }
+		  if (musicalEvents[i].velocity > 0) {
+
+
+			  int velocity = (int) (MAX_PARAMETER_VALUE * musicalEvents[i].velocity);
+			  msg.setMessage(ShortMessage.NOTE_ON, note.getMidiValue(), velocity);
+		  }
+		  else {
+			  msg.setMessage(ShortMessage.NOTE_OFF, note.getMidiValue(), 0);
+		  }
+
+		  double timing = (musicalEvents[i].timing * 4.0) * resolution;
+		  MidiEvent me = new MidiEvent(msg, (int) timing);
+		  track.add(me);
+
+	  }
+	  return s;
+  }
+  
+  public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceException
        {
 
         try {
 
-          //int resolution = 4;
+        /*  //int resolution = 4;
           int resolution = 96;
 
           Sequence s = new Sequence(Sequence.PPQ, resolution);
@@ -144,12 +201,19 @@ public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceE
             double timing = (musicalEvents[i].timing * 4.0) * resolution;
             MidiEvent me = new MidiEvent(msg, (int) timing);
             track.add(me);
-          }
+          }*/
 
           //== ATTENTION == DONT TRY TO PLACE THIS CODE INTO A PRIVATE METHOD!!
           // IT WILL NOT WORK. NEED TO RUN IMEDIATELLY THE Sequencer.start()
           //Getting the virtual resources. Dont need to get the external
           // midi port (midiOut) because it was created on the super.
+        	
+        	
+          //Despite the warning, I've decided to try again several versions latter and, 
+         //	apparently, it worked (2/05/2013)	
+           
+         Sequence s = getSequence(musicalStructure);
+        	
           sequencer = MidiSystem.getSequencer();
           sequencer.open();
           if(outputDevice==null){ //
@@ -177,9 +241,13 @@ public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceE
           sequencer.start();
 
           //Release resourses after end of playing
-          while(sequencer.isRunning()){}
+         while(sequencer.isRunning()){
+        	//this is a bug..for some reason, Java is just exiting this loop if we write something in it!
+        	// works fine when debugs, but not when run. 02/05/13 
+        	// System.out.println("still running");
+         }
             closeDevices();
-            //System.out.println("devices closed");
+            System.out.println("devices closed");
 
         }
         catch (MidiUnavailableException ex) {
@@ -191,7 +259,10 @@ public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceE
 
       }
 
-
+  public void writeMidiFile(File outputFile, MusicalEventSequence musicalStructure) throws IOException, InvalidMidiDataException, MusicPerformanceException{
+	  MidiSystem.write(getSequence(musicalStructure), 1, outputFile);  
+  }
+  
 
 
  public void stop(){

@@ -8,7 +8,7 @@ package octopus;
  * @author Leandro Lesqueves Costalonga
  * @version 1.1
  */
-import java.io.*;
+import java.io.Serializable;
   class NoteSymbol extends NotationalSymbol implements Serializable{
   private Note note;
 

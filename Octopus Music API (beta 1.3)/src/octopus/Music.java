@@ -14,8 +14,10 @@ package octopus;
  *
  *@todo make it independent from the Java Sound. Back latter.
  */
-
-import java.util.*;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
 
 import octopus.communication.MusicalEventSequence;
 

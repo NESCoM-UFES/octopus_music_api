@@ -1,13 +1,14 @@
 package octopus.communication.midi;
 
-import	javax.sound.midi.MidiMessage;
-import	javax.sound.midi.ShortMessage;
-import	javax.sound.midi.MetaMessage;
-import	javax.sound.midi.SysexMessage;
-import	javax.sound.midi.Receiver;
+import java.util.Hashtable;
 
-import java.util.*;
-import octopus.communication.*;
+import	javax.sound.midi.MetaMessage;
+import	javax.sound.midi.MidiMessage;
+import	javax.sound.midi.Receiver;
+import	javax.sound.midi.ShortMessage;
+import	javax.sound.midi.SysexMessage;
+
+import octopus.communication.OctopusReceiver;
 
 
 /*	Receiver that outputs MIDI events as text.

@@ -1,6 +1,13 @@
 package examples;
 
-import octopus.*;
+import octopus.Bar;
+import octopus.Melody;
+import octopus.MusicPerformanceException;
+import octopus.Musician;
+import octopus.Note;
+import octopus.NoteException;
+import octopus.Notes;
+import octopus.RhythmPattern;
 
 public class PlayingNotesTutorial {
 	
@@ -12,6 +19,12 @@ public class PlayingNotesTutorial {
 			String[] noteSymbols = {"G", "A", "B", "D", "D", "B", "C", "C"};
 			Note[] notes = Notes.getNotes(noteSymbols);
 			
+			
+			//Chord cSus = Chord.getChord("C#");
+		
+
+			//musician.play(cSus);
+	
 			
 			double[] durations = {0.25, 0.25, 0.5, 0.5, 0.5, 0.5, 0.5, 1};
 			int[] types = {1,1,1,1,1,1,1,1};
@@ -46,10 +59,13 @@ public class PlayingNotesTutorial {
 			
 			
 			Melody melody = new Melody(notes, rhythmPattern);
+			
+			
+			melody.transpose(2);
             System.out.println(melody);		
 
             musician.setPlayingSpeed(240);
-			musician.play(melody);
+		    musician.play(melody);
 			
 		} catch (MusicPerformanceException e) {
 			// TODO Auto-generated catch block
@@ -58,7 +74,7 @@ public class PlayingNotesTutorial {
 		} catch (NoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 	}
 
 

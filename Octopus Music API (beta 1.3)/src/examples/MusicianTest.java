@@ -1,10 +1,9 @@
 package examples;
-import octopus.*;
-import octopus.util.*;
-import octopus.communication.*;
-import octopus.communication.midi.*;
-import octopus.instrument.*;
-import octopus.instrument.fretted.*;
+import octopus.ChordNotationException;
+import octopus.Music;
+import octopus.MusicPerformanceException;
+import octopus.Musician;
+import octopus.NoteException;
 
 
 public class MusicianTest {
@@ -19,8 +18,10 @@ public class MusicianTest {
 			 */
 
 
-		/*	 ====  BLOCK 1: Testing Note Playing ====
-		  Note note = PlayableThings.getNoteToPlay();
+		//	 ====  BLOCK 1: Testing Note Playing ====
+			
+			
+		/* Note note = PlayableThings.getNoteToPlay();
 		  System.out.println(note);
 		  musician.play(PlayableThings.getNoteToPlay());*/
 			 
@@ -32,7 +33,7 @@ public class MusicianTest {
 			 
 
 		//====  BLOCK 3: Testing RhythmPattern Playing ==== 
-		  /*RhythmPattern rhythmPattern =  PlayableThings.getRhythmPatternToPlay();
+		/*  RhythmPattern rhythmPattern =  PlayableThings.getRhythmPatternToPlay();
 		  System.out.println(rhythmPattern);
 		  musician.play(PlayableThings.getRhythmPatternToPlay());*/
 			 
@@ -45,21 +46,22 @@ public class MusicianTest {
 
 
 			// ====  BLOCK 5: Testing Melody Playing ==== 
-			try{
+			/*try{
 				Melody melody = PlayableThings.getMelodyToPlay();
 				
-				melody.transpose(-3);
+				//melody.transpose(-3);
 				
 				System.out.println(melody); // NAO ESTA FUNCIONANDO - IMPLEMENTAR TOSTRING()
 				musician.play(melody);
+			
 			}catch (NoteException e) {
 				System.out.println("Ops...it seems that your musician is having troubles with the notes of the Melody: ");
 				e.printStackTrace();
-			}
+			}*/
 			 
 
 			// ====  BLOCK 6: Testing HarmonicProgression Playing ==== 
-/*			try{
+			/*try{
 
 				HarmonicProgression harmonicProgression = PlayableThings.getHarmonicProgressionToPlay();
 				System.out.println(harmonicProgression);
@@ -112,6 +114,24 @@ public class MusicianTest {
 			} catch (ChordNotationException e) {
 				System.out.println("Ops...it seems that your musician is having troubles with the notes of the harmony: ");
 			}*/
+		  
+		  
+	         /* ====  BLOCK 10: Testing Music Playing ==== */
+
+				try{
+					Music music;
+
+					music = PlayableThings.getMusicToPlay();
+					System.out.println(music.toString()); 
+					musician.play(music);
+				} catch (ChordNotationException e) {
+					System.out.println("Ops...it seems that your musician is having troubles playing the Music ");
+				} catch (NoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		  
+		      // === end block 10
 
 		}catch (MusicPerformanceException ex) {
 			System.out.println("Ops...it seems that your musician had troubles: " +  ex.getMessage());

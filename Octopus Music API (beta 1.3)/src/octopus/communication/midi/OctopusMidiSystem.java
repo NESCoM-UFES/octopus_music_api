@@ -5,6 +5,8 @@ package octopus.communication.midi;
  *	This file is part of jsresources.org
  */
 
+import java.util.Vector;
+
 /*
  * Copyright (c) 1999 - 2001 by Matthias Pfisterer
  * Copyright (c) 2003 by Florian Bomers
@@ -41,7 +43,6 @@ package octopus.communication.midi;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
-import java.util.*;
 
 
 

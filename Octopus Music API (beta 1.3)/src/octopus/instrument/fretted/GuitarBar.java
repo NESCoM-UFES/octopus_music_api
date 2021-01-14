@@ -1,9 +1,11 @@
 package octopus.instrument.fretted;
 
-import octopus.*;
-import octopus.util.*;
-import java.util.*;
 import java.io.Serializable;
+import java.util.Hashtable;
+import java.util.Properties;
+
+import octopus.Bar;
+import octopus.util.Fraction;
 
 /**
  * A GuitarBar extends a Bar with information about the way to generate the

@@ -1,7 +1,7 @@
 package octopus.communication;
 
 
-import octopus.*;
+import octopus.MusicPerformanceException;
 
 
 public  interface SynthesizerController {

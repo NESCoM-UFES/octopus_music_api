@@ -1,11 +1,4 @@
 package octopus;
-import octopus.*;
-import octopus.util.*;
-import octopus.communication.*;
-import octopus.communication.midi.*;
-import octopus.instrument.*;
-import octopus.instrument.fretted.*;
-
 
 public class BarLibrary {
   public BarLibrary() {

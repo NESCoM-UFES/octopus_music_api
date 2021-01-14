@@ -1,8 +1,11 @@
 package octopus.instrument;
 
-import octopus.*;
+import java.util.Hashtable;
 
-import java.util.*;
+import octopus.Arpeggio;
+import octopus.Chord;
+import octopus.Harmony;
+import octopus.RhythmPattern;
 /**
  *
  * @author Leandro Costalonga

@@ -1,10 +1,8 @@
 package octopus.instrument.fretted;
 
-import octopus.instrument.*;
+import java.util.ArrayList;
 
-
-
-import java.util.*;
+import octopus.instrument.InstrumentNotePosition;
 
 
 /*

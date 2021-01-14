@@ -1,13 +1,13 @@
 package octopus.instrument.fretted;
 
-import octopus.*;
-import octopus.communication.MusicalEvent;
-import octopus.communication.MusicalEventSequence;
-import octopus.instrument.*;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Vector;
 
-
-import java.util.*;
-import java.io.*;
+import octopus.Chord;
+import octopus.MusicPerformanceException;
+import octopus.instrument.ChordShape;
 
 
 public class GuitarChordShape extends ChordShape implements Comparable<Object>,  Cloneable, Serializable { //Removed Playable for the time being.

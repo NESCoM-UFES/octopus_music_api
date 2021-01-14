@@ -4,9 +4,19 @@ package octopus.instrument.fretted;
  *
  *
  */
-import java.io.*;
-import java.util.*;
-import octopus.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Vector;
+
+import octopus.Arpeggio;
+import octopus.Bar;
+import octopus.RhythmConstants;
+import octopus.RhythmPattern;
 
 public class GuitarArpeggio extends Arpeggio implements Serializable{
   

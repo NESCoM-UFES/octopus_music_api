@@ -1,9 +1,8 @@
 package octopus.instrument;
 
-import octopus.util.*;
+import java.io.Serializable;
 
-
-import java.io.*;
+import octopus.util.PropertiesDisplay;
 
 
  public class ChordShapeProperties extends PropertiesDisplay implements Serializable {

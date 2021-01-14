@@ -1,9 +1,9 @@
 package octopus.communication.midi;
 
 
+import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.SysexMessage;
-import javax.sound.midi.InvalidMidiDataException;
 
 public abstract class GuitarMidiReceiver
     extends OctopusMidiReceiver {

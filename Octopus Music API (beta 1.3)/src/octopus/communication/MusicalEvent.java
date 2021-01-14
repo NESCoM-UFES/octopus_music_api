@@ -4,8 +4,9 @@ package octopus.communication;
  * @author Leandro Costalonga
  * @version 1.0
  */
-import java.util.*;
-import octopus.*;
+import java.util.Properties;
+
+import octopus.Note;
 
 public class MusicalEvent extends Properties implements Comparable<Object> {
 

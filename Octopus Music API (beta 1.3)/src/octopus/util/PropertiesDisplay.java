@@ -1,12 +1,19 @@
 package octopus.util;
 
-import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.io.File;
 import java.io.FileInputStream;
-import javax.swing.*;
-import javax.swing.table.*;
-import javax.swing.event.*;
-import java.awt.*;
+import java.util.Collection;
+import java.util.Hashtable;
+import java.util.Properties;
+
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.table.DefaultTableModel;
 
 
 public class PropertiesDisplay

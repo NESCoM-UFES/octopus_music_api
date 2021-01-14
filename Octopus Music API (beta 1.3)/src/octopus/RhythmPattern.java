@@ -1,10 +1,19 @@
 package octopus;
 
 
-import java.util.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Hashtable;
+import java.util.Vector;
 
-import octopus.communication.MusicalEvent;
 import octopus.communication.MusicalEventSequence;
 /**
  * A Rhythm Pattern is the rhythmic line of a MusicalComponent. It is composed of bars, marks and returning points to

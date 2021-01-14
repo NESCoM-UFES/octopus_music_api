@@ -1,11 +1,16 @@
 package octopus.instrument.fretted;
 
-import octopus.*;
-import octopus.util.*;
-import octopus.instrument.*;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Hashtable;
+import java.util.Vector;
 
-import java.util.*;
-import java.io.*;
+import octopus.MusicPerformanceException;
+import octopus.Note;
+import octopus.NoteException;
+import octopus.instrument.ChordShapeProperties;
+import octopus.util.Log;
 
 
 /*

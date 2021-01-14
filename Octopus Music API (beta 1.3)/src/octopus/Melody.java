@@ -1,8 +1,9 @@
 package octopus;
 
 
-import java.util.*;
-import octopus.communication.MusicalEvent;
+import java.util.Arrays;
+import java.util.Vector;
+
 import octopus.communication.MusicalEventSequence;
 /**
  * Melody is a set of notes played sequentially according a RhythmPattern.

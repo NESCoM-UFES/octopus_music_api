@@ -1,10 +1,13 @@
 package octopus.instrument.fretted;
 
-import octopus.*;
-import octopus.instrument.*;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Vector;
 
-import java.io.*;
-import java.util.*;
+import octopus.Note;
+import octopus.NoteException;
+import octopus.Notes;
+import octopus.instrument.Instrument;
 
 /**
  * Represents string fretted instruments like guitar, bass, bandolin etc. Piano,

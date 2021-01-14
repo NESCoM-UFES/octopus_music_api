@@ -1,11 +1,27 @@
 package octopus.instrument.fretted;
 
-import octopus.*;
-import octopus.instrument.*;
-import javax.sound.midi.*;
+import javax.sound.midi.MidiUnavailableException;
+
+import octopus.Arpeggio;
+import octopus.Bar;
+import octopus.Chord;
+import octopus.Harmony;
+import octopus.Melody;
+import octopus.MusicPerformanceException;
+import octopus.Note;
+import octopus.NoteException;
+import octopus.Notes;
+import octopus.RhythmPattern;
+import octopus.communication.MusicalEvent;
+import octopus.communication.MusicalEventSequence;
+import octopus.communication.SynthesizerController;
+import octopus.communication.midi.GraphicalGuitarMidiReceiver;
+import octopus.instrument.ChordShape;
+import octopus.instrument.HarmonicPerformer;
+import octopus.instrument.InstrumentNotePosition;
+import octopus.instrument.PerformableHarmony;
+import octopus.instrument.PerformableMelody;
 import octopus.util.Log;
-import octopus.communication.*;
-import octopus.communication.midi.*;
 
 /**
  *The guitarist is a HarmonicPerformer that has the knowledge of the guitar

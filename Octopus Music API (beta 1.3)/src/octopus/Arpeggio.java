@@ -1,8 +1,18 @@
 package octopus;
 
-import java.io.*;
-import java.util.*;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.Vector;
 
 import octopus.communication.MusicalEventSequence;
 
@@ -15,7 +25,7 @@ import octopus.communication.MusicalEventSequence;
  * The lowest voice (index 0) is linked to <code>ChordNote</code> with the lowest pitch, the second lower to the
  * second lower <code>ChordNote</code> pitch and so on. </p>
  * <center><img src="doc-files/arpeggio.jpg"></center>
- * <p><a href="doc-files/ArpeggioExample.java"> Code example: A fast arpeggio played by a <code> Musician</code>.</a></p>
+ * <p><a href="../examples/ArpeggioExample.java"> Code example: A fast arpeggio played by a <code> Musician</code>.</a></p>
 
  *
  * @see RhythmPattern

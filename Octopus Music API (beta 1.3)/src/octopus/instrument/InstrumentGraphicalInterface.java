@@ -1,6 +1,6 @@
 package octopus.instrument;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 public abstract class InstrumentGraphicalInterface
     extends JPanel {

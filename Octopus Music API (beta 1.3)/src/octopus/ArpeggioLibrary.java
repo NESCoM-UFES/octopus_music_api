@@ -1,20 +1,12 @@
 package octopus;
-import octopus.*;
-import octopus.util.*;
-import octopus.communication.*;
-import octopus.communication.midi.*;
-import octopus.instrument.*;
-import octopus.instrument.fretted.*;
-
-
-import java.io.ObjectOutputStream;
-import java.io.IOException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
-import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 
 public  class ArpeggioLibrary {

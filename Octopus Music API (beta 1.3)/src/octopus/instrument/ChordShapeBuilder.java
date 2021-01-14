@@ -1,6 +1,7 @@
 package octopus.instrument;
 
-import octopus.*;
+import octopus.Chord;
+import octopus.NoteException;
 
  /*
  * A interface ChordShapeBuilder é usada para garantir que todos os futuros

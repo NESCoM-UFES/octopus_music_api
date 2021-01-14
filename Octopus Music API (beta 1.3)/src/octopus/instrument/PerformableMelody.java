@@ -1,8 +1,10 @@
 package octopus.instrument;
 
-import octopus.*;
+import java.util.Hashtable;
 
-import java.util.*;
+import octopus.Melody;
+import octopus.Note;
+import octopus.RhythmPattern;
 import octopus.instrument.fretted.GuitarNotePosition;
 
 /**

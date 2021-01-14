@@ -1,12 +1,24 @@
 package octopus.instrument.fretted;
 
-import octopus.*;
+import java.util.List;
 
-import javax.sound.midi.*;
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiEvent;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Receiver;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.ShortMessage;
+import javax.sound.midi.SysexMessage;
+import javax.sound.midi.Track;
+import javax.sound.midi.Transmitter;
 
-import java.util.*;
-import octopus.communication.*;
-import octopus.communication.midi.*;
+import octopus.MusicPerformanceException;
+import octopus.Note;
+import octopus.communication.MusicalEvent;
+import octopus.communication.MusicalEventSequence;
+import octopus.communication.midi.GuitarMidiReceiver;
+import octopus.communication.midi.MidiSynthesizerController;
 
 public class GuitarMidiSynthesizerController
     extends MidiSynthesizerController {

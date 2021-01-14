@@ -1,6 +1,21 @@
 package examples;
 
-import octopus.*;
+import octopus.Arpeggio;
+import octopus.Bar;
+import octopus.Chord;
+import octopus.ChordException;
+import octopus.ChordNotationException;
+import octopus.HarmonicProgression;
+import octopus.Harmony;
+import octopus.IntervalFactory;
+import octopus.Melody;
+import octopus.Music;
+import octopus.Note;
+import octopus.NoteException;
+import octopus.Notes;
+import octopus.OMC;
+import octopus.RhythmPattern;
+import octopus.Scale;
 
 public class PlayableThings implements OMC {
 
@@ -91,6 +106,18 @@ public static Harmony getHarmonyToPlay() throws ChordNotationException  {
 	
 	
 	return harmony;
+
+}
+
+public static Music getMusicToPlay() throws ChordNotationException, NoteException  {
+	
+	Music music = new Music();
+	
+	Melody melody = getMelodyToPlay();
+	music.insertMusicalComponent(melody);
+	music.insertMusicalComponent(getHarmonyToPlay(), melody.getDuration());
+	
+	return music;
 
 }
 

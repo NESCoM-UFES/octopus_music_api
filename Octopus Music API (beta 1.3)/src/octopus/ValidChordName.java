@@ -1,7 +1,7 @@
 package octopus;
 
-import java.io.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 /**
  * The chord name verified according the current ChordNotation;
  * 

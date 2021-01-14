@@ -1,7 +1,9 @@
 package octopus;
 
-import java.util.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import octopus.communication.MusicalEvent;
 import octopus.communication.MusicalEventSequence;

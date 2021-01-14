@@ -1,13 +1,18 @@
 package octopus.instrument.fretted;
 
 
-import octopus.*;
-import octopus.instrument.fretted.Guitar;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import octopus.Note;
 import octopus.instrument.InstrumentGraphicalInterface;
 import octopus.instrument.InstrumentNotePosition;
 

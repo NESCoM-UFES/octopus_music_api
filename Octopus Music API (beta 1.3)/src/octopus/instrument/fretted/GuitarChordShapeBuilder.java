@@ -1,15 +1,22 @@
 package octopus.instrument.fretted;
 
-import octopus.*;
-import octopus.util.*;
-import octopus.instrument.*;
+import java.io.Serializable;
 
 //import br.ufrgs.inf.lcm.database.*;
 //import br.ufrgs.inf.lcm.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Vector;
 
-
-import java.util.*;
-import java.io.*;
+import octopus.Chord;
+import octopus.MusicPerformanceException;
+import octopus.Note;
+import octopus.NoteException;
+import octopus.instrument.ChordShape;
+import octopus.instrument.ChordShapeBuilder;
+import octopus.instrument.ChordShapeProperties;
+import octopus.util.Log;
 /**
  * Gera as representações dos acordes relativos ao instrumentos de corda previamente informado.
  * @see StringInstrument
