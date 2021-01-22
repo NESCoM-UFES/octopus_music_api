@@ -1,12 +1,13 @@
 package examples;
-
-import octopus.*;
+import octopus.Arpeggio;
+import octopus.Bar;
+import octopus.Musician;
 
 public class ArpeggioExample {
 
 	/**
 	 * This example demonstrate how to create a simple arpeggio with four voices.
-	 * @author lcostalonga
+	 * @author llcostalonga
 	 */
 	public static void main(String[] args) {
 
@@ -19,7 +20,7 @@ public class ArpeggioExample {
 		for(int i = 0; i<4; i++){
 
 			// 4 beats, 16th note (duration)
-			bars[i] = new Bar(4,16);
+			bars[i] = new octopus.Bar(4,16);
 
 			//Insert one 8th note in the i(th) beat and fill the rest of the Bar with rests.
 			bars[i].addSingleRhythmEvent(Bar.EIGHT_NOTE,Bar.RHYTHM_EVENT_NOTE,i+1);
@@ -32,7 +33,7 @@ public class ArpeggioExample {
 			Musician musician = new Musician();
 			musician.play(arpeggio);		
 
-		} catch (MusicPerformanceException e) {
+		} catch (octopus.MusicPerformanceException e) {
 			// Error in the performance.
 			e.printStackTrace();
 		}
