@@ -34,6 +34,7 @@ public class Notes {
 	 * @return A nota Lá.
 	 */
 	public static Note getA() {return (Note)A.clone();}
+	
 
 	public static Note getA(int accident) {
 		Note retorno = (Note)A.clone();

@@ -176,11 +176,17 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 	 * how it sounds). 
 	 */
 	public MusicalEventSequence getMusicalEventSequence() {
+		 /* MusicalEvent meOct = new MusicalEvent(0, 0, notes[indexNotes], duration, rhythmEvents[i].velocity);
+		  MusicalEvent meOctOff = new MusicalEvent(i, time + duration,
+                     notes[indexNotes], 0, 0);
+		  musicalEventSequence.addMusicalEvent(meOct);
+		  musicalEventSequence.addMusicalEvent(meOctOff);*/
+		
 		MusicalEventSequence p = new MusicalEventSequence();
 		p.addMusicalEvent(new MusicalEvent(0,0,this,RhythmConstants.WHOLE_NOTE,RhythmConstants.DYNAMIC_MEZZO_FORTE));
 
 		//If this line is removed the the synth will clip the note's sound.
-		p.addMusicalEvent(new MusicalEvent(1,200,this,RhythmConstants.WHOLE_NOTE,0));
+		p.addMusicalEvent(new MusicalEvent(1,RhythmConstants.WHOLE_NOTE,this,RhythmConstants.WHOLE_NOTE,0));
 
 		return p;
 	}

@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>live_octopus</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/bin/live_octopus</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

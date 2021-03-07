@@ -1,5 +1,7 @@
 package examples;
 
+import javax.sound.midi.MidiUnavailableException;
+
 import octopus.Bar;
 import octopus.Melody;
 import octopus.MusicPerformanceException;
@@ -8,13 +10,25 @@ import octopus.Note;
 import octopus.NoteException;
 import octopus.Notes;
 import octopus.RhythmPattern;
+import octopus.communication.SynthesizerController;
+import octopus.communication.midi.MidiSynthesizerController;
+import octopus.communication.midi.OctopusMidiSystem;
 
 public class PlayingNotesTutorial {
 	
 	public static void main(String[] args) {
 		
 		try {
-			Musician musician = new Musician();
+			
+			//OctopusMidiSystem.listDevicesAndExit(false, true);
+		
+				
+			SynthesizerController synth = new MidiSynthesizerController("loopMIDI Port");
+			
+			
+			Musician musician = new Musician(synth);
+			
+			//Musician musician = new Musician();
 			
 			String[] noteSymbols = {"G", "A", "B", "D", "D", "B", "C", "C"};
 			Note[] notes = Notes.getNotes(noteSymbols);
@@ -53,7 +67,7 @@ public class PlayingNotesTutorial {
 		/*	rhythmPattern.insertBar(bar2);
 			rhythmPattern.insertBar(bar3);
 			rhythmPattern.insertBar(bar4);*/
-			rhythmPattern.insertReturn("Beginning", 5);
+			rhythmPattern.insertReturn("Beginning", 15);
 			
 		
 			
@@ -66,7 +80,10 @@ public class PlayingNotesTutorial {
 
             musician.setPlayingSpeed(240);
 		    musician.play(melody);
-			
+		} catch (MidiUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		    
 		} catch (MusicPerformanceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

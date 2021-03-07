@@ -10,6 +10,8 @@ import octopus.Note;
 import octopus.Notes;
 import octopus.RhythmPattern;
 import octopus.Scale;
+import octopus.communication.SynthesizerController;
+import octopus.communication.midi.LiveMidiSynthesizerController;
 import octopus.communication.midi.MidiSynthesizerController;
 
 public class AppTest {
@@ -37,11 +39,19 @@ public class AppTest {
 			
 			Melody melodia = new Melody(notas,ritmo );
 			
-			Musician musico = new  Musician();
+			SynthesizerController synth = new LiveMidiSynthesizerController("loopMIDI Port");
+				
+				
+		    //musician = new Musician(synth);
+			
+			
+			Musician musico = new  Musician(synth);
 			
 			System.out.println(melodia);
 			
 			musico.play(melodia);
+			
+			/*musico.play(Notes.getA());
 			
 			 JFileChooser jc = new JFileChooser();
              jc.showSaveDialog(null);
@@ -53,7 +63,7 @@ public class AppTest {
                  }
              }
               
-			((MidiSynthesizerController) musico.getSynthesizerController()).writeMidiFile(selectedFile, melodia.getMusicalEventSequence());
+			((MidiSynthesizerController) musico.getSynthesizerController()).writeMidiFile(selectedFile, melodia.getMusicalEventSequence());*/
 			
 			
 		
