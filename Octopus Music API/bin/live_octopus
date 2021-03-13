@@ -3,6 +3,13 @@ import octopus.communication.*;
 import octopus.communication.midi.*;
 import examples.*;
 
+import java.util.concurrent.TimeUnit
+
+//util
+void pause(int milliseconds) throws Exception{
+    TimeUnit.MILLISECONDS.sleep(milliseconds);
+}
+
 //MIDI
 
 LiveMidiSynthesizerController synthController;
@@ -22,7 +29,7 @@ void midi(boolean midiIn, boolean midiOut){
 void midi(String midiOutPortName) throws Exception{
    if(synthController!=null)  synthController.closeDevices();
    
-   synthController = new LiveMidiSynthesizerController(midiPortName);
+   synthController = new LiveMidiSynthesizerController(midiOutPortName);
    musician.setSynthesizerController(synthController);
 }
 
@@ -68,11 +75,13 @@ Note note(String symbol, int octave) throws NoteException{
     return Notes.getNote(symbol, octave);
  }
  
+ Note note(String symbol) throws NoteException{
+    return Notes.getNote(symbol, 4);
+ }
+ 
+
+ 
 
  
  
  
-
- 
-
-
