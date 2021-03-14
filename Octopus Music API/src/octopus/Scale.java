@@ -168,13 +168,16 @@ public class Scale implements Playable{ //Diatonic
 		Note cromaticNotes[] = key.isFlat()?cromaticFlatNotes:cromaticSharpNotes;
 
 
+		int octave = key.getOctavePitch();
 		int cont=0;
 		int i = Notes.getCromaticNoteIndex(key);
 		while(cont<12){
-			if(i>cromaticNotes.length){
+			if(i>cromaticNotes.length - 1){
 				i=0;
+				octave++;
 			}
-			scale.notes[i] = (Note)cromaticNotes[i].clone();
+			scale.notes[cont] = (Note)cromaticNotes[i].clone();
+			scale.notes[cont].setOctavePitch(octave);
 			cont++;
 			i++;
 		}
