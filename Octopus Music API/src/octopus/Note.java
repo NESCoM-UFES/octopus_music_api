@@ -175,7 +175,7 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 	 * when the note needs to be heard out of musical context (just to see
 	 * how it sounds). 
 	 */
-	public MusicalEventSequence getMusicalEventSequence() {
+	public MusicalEventSequence getMusicalEventSequence(double duration, double dynamics) {
 		 /* MusicalEvent meOct = new MusicalEvent(0, 0, notes[indexNotes], duration, rhythmEvents[i].velocity);
 		  MusicalEvent meOctOff = new MusicalEvent(i, time + duration,
                      notes[indexNotes], 0, 0);
@@ -183,13 +183,38 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 		  musicalEventSequence.addMusicalEvent(meOctOff);*/
 		
 		MusicalEventSequence p = new MusicalEventSequence();
-		p.addMusicalEvent(new MusicalEvent(0,0,this,RhythmConstants.WHOLE_NOTE,RhythmConstants.DYNAMIC_MEZZO_FORTE));
+		p.addMusicalEvent(new MusicalEvent(0,0,this,duration,dynamics));
 
 		//If this line is removed the the synth will clip the note's sound.
-		p.addMusicalEvent(new MusicalEvent(1,RhythmConstants.WHOLE_NOTE,this,RhythmConstants.WHOLE_NOTE,0));
+		p.addMusicalEvent(new MusicalEvent(1,duration,this,dynamics,0));
 
 		return p;
 	}
+	
+	/**
+	 * Returns the MusicalEventSequence of a single note. To be used only
+	 * when the note needs to be heard out of musical context (just to see
+	 * how it sounds). Dynamics = DYNAMIC_MEZZO_FORTE
+	 */
+	public MusicalEventSequence getMusicalEventSequence(double duration) {
+		return getMusicalEventSequence(duration,RhythmConstants.DYNAMIC_MEZZO_FORTE);
+	}
+	
+	
+	/**
+	 * Returns the MusicalEventSequence of a single note. To be used only
+	 * when the note needs to be heard out of musical context (just to see
+	 * how it sounds). Duration = WHOLE_NOTE, Dynamics = DYNAMIC_MEZZO_FORTE
+	 */
+	public MusicalEventSequence getMusicalEventSequence() {
+		return getMusicalEventSequence(RhythmConstants.WHOLE_NOTE,RhythmConstants.DYNAMIC_MEZZO_FORTE);
+	}
+	
+	
+	
+	
+	
+	
 	 /*
 	 * Obtém o nome da nota. Exemplo: "Mi".
 	 * @return Nome da nota.

@@ -2,6 +2,7 @@
 
 package octopus;
 
+import java.util.Iterator;
 import java.util.Vector;
 
 import octopus.communication.MusicalEventSequence;
@@ -53,7 +54,7 @@ public class Scale implements Playable{ //Diatonic
 		IntervalFactory.getMinorSecond(),
 		IntervalFactory.getMajorSecond(), IntervalFactory.getMajorSecond()};
 
-	// protected static int[] pentatonicMinorScale = {3,2,3,2,2};
+	// protected static int[] pentatonicMinorScale = {3,2,2,3,2};
 	protected static Interval[] pentatonicMinorScale = {
 		IntervalFactory.getMinorThird(), IntervalFactory.getMajorSecond(),
 		IntervalFactory.getMajorSecond(), IntervalFactory.getMinorThird(),
@@ -107,38 +108,69 @@ public class Scale implements Playable{ //Diatonic
 		noteA, Notes.getA(Note.SHARP),
 		noteB};
 
-	protected static Note cromaticFlatNotes[] = {
+	/*protected static Note cromaticFlatNotes[] = {
 		Notes.getC(Note.FLAT),noteC, 
 		Notes.getD(Note.FLAT),noteD,
 		Notes.getE(Note.FLAT),noteE, 
 		noteF, 
 		Notes.getG(Note.FLAT),noteG,
 		Notes.getA(Note.FLAT),noteA, 
-		Notes.getB(Note.FLAT),noteB};
+		Notes.getB(Note.FLAT),noteB};*/
+	
+	protected static Note cromaticFlatNotes[] = {
+			noteC, 
+			Notes.getD(Note.FLAT),noteD,
+			Notes.getE(Note.FLAT),noteE, 
+			noteF, 
+			Notes.getG(Note.FLAT),noteG,
+			Notes.getA(Note.FLAT),noteA, 
+			Notes.getB(Note.FLAT),noteB};
 
 
-
+    /* Tested: All notes, sharps anf flats. MODE_MAJOR - OK
+     * 
+     */
 	public static Scale getDiatonicScale(Note key, int mode) {
-		Scale scale = getScale(key, majorScaleI, CmajDiatonicNotes);
-		scale.setMode(mode);
+		Scale scale = null;
+		
+		if(mode == MODE_MAJOR)  scale = getScale(key, majorScaleI, CmajDiatonicNotes);
+		else if (mode == MODE_MINOR )  scale = getScale(key, minorScaleI, CmajDiatonicNotes);
+		
+		//scale.setMode(mode);
 		return scale;
 	}
 
+	
 	public static Scale getPentatonicScale(Note key, int mode) throws
 	NoteException {
 		Scale scale = getScale(key, pentatonicMajorScale, CmajPentaNotes);
-		scale.setMode(mode);
+				
+		if (mode == MODE_MINOR ) scale = getScale(key, pentatonicMinorScale, CmajPentaNotes);;
 		return scale;
 	}
 
-	public static Scale getScale(Note key, Interval[] intervals, Note notesScale[])  {
+	
+	public static Scale getScale(Note key, int[] semitones) {
+	
+		Interval[] intervals = new Interval[semitones.length]; 
+		for (int i = 0; i < semitones.length; i++) {
+			//Interval interval = intervals[i];
+			intervals[i] = IntervalFactory.getInterval(semitones[i]);
+		}
+		return getScale(key,intervals,CmajDiatonicNotes);
+		//return getScale(key,intervals);
+	
+	
+	}
+	private static Scale getScale(Note key, Interval[] intervals , Note notesScale[])  {
 		Scale scale = new Scale();
-		scale.notes = new Note[notesScale.length];
+		scale.notes = new Note[intervals.length];
 		scale.notes[0] = key;
 		int octaveSum = Notes.getDistance(Notes.getC(),scale.notes[0],false);
 
-		for (int i = 1; i < scale.notes.length; i++) {
-			try {
+		//for (int i = 1; i < scale.notes.length; i++) {
+		for (int i = 1; i < intervals.length; i++) {
+			try {								
 				scale.notes[i] = Notes.getNote(scale.notes[i - 1],
 						intervals[i - 1]);
 			} catch (NoteException e) {
@@ -167,16 +199,27 @@ public class Scale implements Playable{ //Diatonic
 		scale.notes = new Note[12];
 		Note cromaticNotes[] = key.isFlat()?cromaticFlatNotes:cromaticSharpNotes;
 
-
 		int octave = key.getOctavePitch();
-		int cont=0;
-		int i = Notes.getCromaticNoteIndex(key);
+		scale.notes[0] = key;
+		int cont=1;
+ 		int i = Notes.getCromaticNoteIndex(key) + 1;
+ 		
 		while(cont<12){
 			if(i>cromaticNotes.length - 1){
 				i=0;
 				octave++;
-			}
-			scale.notes[cont] = (Note)cromaticNotes[i].clone();
+			}/*else {
+				if (i < 0) {
+					octave--;
+					i=0;
+				}
+			}*/
+			
+			
+			/*if((cont==0)&&(i==0)){
+				scaleNote = key;
+			}*/
+			scale.notes[cont] = (Note)cromaticNotes[i].clone();;
 			scale.notes[cont].setOctavePitch(octave);
 			cont++;
 			i++;

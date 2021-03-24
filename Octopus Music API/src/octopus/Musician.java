@@ -72,6 +72,11 @@ protected SynthesizerController player;
      p.setBpm(this.playingSpeed); 
      player.play(p);
  }
+ 
+ public void play(MusicalEventSequence musicalEventSequence)throws MusicPerformanceException{   
+	 musicalEventSequence.setBpm(this.playingSpeed); 
+     player.play(musicalEventSequence);
+ }
 
    
 

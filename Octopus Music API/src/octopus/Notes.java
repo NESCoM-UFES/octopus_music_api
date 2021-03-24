@@ -143,6 +143,13 @@ public class Notes {
 			indexNotaRetorno -= 12; // Diminuo pela quantidade de elementos do vetor!
 			//oitava++;
 		}
+		
+		/*while (indexNotaRetorno < 0) {
+			indexNotaRetorno += 12; // Diminuo pela quantidade de elementos do vetor!
+			//oitava++;
+		}*/
+		
+		
 		return indexNotaRetorno;
 	}
 	/*
@@ -371,7 +378,7 @@ public class Notes {
 		int posNote = Notes.getNoteIndex(baseNote);
 		posNote+= (interval.getNumericInterval() -1);
 		int octave = fundamentalNote.getOctavePitch();
-		while (posNote >6){
+		while (posNote > 6){
 			posNote-=7;
 			octave++;
 		}
