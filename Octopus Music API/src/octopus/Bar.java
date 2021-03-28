@@ -42,10 +42,43 @@ public class Bar  implements Serializable,Playable, RhythmConstants{
     autoSignature =false;
 
   }
-
-
-
-
+    /**
+     * @param textualNotation Similar as EarSkecth makebeat. 
+     * '0' starts playing a clip.
+	 * '-' is a rest, meaning silence.
+     *  +' extends the duration into the next sub-beat. It always follows a 0 or +.
+     *  i.e: "0-00-00-0+++0+0+"
+     *
+   */
+    public void addRhythmEvent(String textualNotation, double subBeatDuration) {
+	    int i = 0;
+	    double duration = 0;
+	    while(i < textualNotation.length())  {	    	
+	    	char c = textualNotation.charAt(i);		
+			if(c=='0') {
+				if(duration > 0) {
+					this.addRhythmEvent(duration, RHYTHM_EVENT_NOTE);				
+				}
+				duration=subBeatDuration;						
+			}else {
+				if(c== '+') {
+					duration+=subBeatDuration;
+				}else {
+					if(c=='-') {
+						if(duration > 0) {
+							this.addRhythmEvent(duration, RHYTHM_EVENT_NOTE);							
+							duration = 0;
+						}
+						this.addRhythmEvent(subBeatDuration, RHYTHM_EVENT_REST);	
+					}
+				}
+			}
+			i++;
+	    }
+	    if(duration > 0) this.addRhythmEvent(duration, RHYTHM_EVENT_NOTE);			    
+    }
+			
+    
     
     /**
    * Creates a Bar according to the specified metre. e.g 2/4

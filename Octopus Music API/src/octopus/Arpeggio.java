@@ -301,7 +301,7 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 
 	/**
 	 * Returns the number of notes that are played simultaneously. Note that
-	 * simultaneous attacks is different than polyphony of the arpeggio(could be
+*	 * simultaneous attacks is different than polyphony of the arpeggio(could be
 	 * played any time within a certain duration).
 	 */
 	public int getSimultaneousAttacks(){

@@ -147,10 +147,7 @@ Note note(String symbol, int octave) throws NoteException{
     return Notes.getNote(symbol, 4);
  }
  
- Note[] transpose(Note[] notes, int semitones) throws Exception{
-    return Notes.transpose(notes,semitones);
- }
-  
+ 
  //chord
  
  Chord chord(String chordName) throws Exception{
@@ -190,6 +187,22 @@ Note[] notes(String[] noteSymbols) throws Exception{
 	return Notes.getNotes(noteSymbols);
 }
  
+/** Utilitarian methods over array of notes**/
+NotesREPL notes = new  NotesREPL();
+ 
+Note[] transpose(Note[] notes, int semitones) throws Exception{
+    return Notes.transpose(notes,semitones);
+ }
+  
+Note[] suffle(Note[] notes){
+  return Notes.suffle(notes);
+}   
+
+Note[] suffle(Note[] notes, int noNotes){
+  return Notes.suffle(notes, noNotes);
+}   
+ 
+ 
  //Melody
  
  Melody melody(Note[] notes){     
@@ -199,3 +212,50 @@ Note[] notes(String[] noteSymbols) throws Exception{
   Melody melody(Note[] notes, double noteDuration){     
      return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, noteDuration));
  }
+ 
+ Melody melody(Note[] notes, double noteDuration){     
+     return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, noteDuration));
+ }
+
+ Melody melody(Note[] notes, RhythmPattern rhythmPattern){     
+     return new Melody(notes, rhythmPattern);
+ }
+ //Rhythm
+ 
+  Bar bar(String textualNotation){
+      Bar bar = new Bar(4,4);
+      bar.addRhythmEvent(textualNotation,SIXTEENTH_NOTE);
+      return bar;
+ }
+ 
+  Bar bar(String textualNotation, double subBeatDuration){
+      Bar bar = new Bar(4,4);
+      bar.addRhythmEvent(textualNotation,subBeatDuration);
+      return bar;
+ }
+ 
+ Bar bar(int nUnits, int measurementUnit, String textualNotation){
+      Bar bar = new Bar(nUnits,measurementUnit);
+      double subBeatDuration = (double)(1.0/measurementUnit);
+      bar.addRhythmEvent(textualNotation,subBeatDuration);
+      return bar;
+ }
+ 
+  Bar bar(int nUnits, int measurementUnit, String textualNotation, double subBeatDuration){
+      Bar bar = new Bar(nUnits,nUnits);
+      bar.addRhythmEvent(textualNotation,subBeatDuration);
+      return bar;
+ }
+ 
+ RhythmPattern rhythm(Bar... bars){
+ 	RhythmPattern rp = new RhythmPattern();
+ 	for (Bar b: bars){
+ 		rp.insertBar(b);
+ 	}
+ 	return rp;	
+ }
+ 
+
+
+ 
+ 

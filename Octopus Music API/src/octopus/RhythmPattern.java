@@ -36,7 +36,7 @@ public class RhythmPattern  implements Serializable, Playable,RhythmConstants{
 
 	Note pitchRhythmNote = Notes.getC();   
 
-  // Working, but not according to the new project. Bust me adpated to create a
+  // Working, but not according to the new project. Must be adpated to create a
   // RhythmPAttern from a MusicalEventSequence.
   /*public RhythmPattern(Sequence sequence) {
     OctopusReceiver r = new OctopusReceiver();
@@ -70,7 +70,7 @@ public class RhythmPattern  implements Serializable, Playable,RhythmConstants{
 
   }*/
   public RhythmPattern(){
-	  this.name = name;
+	  this.name = "No name";
   }
 
   public RhythmPattern(String name){

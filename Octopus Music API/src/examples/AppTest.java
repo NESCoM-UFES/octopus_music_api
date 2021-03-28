@@ -8,6 +8,7 @@ import octopus.Melody;
 import octopus.Musician;
 import octopus.Note;
 import octopus.Notes;
+import octopus.RhythmConstants;
 import octopus.RhythmPattern;
 import octopus.Scale;
 import octopus.communication.SynthesizerController;
@@ -20,24 +21,43 @@ public class AppTest {
 			
 			//Chord chord = Chord.getChord("X#m7(9)");
 			
-		    Scale escala = Scale.getPentatonicScale(Notes.getD(), Scale.MODE_MAJOR);
+			/*int[] intervals = {2,2,3,2,3,2,3,3,3,1,1};
+			Scale escalaX = Scale.getScale(Notes.getC(), intervals);
+			
+			Note noteTest = Notes.getC(Note.FLAT);
+			noteTest.setOctavePitch(6);
+			System.out.println(noteTest.getMidiValue());*/
+			
+			
+			/*Scale escalaC = Scale.getCromaticScale(Notes.getC(Note.FLAT));
+			System.out.println(escalaC);*/
+			
+			/*Scale escalaC = Scale.getCromaticScale(Notes.getB(Note.SHARP));
+			System.out.println(escalaC);
 		    
-		    Note[] notas = escala.getSuffledNotes(100);
+			Scale escala = Scale.getPentatonicScale(Notes.getD(), Scale.MODE_MAJOR);
+		    
+		    
+		    Note[] notas = escala.getSuffledNotes(100);*/
+		   
 		    
 			Bar bar = new Bar(4,4);
+			bar.addRhythmEvent("0-00|-00-|0+++|0+0+", RhythmConstants.SIXTEENTH_NOTE);
+			System.out.println(bar);
 			
-			bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_NOTE);
+			
+			/*bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_NOTE);
 			for (int i = 0; i < 4; i++) {
 				bar.addRhythmEvent(Bar.SIXTEENTH_NOTE, Bar.RHYTHM_EVENT_NOTE);
 			}
-			bar.addRhythmEvent(Bar.HALF_NOTE, Bar.RHYTHM_EVENT_NOTE);
+			bar.addRhythmEvent(Bar.HALF_NOTE, Bar.RHYTHM_EVENT_NOTE);*/
 			
 			RhythmPattern ritmo = new RhythmPattern();
 			ritmo.insertMark("inicio");
 			ritmo.insertBar(bar);
 			ritmo.insertReturn("inicio", 3);
 			
-			Melody melodia = new Melody(notas,ritmo );
+		/*	Melody melodia = new Melody(notas,ritmo );
 			
 			SynthesizerController synth = new LiveMidiSynthesizerController("loopMIDI Port");
 				
