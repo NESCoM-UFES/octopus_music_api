@@ -242,7 +242,7 @@ Note[] suffle(Note[] notes, int noNotes){
  }
  
   Bar bar(int nUnits, int measurementUnit, String textualNotation, double subBeatDuration){
-      Bar bar = new Bar(nUnits,nUnits);
+      Bar bar = new Bar(nUnits,measurementUnit);
       bar.addRhythmEvent(textualNotation,subBeatDuration);
       return bar;
  }
