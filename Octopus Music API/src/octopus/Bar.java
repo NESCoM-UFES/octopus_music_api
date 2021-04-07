@@ -20,7 +20,7 @@ import octopus.util.Fraction;
    *
      */
 
-public class Bar  implements Serializable,Playable, RhythmConstants{
+public class Bar  implements Serializable,Playable, RhythmConstants, RhythmPattern.Things{
 
  private static final long serialVersionUID = 1L;
 
@@ -245,19 +245,19 @@ public class Bar  implements Serializable,Playable, RhythmConstants{
     double[] accentuations = this.getAccentuations(); 
     int circularIndex = 0;  
     for (int i = 0; i < this.rhythmEvents.size(); i++) {
-       if (circularIndex <accentuations.length){
+    	//if (circularIndex <accentuations.length){
     	 if(rhythmEvents.get(i).type == RHYTHM_EVENT_NOTE){
     	    rhythmEvents.get(i).velocity = accentuations[circularIndex];
     	 }else{
     		 rhythmEvents.get(i).velocity = 0; //REST
     	 }    	 
-    	 circularIndex++;
-       }else{
+    	 circularIndex = (circularIndex+1)<accentuations.length?(circularIndex+1):0;
+     /*  }else{
     	   circularIndex = 0;
-       }
+       }*/
 	}
         
-    return (Bar.RhythmEvent[])rhythmEvents.toArray(new Bar.RhythmEvent[0]); 
+    return rhythmEvents.toArray(new Bar.RhythmEvent[0]); 
    
  }
 
@@ -393,7 +393,7 @@ public double getDuration(){
   double duration = 0.0;
 
    for (int i=0; i<this.rhythmEvents.size(); i++){
-     RhythmEvent ev = (RhythmEvent)rhythmEvents.get(i);
+     RhythmEvent ev = rhythmEvents.get(i);
      duration+=ev.duration;
    }
     return duration;
@@ -434,7 +434,7 @@ public double getDuration(){
     double smallestNote = 0.0;
 
      for (int i=0; i<this.rhythmEvents.size(); i++){
-       RhythmEvent ev = (RhythmEvent)rhythmEvents.get(i);
+       RhythmEvent ev = rhythmEvents.get(i);
        if(((ev.type==1)&&(ev.duration<smallestNote)) || (i==0)){
          smallestNote = ev.duration;
        }
@@ -452,7 +452,7 @@ public String toString(){
   String retorno = metre.toString();
   retorno+=" ( ";
   for(int i=0;i <this.rhythmEvents.size(); i++){
-    RhythmEvent rEv = (RhythmEvent)rhythmEvents.get(i);
+    RhythmEvent rEv = rhythmEvents.get(i);
     if(rEv.duration >0.0){
 	    Fraction f =  rEv.getFractionValue();
 	    
@@ -519,19 +519,20 @@ public class RhythmEvent implements Serializable{
   System.out.println(bar);
   }*/
 
- public MusicalEventSequence getMusicalEventSequence(){
+ @Override
+public MusicalEventSequence getMusicalEventSequence(){
 	MusicalEventSequence p =new MusicalEventSequence();
     double time = 0;
     for (int i = 0; i < rhythmEvents.size(); i++) {
-      double duration = ((Bar.RhythmEvent) rhythmEvents.get(i)).duration;
+      double duration = rhythmEvents.get(i).duration;
 
-      boolean tie = ( (Bar.RhythmEvent) rhythmEvents.get(i)).tie;
+      boolean tie = rhythmEvents.get(i).tie;
       
       if ((tie) && (i < rhythmEvents.size()-1)) {
         i++;        
-        duration += ((Bar.RhythmEvent)rhythmEvents.get(i)).duration;
+        duration += rhythmEvents.get(i).duration;
       }
-       int type = ( (Bar.RhythmEvent) rhythmEvents.get(i)).type;
+       int type = rhythmEvents.get(i).type;
        double velocity = type == 1 ? getAccentuation(i): 0;
        
        if(type==1){

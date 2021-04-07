@@ -1,6 +1,5 @@
 import octopus.*;
 import octopus.repl.*;
-import octopus.repl.*;
 import octopus.communication.*;
 import octopus.communication.midi.*;
 import examples.*;
@@ -186,6 +185,14 @@ Note[] notes(Melody melody) throws Exception{
 Note[] notes(String[] noteSymbols) throws Exception{
 	return Notes.getNotes(noteSymbols);
 }
+
+Note[] notes(String... noteSymbols) throws Exception{
+	return Notes.getNotes(noteSymbols);
+}
+
+Note[] notes(Note... notes) throws Exception{
+	return notes;
+}
  
 /** Utilitarian methods over array of notes**/
 NotesREPL notes = new  NotesREPL();
@@ -205,23 +212,33 @@ Note[] suffle(Note[] notes, int noNotes){
  
  //Melody
  
- Melody melody(Note[] notes){     
-     return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, WHOLE_NOTE));
+ Melody melody (Note... notes){
+  //System.out.println(notes.length);
+  return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, QUARTER_NOTE));
  }
+
+ /*Melody melody(Note[] notes){     
+     return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, QUARTER_NOTE));
+ }*/
  
   Melody melody(Note[] notes, double noteDuration){     
-     return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, noteDuration));
- }
- 
- Melody melody(Note[] notes, double noteDuration){     
      return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, noteDuration));
  }
 
  Melody melody(Note[] notes, RhythmPattern rhythmPattern){     
      return new Melody(notes, rhythmPattern);
  }
+ 
+ //Fazer depois "C++F---F+F-"
+ /*Melody melody (String melodyTextualNotation){
+       
+ }*/
  //Rhythm
  
+ BarREPL barREL(String textualNotation){
+      return BarREPL.bar(textualNotation);
+ }
+
   Bar bar(String textualNotation){
       Bar bar = new Bar(4,4);
       bar.addRhythmEvent(textualNotation,SIXTEENTH_NOTE);
@@ -255,6 +272,51 @@ Note[] suffle(Note[] notes, int noNotes){
  	return rp;	
  }
  
+  RhythmPattern rhythm(String... barsTextualNotation){
+ 	RhythmPattern rp = new RhythmPattern();
+ 	for (String t: barsTextualNotation){
+ 		rp.insertBar(bar(t));
+ 	}
+ 	return rp;	
+ }
+ 
+ RhythmREPL.Mark mark(String name){
+   return RhythmREPL.mark(name);
+ }
+ 
+ RhythmREPL.ReturnPoint returnTo(String name, int repetitions){
+   return RhythmREPL.returnTo(name,repetitions);
+ }
+ 
+ RhythmPattern rhythm(RhythmPattern.Things... rhythmThings){
+ 	RhythmPattern rp = new RhythmPattern();
+ 	for (RhythmPattern.Things item: rhythmThings){
+ 		if(item instanceof RhythmREPL.Mark) rp.insertMark(((RhythmREPL.Mark)item).name);
+ 		if(item instanceof Bar) rp.insertBar((Bar)item);
+ 		if(item instanceof RhythmREPL.ReturnPoint) rp.insertReturn(
+ 													   ((RhythmREPL.ReturnPoint)item).markName, 
+ 													   ((RhythmREPL.ReturnPoint)item).repetitions); 		
+ 	}
+ 	return rp;	
+ }
+ 
+
+ 
+   RhythmPattern rhythm(String barTextualNotation, int repetitions){
+ 	RhythmPattern rp = new RhythmPattern();
+ 	for(int i = 0; i< repetitions; i++){
+	 	rp.insertBar(bar(barTextualNotation));
+	 }
+ 	
+ 	return rp;	
+ }
+ RhythmPattern rhythm(Bar[] bars, int repetitions){
+ 	RhythmPattern rp = new RhythmPattern();
+ 	rp.insertMark("beginning");
+ 	rp.insertBar(bars);
+    rp.insertReturn("beginning",repetitions);
+ 	return rp;	
+ }
 
 
  

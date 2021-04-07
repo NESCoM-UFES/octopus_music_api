@@ -88,7 +88,7 @@ public class RhythmPattern  implements Serializable, Playable,RhythmConstants{
 	 
 	  Bar bM = new Bar(nUnit,nMeasurement);
       for (int i=0; i<nMeasurement; i++){
-    	  bM.addRhythmEvent((double)(1.0/nMeasurement),1);
+    	  bM.addRhythmEvent(1.0/nMeasurement,1);
       }
 	 
 	 insertMark("beginning");
@@ -139,7 +139,7 @@ public class RhythmPattern  implements Serializable, Playable,RhythmConstants{
            }
           }
         
-      return (Bar[])barsTemp.toArray(new Bar[0]);
+      return barsTemp.toArray(new Bar[0]);
     }
   
   
@@ -164,7 +164,7 @@ public class RhythmPattern  implements Serializable, Playable,RhythmConstants{
 	        	   if ( returnPoint.counter > 0) {
 	        		
 	        		   returnPoint.decrease();
-	                   e = (Integer)marks.get(returnPoint.name).intValue();
+	                   e = marks.get(returnPoint.name).intValue();
 	               
 	                 }
 	             else {
@@ -177,7 +177,7 @@ public class RhythmPattern  implements Serializable, Playable,RhythmConstants{
 
 	         }
 	     }
-	       return (Bar[])barsTemp.toArray(new Bar[0]);
+	       return barsTemp.toArray(new Bar[0]);
 		}
  
  /**
@@ -194,7 +194,7 @@ public class RhythmPattern  implements Serializable, Playable,RhythmConstants{
 	 for (int i = 0; i < bars.length; i++) {
 		 rhythmEvents.addAll(Arrays.asList(bars[i].getRhythmEvents()));
 	}
-	return (Bar.RhythmEvent[])rhythmEvents.toArray(new Bar.RhythmEvent[0]);
+	return rhythmEvents.toArray(new Bar.RhythmEvent[0]);
 	 	  
   }
  
@@ -211,7 +211,7 @@ public class RhythmPattern  implements Serializable, Playable,RhythmConstants{
   Bar.RhythmEvent[] rhythmEvents = getRhythmEvents(false);
  //Merge the duration of tied RhythmEvents into a new RhythmEvents;
 	   for (int i = 0; i < rhythmEvents.length; i++) {
-	    	 Bar.RhythmEvent rhythmEvent =(Bar.RhythmEvent) rhythmEvents[i];
+	    	 Bar.RhythmEvent rhythmEvent =rhythmEvents[i];
 	    	 
 	    	 if ((rhythmEvent.tie) && (i < rhythmEvents.length-1)) {	    		
 	    		 rhythmEvents[i].duration += rhythmEvents[i+1].duration;	
@@ -223,7 +223,7 @@ public class RhythmPattern  implements Serializable, Playable,RhythmConstants{
 	   }
 	
 	    	 
-	return (Bar.RhythmEvent[])newRhythmEvents.toArray(new Bar.RhythmEvent[0]);
+	return newRhythmEvents.toArray(new Bar.RhythmEvent[0]);
           
  }
 
@@ -308,7 +308,8 @@ public class RhythmPattern  implements Serializable, Playable,RhythmConstants{
     }
   }
 
-  public String toString(){
+  @Override
+public String toString(){
     int i =0;
     String retorno = "";
     while(i<bars.size()){
@@ -388,11 +389,14 @@ public class RhythmPattern  implements Serializable, Playable,RhythmConstants{
 
 }
 
+  public interface Things {
+	  
+  }
 
   /**
     *
    */
-  protected class ReturnPoint implements Serializable{
+  protected class ReturnPoint implements Serializable, RhythmPattern.Things{
     /**
 	 * 
 	 */
@@ -524,11 +528,13 @@ public static RhythmPattern getConstantRhythmPattern(int nNotes, double noteDura
 
 	  return rhythmPatternSequence;	
 }*/
+@Override
 public MusicalEventSequence getMusicalEventSequence() {
 
 Note[] notes = {this.pitchRhythmNote};
 
 Melody melody = new Melody(notes, this);
+
 melody.setCircularListNotes(true);
 
 return melody.getMusicalEventSequence();
