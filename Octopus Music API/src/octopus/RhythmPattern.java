@@ -389,6 +389,11 @@ public String toString(){
 
 }
 
+  /**
+   * This interface is just to allow the use of varargs in REPL  mode. Bar, Mark, and ReturnPoint must implement is.
+   * @author llcos
+   *
+   */
   public interface Things {
 	  
   }

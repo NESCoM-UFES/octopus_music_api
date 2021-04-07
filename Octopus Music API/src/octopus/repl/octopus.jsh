@@ -62,7 +62,7 @@ int random(int min, int max){
 
 //Library
 
-Library lib = new Library();
+//Library lib = new Library();
 
 //MIDI
 
