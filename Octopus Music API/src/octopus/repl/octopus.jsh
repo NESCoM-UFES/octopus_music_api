@@ -307,6 +307,14 @@ Note[] suffle(Note[] notes, int noNotes){
  	
  	return rp;	
  }
+  RhythmPattern rhythm(Bar bar, int repetitions){
+ 	RhythmPattern rp = new RhythmPattern();
+ 	rp.insertMark("beginning");
+ 	rp.insertBar(bar);
+    rp.insertReturn("beginning",repetitions);
+ 	return rp;	
+ }
+ 
  RhythmPattern rhythm(Bar[] bars, int repetitions){
  	RhythmPattern rp = new RhythmPattern();
  	rp.insertMark("beginning");
