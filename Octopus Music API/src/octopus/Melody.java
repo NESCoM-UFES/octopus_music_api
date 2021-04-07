@@ -55,6 +55,7 @@ public class Melody  extends MusicalComponent implements Playable{
 
 
 
+	@Override
 	public MusicalEventSequence getMusicalEventSequence() {
 		return this.getMusicalEventSequence(getNotes(), 
 				rhythmPattern.getRhythmEvents(true),
@@ -62,7 +63,7 @@ public class Melody  extends MusicalComponent implements Playable{
 	}
 
 	public Note[] getNotes(){
-		return (Note[])notes.toArray(new Note[0]);
+		return notes.toArray(new Note[0]);
 	}
 
 	/**
@@ -110,7 +111,7 @@ public class Melody  extends MusicalComponent implements Playable{
 	}
 	
 	public void transpose(int semitones) throws NoteException{
-		Note[] notes = (Note[])this.notes.toArray(new Note[0]);
+		Note[] notes = this.notes.toArray(new Note[0]);
 		notes = Notes.transpose(notes, semitones);
 		this.notes = new Vector(Arrays.asList(notes));
 	}

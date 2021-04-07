@@ -2,7 +2,6 @@
 
 package octopus;
 
-import java.util.Iterator;
 import java.util.Vector;
 
 import octopus.communication.MusicalEventSequence;
@@ -314,6 +313,7 @@ public class Scale implements Playable{ //Diatonic
 
 	}
 
+	@Override
 	public String toString() {
 		String retorno = "";
 		retorno+=(
@@ -343,6 +343,7 @@ public class Scale implements Playable{ //Diatonic
 		return notes[degree-1];
 	}
 
+	@Override
 	public MusicalEventSequence getMusicalEventSequence() {
 		RhythmPattern rhythmPattern = RhythmPattern.getConstantRhythmPattern(notes.length, RhythmConstants.QUARTER_NOTE);  
 

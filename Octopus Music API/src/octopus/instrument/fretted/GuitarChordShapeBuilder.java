@@ -151,7 +151,7 @@ protected FrettedInstrument instrument;
       if (basicChordShapes.length >1){
 	Vector<GuitarChordShape> repTemp =new Vector<GuitarChordShape>(Arrays.asList(basicChordShapes));
 	repTemp.remove(similarChordShape);
-	basicChordShapes =(GuitarChordShape[]) repTemp.toArray(new GuitarChordShape[0]);
+	basicChordShapes =repTemp.toArray(new GuitarChordShape[0]);
 	similarChordShape = processor.getSimilarChordShape(previousChordShape,basicChordShapes);
       }else{
 	break;
@@ -212,7 +212,7 @@ protected FrettedInstrument instrument;
     if (basicChordShapes.length >1){
       Vector<GuitarChordShape> repTemp =new Vector<GuitarChordShape>(Arrays.asList(basicChordShapes));
       repTemp.remove(similarChordShape);
-      basicChordShapes =(GuitarChordShape[]) repTemp.toArray(new GuitarChordShape[0]);
+      basicChordShapes =repTemp.toArray(new GuitarChordShape[0]);
       similarChordShape = processor.getSimilarChordShape(previousChordShape,basicChordShapes);
     }else{
       break;
@@ -398,7 +398,7 @@ public ChordShape[] getChordShapes(Chord chord, boolean isSupressionComputated) 
     nStrings--;
    }
 
-  GuitarChordShape[] arrayReturn = (GuitarChordShape[])chordShapes.toArray(new GuitarChordShape[0]);
+  GuitarChordShape[] arrayReturn = chordShapes.toArray(new GuitarChordShape[0]);
    if((chordShapes.size() ==0)&&((Boolean)options.get("supressFifth")).booleanValue()&& isSupressionComputated){
      chord.remove5th();
      arrayReturn = (GuitarChordShape[])getChordShapes(chord,false);
@@ -515,7 +515,8 @@ private void assembleChordShape(Chord chord, ArrayList<Note> notes, GuitarChordS
    * Sort the chord shapes byt their fret average.
    */
   class FirstChordShapeComparator implements Comparator<Object> {
-    public int compare(Object o1, Object o2) {
+    @Override
+	public int compare(Object o1, Object o2) {
       GuitarChordShape rep1 = (GuitarChordShape) o1;
       GuitarChordShape rep2 = (GuitarChordShape) o2;
       int retorno = 0;

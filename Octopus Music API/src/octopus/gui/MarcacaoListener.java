@@ -14,7 +14,8 @@ import javax.swing.event.ListSelectionListener;
     this.table = table;
    }
 
-    public void valueChanged(ListSelectionEvent e) {
+    @Override
+	public void valueChanged(ListSelectionEvent e) {
           //Ignore extra messages.
            if (e.getValueIsAdjusting()) return;
 
@@ -65,7 +66,7 @@ import javax.swing.event.ListSelectionListener;
                        y1 = colunas[0];
                        y2 = colunas[colunas.length -1];
                      }*/
-                     if (model.primeiraColunaSelecionada == colunas[0] ){ //esquerda=>direita
+                     if (MusicalTableModel.primeiraColunaSelecionada == colunas[0] ){ //esquerda=>direita
                        y1 = colunas[0];
                        y2 = colunas[colunas.length -1];
                       }else{  //direita=>esquerda
@@ -82,7 +83,7 @@ import javax.swing.event.ListSelectionListener;
                         //model.moveSelectedMusicalEventFrame(y2);
                         //model.selectedEventFrames.clear();
 			model.clearSelection();
-                        model.primeiraColunaSelecionada = -1;
+                        MusicalTableModel.primeiraColunaSelecionada = -1;
                       }
 		      opType = 5;
                      break;

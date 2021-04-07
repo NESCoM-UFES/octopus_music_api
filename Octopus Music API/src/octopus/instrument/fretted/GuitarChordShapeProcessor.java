@@ -105,7 +105,7 @@ ChordShapeProperties chordShapeProperties = new ChordShapeProperties();
 
 
       retorno.addAll(computedChordShapes.values());
-      GuitarChordShape[]retornoTemp = (GuitarChordShape[])computedChordShapes.values().toArray(new GuitarChordShape[0]);
+      GuitarChordShape[]retornoTemp = computedChordShapes.values().toArray(new GuitarChordShape[0]);
      // GuitarChordShape[]retornoTemp = (GuitarChordShape[])retorno.toArray(new GuitarChordShape[0]);
       Arrays.sort(retornoTemp);
 
@@ -572,7 +572,8 @@ private  String getIndentation(int level){
  */
 class SimilarityComparator implements Comparator<Object>{
 
-  public int compare(Object o1, Object o2){
+  @Override
+public int compare(Object o1, Object o2){
     GuitarChordShape rep1 = (GuitarChordShape) o1;
     GuitarChordShape rep2 = (GuitarChordShape) o2;
     int retorno = 0;

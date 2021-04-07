@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.ListModel;
+import javax.swing.SwingConstants;
 
 
 
@@ -112,13 +113,14 @@ public class TimeEventPanel extends JPanel  {
 
     //Painel de Ferramentas
     //toolBar = new JToolBar("Ferramentas",JToolBar.HORIZONTAL);
-    toolBar = new JToolBar("Ferramentas",JToolBar.VERTICAL);
+    toolBar = new JToolBar("Ferramentas",SwingConstants.VERTICAL);
     configuraToolBar();
     //configuraTabela();
 
 
    this.addComponentListener( new ComponentAdapter(){
-     public void componentResized(ComponentEvent e){
+     @Override
+	public void componentResized(ComponentEvent e){
       //System.out.println("dimensionei");
       dimensionarTabela();
      }
@@ -142,7 +144,8 @@ public class TimeEventPanel extends JPanel  {
 
     JToggleButton btInsert = new JToggleButton("Insert", new ImageIcon(".\\images\\insert.gif"));
     btInsert.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      @Override
+	public void actionPerformed(ActionEvent e) {
         actionInsert();
       }
     });
@@ -152,7 +155,8 @@ public class TimeEventPanel extends JPanel  {
 
     JToggleButton btDelete = new JToggleButton("Delete", new ImageIcon(".\\images\\delete.gif"));
     btDelete.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
           TimeEventPanel.selectedTool = 1;
           Toolkit toolkit = Toolkit.getDefaultToolkit();
           Cursor cursor = toolkit.createCustomCursor(new ImageIcon(".\\images\\delete.gif").getImage(),new Point(0,0),"MyCur");
@@ -162,7 +166,8 @@ public class TimeEventPanel extends JPanel  {
 
     JToggleButton btSplit = new JToggleButton("Split", new ImageIcon(".\\images\\split.gif"));
     btSplit.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
           TimeEventPanel.selectedTool = 2;
           Toolkit toolkit = Toolkit.getDefaultToolkit();
           Cursor cursor = toolkit.createCustomCursor(new ImageIcon(".\\images\\split.gif").getImage(),new Point(0,0),"MyCur");
@@ -173,7 +178,8 @@ public class TimeEventPanel extends JPanel  {
 
     JToggleButton btMove = new JToggleButton("Move", new ImageIcon(".\\images\\move.gif"));
     btMove.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
           TimeEventPanel.selectedTool = 5;
           Toolkit toolkit = Toolkit.getDefaultToolkit();
 //          Cursor cursor = toolkit.createCustomCursor(new ImageIcon(".\\images\\move.gif").getImage(),new Point(0,0),"MyCur");
@@ -185,7 +191,8 @@ public class TimeEventPanel extends JPanel  {
 
     JToggleButton btSelect = new JToggleButton("Select", new ImageIcon(".\\images\\select.gif"));
     btSelect.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
           TimeEventPanel.selectedTool = 6;
           Toolkit toolkit = Toolkit.getDefaultToolkit();
           Cursor cursor = toolkit.createCustomCursor(new ImageIcon(".\\images\\select.gif").getImage(),new Point(0,0),"MyCur");
@@ -195,7 +202,8 @@ public class TimeEventPanel extends JPanel  {
 
     JToggleButton btZoomIn = new JToggleButton("Zoom In", new ImageIcon(".\\images\\zoom.gif"));
     btZoomIn.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
           TimeEventPanel.selectedTool = 3;
           Toolkit toolkit = Toolkit.getDefaultToolkit();
           Cursor cursor = toolkit.createCustomCursor(new ImageIcon(".\\images\\zoom.gif").getImage(),new Point(0,0),"MyCur");
@@ -205,7 +213,8 @@ public class TimeEventPanel extends JPanel  {
 
     JToggleButton btZoomOut = new JToggleButton("Zoom Out", new ImageIcon(".\\images\\zoom.gif"));
     btZoomOut.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
           TimeEventPanel.selectedTool = 4;
           Toolkit toolkit = Toolkit.getDefaultToolkit();
           Cursor cursor = toolkit.createCustomCursor(new ImageIcon(".\\images\\zoom.gif").getImage(),new Point(0,0),"MyCur");
@@ -251,8 +260,10 @@ public class TimeEventPanel extends JPanel  {
 
       ListModel lm = new AbstractListModel() {
         //String headers[] = {"6", "5", "4", "3", "2", "1"}; // Talvez inclua nome das notas
-        public int getSize() { return qtNotasSimultaneas; }
-        public Object getElementAt(int index) {
+        @Override
+		public int getSize() { return qtNotasSimultaneas; }
+        @Override
+		public Object getElementAt(int index) {
           return  String.valueOf(qtNotasSimultaneas - index);
         }
     };
@@ -288,7 +299,8 @@ public class TimeEventPanel extends JPanel  {
     frame.setLocation((d.width - frame.getSize().width) / 2, (d.height - frame.getSize().height) / 2);
     frame.setVisible(true);
     frame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
+            @Override
+			public void windowClosing(WindowEvent e) {
                 //timeEventPanel1.imprimeNotacao();
                 System.exit(0);
             }

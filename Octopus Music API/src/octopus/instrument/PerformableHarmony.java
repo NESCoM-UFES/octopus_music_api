@@ -38,9 +38,9 @@ public class PerformableHarmony
 
   public ChordShape getChordShape(Chord chord){
     for(int i = 0; i < chords.size(); i++){
-      Chord chordArray = (Chord)chords.get(i);
+      Chord chordArray = chords.get(i);
      if(chordArray==chord){
-       return (ChordShape)chordShapes.get(chord);
+       return chordShapes.get(chord);
      }
    }
    return null;
@@ -51,7 +51,7 @@ public class PerformableHarmony
  }
  @Override
 protected void removeChord(int index){
-   Chord  chord  = (Chord)chords.get(index);
+   Chord  chord  = chords.get(index);
    chordShapes.remove(chord);
    chords.remove(index);
    arpeggios.remove(new Integer(index));
@@ -62,12 +62,12 @@ protected void removeChord(int index){
 public String toString(){
   String retorno = "";
   for(int i=0;i<chords.size();i++){
-    retorno += ((Chord)chords.get(i)).toString();
+    retorno += chords.get(i).toString();
     retorno += "<" + chordShapes.get(chords.get(i)) + ">";
 	   if(arpeggios.get(chords.get(i))==null){
 		   retorno += "(Arpeggio not specified)";
 	   }else{	      
-		   retorno +=  "(" + ((Arpeggio)arpeggios.get(chords.get(i))).getName() + ")";
+		   retorno +=  "(" + arpeggios.get(chords.get(i)).getName() + ")";
 	   }   
   }
   return retorno;
@@ -79,7 +79,7 @@ public String toString(){
 public boolean isComplete(){
 
   for (int i = 0; i < chords.size(); i++) {
-    Chord chord = (Chord)chords.get(i);
+    Chord chord = chords.get(i);
     if(!chordShapes.containsKey(chord)){
       return false;
     }

@@ -14,6 +14,7 @@ public interface Playable {
 
   //public Map getPlayableAttributes();
 	
-  public String toString();	
+  @Override
+public String toString();	
 
 }

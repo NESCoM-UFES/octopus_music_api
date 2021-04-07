@@ -12,7 +12,6 @@ import octopus.Notes;
 import octopus.RhythmPattern;
 import octopus.communication.SynthesizerController;
 import octopus.communication.midi.MidiSynthesizerController;
-import octopus.communication.midi.OctopusMidiSystem;
 
 public class PlayingNotesTutorial {
 	

@@ -1,8 +1,4 @@
 package examples;
-import java.io.File;
-
-import javax.swing.JFileChooser;
-
 import octopus.Bar;
 import octopus.Melody;
 import octopus.Musician;
@@ -10,10 +6,6 @@ import octopus.Note;
 import octopus.Notes;
 import octopus.RhythmConstants;
 import octopus.RhythmPattern;
-import octopus.Scale;
-import octopus.communication.SynthesizerController;
-import octopus.communication.midi.LiveMidiSynthesizerController;
-import octopus.communication.midi.MidiSynthesizerController;
 
 public class AppTest {
 	public static void main(String[] args) {
@@ -39,11 +31,14 @@ public class AppTest {
 		    
 		    
 		    Note[] notas = escala.getSuffledNotes(100);*/
-		   
+			
+			String[] notes = {"C", "D", "E", "F", "F", "F"};
+			Note[] notas = Notes.getNotes(notes);		   
 		    
 			Bar bar = new Bar(4,4);
-			bar.addRhythmEvent("0-00|-00-|0+++|0+0+", RhythmConstants.SIXTEENTH_NOTE);
+			bar.addRhythmEvent("----0+++0+++0+++0+++0+--0+--0+0+0+0+", RhythmConstants.SIXTEENTH_NOTE);
 			System.out.println(bar);
+			
 			
 			
 			/*bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_NOTE);
@@ -53,22 +48,24 @@ public class AppTest {
 			bar.addRhythmEvent(Bar.HALF_NOTE, Bar.RHYTHM_EVENT_NOTE);*/
 			
 			RhythmPattern ritmo = new RhythmPattern();
-			ritmo.insertMark("inicio");
+			//ritmo.insertMark("inicio");
 			ritmo.insertBar(bar);
-			ritmo.insertReturn("inicio", 3);
+			//ritmo.insertReturn("inicio", 3);
 			
-		/*	Melody melodia = new Melody(notas,ritmo );
+			Melody melodia = new Melody(notas,ritmo );
+			//melodia.setCircularListNotes(false);
 			
-			SynthesizerController synth = new LiveMidiSynthesizerController("loopMIDI Port");
+			//SynthesizerController synth = new LiveMidiSynthesizerController("loopMIDI Port");
 				
-				
-		    //musician = new Musician(synth);
+			Musician musico = new  Musician();	
+		    //musico = new Musician(synth);
 			
 			
-			Musician musico = new  Musician(synth);
 			
-			System.out.println(melodia);
 			
+			//System.out.println(melodia);
+			
+			//musico.play(ritmo);
 			musico.play(melodia);
 			
 			/*musico.play(Notes.getA());

@@ -442,7 +442,8 @@ public class Chord implements Serializable,Playable{
 		 return acordeRetorno;
 	 }
 
-	 public MusicalEventSequence getMusicalEventSequence() {
+	 @Override
+	public MusicalEventSequence getMusicalEventSequence() {
 
 		 double velocity=1;
 		 double delay=0.2;
@@ -515,7 +516,7 @@ I think I've done this before...will check and come back if not.
 
 		 for(int i=0;i<arpeggio.voices.size();i++){ //para cada voz do arpeggio
 			 double time = 0;
-			 RhythmPattern rhythmPattern = (RhythmPattern) arpeggio.voices.get(i);
+			 RhythmPattern rhythmPattern = arpeggio.voices.get(i);
 			 Note[] chordNotes = getNotes();
 			 Bar[] bars = rhythmPattern.getBars();
 			 for (int j = 0; j < bars.length; j++) {;

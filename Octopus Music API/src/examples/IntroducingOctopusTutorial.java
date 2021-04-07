@@ -11,6 +11,7 @@ import octopus.ChordNotationException;
 import octopus.Harmony;
 import octopus.Musician;
 import octopus.NoteException;
+import octopus.RhythmConstants;
 import octopus.RhythmPattern;
 import octopus.communication.midi.MidiSynthesizerController;
 import octopus.communication.midi.OctopusMidiSystem;
@@ -56,7 +57,7 @@ public class IntroducingOctopusTutorial {
 	      for(int i = 0; i<4; i++){
 	        bars[i] = new Bar(4,8);
 	        if(i%2==0){
-		        bars[i].addSingleRhythmEvent(Bar.EIGHT_NOTE,Bar.RHYTHM_EVENT_NOTE,i);
+		        bars[i].addSingleRhythmEvent(RhythmConstants.EIGHT_NOTE,RhythmConstants.RHYTHM_EVENT_NOTE,i);
 	        }
 	        gpr.insertBar(bars[i],(i+1));
 	      }

@@ -113,7 +113,8 @@ private String symbol; // Exemplo para um intervalo Segunda Aumentada: "#2"
     return false;      
   }    
   
-  public String toString(){
+  @Override
+public String toString(){
         return this.name + "(" +this.symbol +")";
   }
   

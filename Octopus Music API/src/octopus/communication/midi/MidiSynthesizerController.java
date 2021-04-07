@@ -105,7 +105,8 @@ public void closeDevices() throws MidiUnavailableException {
 }
 
   /*Send to outputDevice*/
-  public void play(MusicalEvent musicalEvent) throws MusicPerformanceException{
+  @Override
+public void play(MusicalEvent musicalEvent) throws MusicPerformanceException{
     try {
 
       int midiProgram = 1;
@@ -167,7 +168,8 @@ public void closeDevices() throws MidiUnavailableException {
 	  return s;
   }
   
-  public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceException
+  @Override
+public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceException
        {
 
         try {
@@ -232,7 +234,7 @@ public void closeDevices() throws MidiUnavailableException {
           seqTransmitter.setReceiver(synthReceiver);
           for (int i = 0; i < receivers.size(); i++) {
             seqTransmitter = sequencer.getTransmitter();
-            seqTransmitter.setReceiver( (Receiver) receivers.get(i));
+            seqTransmitter.setReceiver( receivers.get(i));
           }
 
           //Playing inicialization
@@ -265,7 +267,8 @@ public void closeDevices() throws MidiUnavailableException {
   
 
 
- public void stop(){
+ @Override
+public void stop(){
  try {
    if(sequencer!=null){
    if( sequencer.isRunning()){

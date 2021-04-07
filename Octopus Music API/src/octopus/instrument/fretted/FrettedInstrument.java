@@ -109,7 +109,7 @@ public String toString(){
        fret+=12; // 12 semitons
      }
    }
-     return (GuitarNotePosition[])guitarNotePositions.toArray(new GuitarNotePosition[0]);
+     return guitarNotePositions.toArray(new GuitarNotePosition[0]);
  }
 
 

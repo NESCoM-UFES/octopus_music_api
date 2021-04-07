@@ -44,7 +44,7 @@ public class MusicalEventSequence {//implements Playable{
 
  public void delayEvents(double time){
    for (Enumeration<MusicalEvent> e = musicalEvents.elements() ; e.hasMoreElements() ;) {
-     ((MusicalEvent)(e.nextElement())).timing+=time;
+     (e.nextElement()).timing+=time;
   }
  }
  
@@ -58,8 +58,8 @@ public class MusicalEventSequence {//implements Playable{
 	 for (int i = 0; i < smallerArray; i++) {
 		 int timesTwo = i*2;
 		 if(timesTwo<musicalEvents.size()){
-			 ((MusicalEvent)musicalEvents.get(timesTwo)).note = notes[i]; //note on
-			 ((MusicalEvent)musicalEvents.get(timesTwo+1)).note = notes[i];//note off
+			 musicalEvents.get(timesTwo).note = notes[i]; //note on
+			 musicalEvents.get(timesTwo+1).note = notes[i];//note off
 	     }
 	 }
  }
@@ -69,7 +69,7 @@ public class MusicalEventSequence {//implements Playable{
 
    for (int i = 0; i < musicalEvents.size(); i++) {
      String line = "";
-     MusicalEvent me =((MusicalEvent)musicalEvents.get(i));
+     MusicalEvent me =(musicalEvents.get(i));
      double startPos = (me.timing / resolution);
      double endPos = me.duration/resolution;
      if(me.velocity!=0){
@@ -87,7 +87,7 @@ public class MusicalEventSequence {//implements Playable{
  }
 
   public MusicalEvent[] getMusicalEvents(){
-    return (MusicalEvent[])musicalEvents.toArray(new MusicalEvent[0]);
+    return musicalEvents.toArray(new MusicalEvent[0]);
   }
 
   /*public static void main(String[] args) {

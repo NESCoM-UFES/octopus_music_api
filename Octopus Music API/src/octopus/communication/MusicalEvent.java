@@ -109,7 +109,8 @@ public String toString(){
     //MusicalEvent musicalevent = new MusicalEvent();
   }
 
-  public int compareTo(Object o) {
+  @Override
+public int compareTo(Object o) {
     if(((MusicalEvent)o).timing < this.timing){
       return 1;
     }

@@ -123,6 +123,7 @@ public class Music implements Playable{
 			this.timeStamp = timeStamp;
 		}
 
+		@Override
 		public int compareTo(Object obj2){
 			if(timeStamp == ((TimelineElement)obj2).timeStamp){
 				return 0;
@@ -136,6 +137,7 @@ public class Music implements Playable{
 		}
 	}
 
+	@Override
 	public MusicalEventSequence getMusicalEventSequence() {
 		MusicalEventSequence musicMusicalEventSequence = new  MusicalEventSequence();
 		Music.TimelineElement[] elements = getTimelineElements();

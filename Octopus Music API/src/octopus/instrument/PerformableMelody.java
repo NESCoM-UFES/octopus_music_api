@@ -45,7 +45,7 @@ public class PerformableMelody
 
   public InstrumentNotePosition getNotePosition(Note note){
     if(notesPositions.containsKey(note)){
-      return (InstrumentNotePosition) notesPositions.get(note);
+      return notesPositions.get(note);
     }
     return null;
   }
@@ -63,7 +63,7 @@ public class PerformableMelody
 public String toString(){
   String pMelody = "";
   for (int i = 0; i < notes.size(); i++) {
-    Note note = (Note)notes.get(i);
+    Note note = notes.get(i);
     GuitarNotePosition notePosition = (GuitarNotePosition)notesPositions.get(note);
     pMelody += note.getSymbol() + " " + notePosition.toString() + "\n";
   }

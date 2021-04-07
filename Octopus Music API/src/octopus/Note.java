@@ -118,6 +118,7 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 		return retorno;
 	}
 
+	@Override
 	public int compareTo(Object o) {
 		int midiValue = (((Note)o).getMidiValue());
 		if(this.getMidiValue() < midiValue){
@@ -206,6 +207,7 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 	 * when the note needs to be heard out of musical context (just to see
 	 * how it sounds). Duration = WHOLE_NOTE, Dynamics = DYNAMIC_MEZZO_FORTE
 	 */
+	@Override
 	public MusicalEventSequence getMusicalEventSequence() {
 		return getMusicalEventSequence(RhythmConstants.WHOLE_NOTE,RhythmConstants.DYNAMIC_MEZZO_FORTE);
 	}
@@ -318,6 +320,7 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 		}
 	}
 
+	@Override
 	public String toString(){
 		return this.symbol + this.octavePitch;
 	}

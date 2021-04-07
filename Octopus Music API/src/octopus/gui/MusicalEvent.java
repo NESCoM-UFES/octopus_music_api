@@ -47,7 +47,7 @@ public class MusicalEvent implements Serializable {
       //float v1 = ((float)(musicalEventFrames[0].colunaInicial + 1)/(float)model.temposCompasso);
       float v1 = ((float)(musicalEventFrames[0].colunaInicial + 1)/(float)temposCompasso);
       float x = (v1 - (int)v1);
-      compasso = (int)(x==0.0?(int)v1:(int)v1+1);
+      compasso = x==0.0?(int)v1:(int)v1+1;
     }
     return compasso;
   }
@@ -69,7 +69,8 @@ public class MusicalEvent implements Serializable {
     return startTime;
   }
 
-  public String toString(){
+  @Override
+public String toString(){
     return "Linha:" + musicalEventFrames[0].linha + " Col. inic." + musicalEventFrames[0].colunaInicial+ " Col. final." + musicalEventFrames[0].colunaFinal;
   }
 

@@ -84,7 +84,7 @@ public class Harmony extends MusicalComponent implements Playable {
 
 	public void setDefaultArpeggio (Arpeggio arpeggio){
 		for (int i = 0; i < chords.size(); i++) {
-			Chord chord = (Chord)chords.get(i);
+			Chord chord = chords.get(i);
 			if(!arpeggios.containsKey(chord)){
 				arpeggios.put(chord,arpeggio);
 			}
@@ -119,7 +119,7 @@ public class Harmony extends MusicalComponent implements Playable {
 
 	public void removeChord(Chord chord){
 		for(int i = 0; i < chords.size(); i++){
-			Chord chordArray = (Chord)chords.get(i);
+			Chord chordArray = chords.get(i);
 			if(chordArray==chord){
 				removeChord(i);
 				break;
@@ -157,12 +157,12 @@ public class Harmony extends MusicalComponent implements Playable {
 
 
 	public Chord[] getChords(){
-		return (Chord[]) chords.toArray(new Chord[0]);
+		return chords.toArray(new Chord[0]);
 	}
 
 	public Arpeggio getArpeggio(Chord chord){
 
-		return (Arpeggio)arpeggios.get(chord);
+		return arpeggios.get(chord);
 	}
 
 	public void setRhythmPattern(RhythmPattern rhythmPattern ){
@@ -177,15 +177,16 @@ public class Harmony extends MusicalComponent implements Playable {
 	public String toString(){
 		String retorno = "";
 		for(int i=0;i<chords.size();i++){
-			retorno += ((Chord)chords.get(i)).getChordName();
+			retorno += chords.get(i).getChordName();
 
 			if (arpeggios.get(chords.get(i)) != null){    	 
-				retorno +=  "(" + ((Arpeggio)arpeggios.get(chords.get(i))).getName() + ")";
+				retorno +=  "(" + arpeggios.get(chords.get(i)).getName() + ")";
 			}
 		}
 		return retorno;
 	}
 
+	@Override
 	public MusicalEventSequence getMusicalEventSequence(){
 		MusicalEventSequence harmonyMusicalEventSequence= new MusicalEventSequence();
 

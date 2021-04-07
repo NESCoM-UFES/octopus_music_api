@@ -31,7 +31,8 @@ public class InstumentString implements Serializable,Comparable<Object>{
   public int getStringNumber(){ return stringNo;}
 
 //Testar
-  public int compareTo(Object o) {
+  @Override
+public int compareTo(Object o) {
     if(((InstumentString)o).getStringNumber()>stringNo){
       return -1;
     }else{

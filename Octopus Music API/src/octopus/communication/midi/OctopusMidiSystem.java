@@ -90,7 +90,7 @@ public class OctopusMidiSystem //extends MidiSystem
 			}
 		}
 
-		MidiDevice[] deviceArray = (MidiDevice[]) devices.toArray(new MidiDevice[0]);
+		MidiDevice[] deviceArray = devices.toArray(new MidiDevice[0]);
 		return deviceArray;
 
 	}

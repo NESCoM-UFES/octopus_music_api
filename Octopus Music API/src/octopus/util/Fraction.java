@@ -182,7 +182,8 @@ public Object clone() { return new Fraction(this); }
    * reflecting whether this Fraction is less, equal or greater than
    * the value of Fraction other.
    **/
-  public int compareTo(Object other) {
+  @Override
+public int compareTo(Object other) {
     Fraction b = (Fraction)(other);
     long an = numerator();
     long ad = denominator();

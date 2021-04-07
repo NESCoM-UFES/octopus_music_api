@@ -60,7 +60,7 @@ public class LiveMidiSynthesizerController  implements SynthesizerController {
      seqTransmitter.setReceiver(synthReceiver);
      for (int i = 0; i < receivers.size(); i++) {
        seqTransmitter = sequencer.getTransmitter();
-       seqTransmitter.setReceiver( (Receiver) receivers.get(i));
+       seqTransmitter.setReceiver( receivers.get(i));
      }
 
   }
@@ -92,7 +92,7 @@ public class LiveMidiSynthesizerController  implements SynthesizerController {
    seqTransmitter.setReceiver(synthReceiver);
    for (int i = 0; i < receivers.size(); i++) {
      seqTransmitter = sequencer.getTransmitter();
-     seqTransmitter.setReceiver( (Receiver) receivers.get(i));
+     seqTransmitter.setReceiver( receivers.get(i));
    }
 
 }
@@ -129,7 +129,8 @@ public void closeDevices() throws MidiUnavailableException {
 }
 
   /*Send to outputDevice*/
-  public void play(MusicalEvent musicalEvent) throws MusicPerformanceException{
+  @Override
+public void play(MusicalEvent musicalEvent) throws MusicPerformanceException{
     try {
 
       int midiProgram = 1;
@@ -153,7 +154,8 @@ public void closeDevices() throws MidiUnavailableException {
 
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
 public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceException
        {
 
@@ -235,7 +237,8 @@ public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceE
 
 
 
- public void stop(){
+ @Override
+public void stop(){
  try {
    if(sequencer!=null){
    if( sequencer.isRunning()){

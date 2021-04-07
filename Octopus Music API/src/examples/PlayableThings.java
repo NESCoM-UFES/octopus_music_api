@@ -14,6 +14,7 @@ import octopus.Note;
 import octopus.NoteException;
 import octopus.Notes;
 import octopus.OMC;
+import octopus.RhythmConstants;
 import octopus.RhythmPattern;
 import octopus.Scale;
 
@@ -25,10 +26,10 @@ public class PlayableThings implements OMC {
 
 	public static Bar getBarToPlay(){ 
 		 Bar bar = new Bar(4,4);
-		    bar.addRhythmEvent(Bar.QUARTER_NOTE,Bar.RHYTHM_EVENT_NOTE);
-		    bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_NOTE);
-		    bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_REST);
-		    bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_NOTE);
+		    bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE,RhythmConstants.RHYTHM_EVENT_NOTE);
+		    bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE, RhythmConstants.RHYTHM_EVENT_NOTE);
+		    bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE, RhythmConstants.RHYTHM_EVENT_REST);
+		    bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE, RhythmConstants.RHYTHM_EVENT_NOTE);
 		  return bar;  
 	}
 	
@@ -37,16 +38,16 @@ public class PlayableThings implements OMC {
 		RhythmPattern rhythmPattern = new RhythmPattern();
 
 		Bar bM = new Bar(5,4);
-		bM.addRhythmEvent(bM.QUARTER_NOTE,1);
-		double[] duration = {bM.EIGHT_NOTE , bM.EIGHT_NOTE, bM.EIGHT_NOTE};
+		bM.addRhythmEvent(RhythmConstants.QUARTER_NOTE,1);
+		double[] duration = {RhythmConstants.EIGHT_NOTE , RhythmConstants.EIGHT_NOTE, RhythmConstants.EIGHT_NOTE};
 		int[] type = {1 ,0,1 };
-		bM.addRhythmEvent(type,bM.QUARTER_NOTE, true);
+		bM.addRhythmEvent(type,RhythmConstants.QUARTER_NOTE, true);
 
-		bM.addRhythmEvent(bM.EIGHT_NOTE,1);
-		bM.addRhythmEvent(bM.QUARTER_NOTE,1);
-		bM.addRhythmEvent(bM.EIGHT_NOTE,1);
-		bM.addRhythmEvent(bM.getDottedValue(bM.EIGHT_NOTE),1);
-		bM.addRhythmEvent(bM.SIXTEENTH_NOTE,1);
+		bM.addRhythmEvent(RhythmConstants.EIGHT_NOTE,1);
+		bM.addRhythmEvent(RhythmConstants.QUARTER_NOTE,1);
+		bM.addRhythmEvent(RhythmConstants.EIGHT_NOTE,1);
+		bM.addRhythmEvent(bM.getDottedValue(RhythmConstants.EIGHT_NOTE),1);
+		bM.addRhythmEvent(RhythmConstants.SIXTEENTH_NOTE,1);
 
 		rhythmPattern.insertMark("beginning");
 		rhythmPattern.insertBar(bM);
@@ -61,7 +62,7 @@ public class PlayableThings implements OMC {
 	      Bar[] bars = new Bar[4];
 	      for(int i = 0; i<4; i++){
 	        bars[i] = new Bar(4,16);
-	        bars[i].addSingleRhythmEvent(Bar.EIGHT_NOTE,Bar.RHYTHM_EVENT_NOTE,i);
+	        bars[i].addSingleRhythmEvent(RhythmConstants.EIGHT_NOTE,RhythmConstants.RHYTHM_EVENT_NOTE,i);
 	        gpr.insertBar(bars[i],i);
 	      }
 
@@ -101,7 +102,7 @@ public static Chord getChordToPlay() throws  NoteException, ChordException, Chor
 public static Harmony getHarmonyToPlay() throws ChordNotationException  {
 	HarmonicProgression progression = getHarmonicProgressionToPlay();
 	Chord[] chords = progression.getChords(Notes.getC());
-	RhythmPattern rhythmPattern  = RhythmPattern.getConstantRhythmPattern(4, RhythmPattern.QUARTER_NOTE);
+	RhythmPattern rhythmPattern  = RhythmPattern.getConstantRhythmPattern(4, RhythmConstants.QUARTER_NOTE);
 	Harmony harmony = new Harmony(chords, rhythmPattern);
 	
 	

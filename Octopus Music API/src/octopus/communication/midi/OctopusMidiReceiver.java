@@ -209,7 +209,8 @@ public abstract class OctopusMidiReceiver implements Receiver, OctopusReceiver {
         }
 
 
-        public void close()
+        @Override
+		public void close()
         {
 
           // DO NOTHING
@@ -242,7 +243,8 @@ public abstract class OctopusMidiReceiver implements Receiver, OctopusReceiver {
 
        }
 
-        public void send(MidiMessage message, long lTimeStamp){
+        @Override
+		public void send(MidiMessage message, long lTimeStamp){
 
                 String note = null;
 
@@ -283,7 +285,7 @@ public abstract class OctopusMidiReceiver implements Receiver, OctopusReceiver {
                     performAction( message,  lTimeStamp, strMessage);
                   }else{
                     if(strMessage.indexOf("note Off")!= -1){
-                      long duracao = lTimeStamp - (((Long)notasTocadas.get(note)).longValue());
+                      long duracao = lTimeStamp - (notasTocadas.get(note).longValue());
                       performAction(message,  lTimeStamp, strTimeStamp + strMessage + " Duration(ticks): " + duracao);
                     }
                     performAction( message,  lTimeStamp, strMessage);
@@ -544,7 +546,7 @@ public abstract class OctopusMidiReceiver implements Receiver, OctopusReceiver {
                                         | (abData[2] & 0xFF);           // tempo in microseconds per beat
                         float bpm = convertTempo(nTempo);
                         // truncate it to 2 digits after point
-                        bpm = (float) (Math.round(nTempo*100)/100.0f);
+                        bpm = Math.round(nTempo*100)/100.0f;
                         strMessage = "Set Tempo: "+bpm+" bpm";
                         break;
 

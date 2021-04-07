@@ -2,6 +2,7 @@ package examples;
 import octopus.Arpeggio;
 import octopus.Bar;
 import octopus.Musician;
+import octopus.RhythmConstants;
 
 public class ArpeggioExample {
 
@@ -23,7 +24,7 @@ public class ArpeggioExample {
 			bars[i] = new octopus.Bar(4,16);
 
 			//Insert one 8th note in the i(th) beat and fill the rest of the Bar with rests.
-			bars[i].addSingleRhythmEvent(Bar.EIGHT_NOTE,Bar.RHYTHM_EVENT_NOTE,i+1);
+			bars[i].addSingleRhythmEvent(RhythmConstants.EIGHT_NOTE,RhythmConstants.RHYTHM_EVENT_NOTE,i+1);
 			arpeggio.insertBar(bars[i],i);       	      
 		}
 

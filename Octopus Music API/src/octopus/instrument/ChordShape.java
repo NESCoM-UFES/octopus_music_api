@@ -33,7 +33,7 @@ public abstract class ChordShape implements Serializable{ ////Removed Playable f
    */
   public InstrumentNotePosition[] getInstrumentNotePositions(){
     InstrumentNotePosition[] instrumentNotePositions =
-        (InstrumentNotePosition[])notePositions.toArray(new InstrumentNotePosition[0]);
+        notePositions.toArray(new InstrumentNotePosition[0]);
     Arrays.sort(instrumentNotePositions);
     return instrumentNotePositions;
   }

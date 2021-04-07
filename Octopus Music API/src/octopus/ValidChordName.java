@@ -67,7 +67,7 @@ private String description;
    * @return A relação de intervalos da chordName.
    */
   protected Interval[] getIntervals() {
-    return (Interval[]) intervals.toArray(new Interval[0]);
+    return intervals.toArray(new Interval[0]);
   }
 
 /*
@@ -77,7 +77,7 @@ private String description;
    * @return Interval da pos especificada no parâmetro.
    */
   protected Interval getInterval(int index) {
-    return ((Interval)intervals.get(index));
+    return (intervals.get(index));
   }
 
 /*
@@ -836,8 +836,8 @@ private String description;
     int quantidadeSemitonsIndex2;
     for (int i = 0; i < intervals.size() && !achou; i++) {
       for (int j = i + 1; j < intervals.size() && !achou; j++) {
-        quantidadeSemitonsIndex1 = ((Interval)intervals.get(i)).getDistanceFromRoot();
-        quantidadeSemitonsIndex2 = ((Interval)intervals.get(j)).getDistanceFromRoot();
+        quantidadeSemitonsIndex1 = intervals.get(i).getDistanceFromRoot();
+        quantidadeSemitonsIndex2 = intervals.get(j).getDistanceFromRoot();
         achou = quantidadeSemitonsIndex1 == quantidadeSemitonsIndex2 ? true : false;
       }
     }

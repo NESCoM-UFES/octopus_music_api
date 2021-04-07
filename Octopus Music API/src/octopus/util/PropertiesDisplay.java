@@ -151,7 +151,8 @@ public String[] getKeys() {
     panel.add(jScrollPane1, BorderLayout.CENTER);
     jScrollPane1.getViewport().add(tbParametros, null);
     tableModel.addTableModelListener(new javax.swing.event.TableModelListener() {
-      public void tableChanged(TableModelEvent e) {
+      @Override
+	public void tableChanged(TableModelEvent e) {
         if (e.getColumn() != -1) {
           //System.out.println(tableModel.getValueAt(e.getFirstRow(),e.getColumn()));
 

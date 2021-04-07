@@ -3,6 +3,7 @@ package examples;
 import octopus.Bar;
 import octopus.MusicPerformanceException;
 import octopus.Musician;
+import octopus.RhythmConstants;
 import octopus.RhythmPattern;
 
 public class TimeHandlingTutorial {
@@ -11,10 +12,10 @@ public class TimeHandlingTutorial {
 		
 		Bar bar = new Bar(4,4);
 		
-		bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_NOTE);
-		bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_NOTE);
-		bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_REST);
-		bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_NOTE);
+		bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE, RhythmConstants.RHYTHM_EVENT_NOTE);
+		bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE, RhythmConstants.RHYTHM_EVENT_NOTE);
+		bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE, RhythmConstants.RHYTHM_EVENT_REST);
+		bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE, RhythmConstants.RHYTHM_EVENT_NOTE);
 		
 		
 		double[] durations = {0.25, 0.5, 0.125, 0.125};
@@ -31,10 +32,10 @@ public class TimeHandlingTutorial {
 		
 		Bar bar = new Bar(4,4);
 		
-		bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_NOTE);
-		bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_NOTE);
-		bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_REST);
-		bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_NOTE );
+		bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE, RhythmConstants.RHYTHM_EVENT_NOTE);
+		bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE, RhythmConstants.RHYTHM_EVENT_NOTE);
+		bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE, RhythmConstants.RHYTHM_EVENT_REST);
+		bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE, RhythmConstants.RHYTHM_EVENT_NOTE );
 		
 		
 		return bar;

@@ -167,6 +167,7 @@ public void play(PerformableMelody pMelody) throws MusicPerformanceException {
   }
 
  
+@Override
 public void play(ChordShape chordShape, double duration) throws MusicPerformanceException {
     player.play(getMusicalEventSequence(chordShape, duration));
   }
@@ -186,6 +187,7 @@ public void play(Melody melody) throws MusicPerformanceException, NoteException 
   }
 
  
+@Override
 public void play(PerformableHarmony pHarmony) throws MusicPerformanceException, NoteException {
     MusicalEventSequence p = new MusicalEventSequence();
 

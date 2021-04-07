@@ -115,7 +115,7 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 
 				//Merging the old Aperggios data with the new one; 
 				RhythmPattern voiceOldArpeggio = arpeggios[i].getVoice(j); 
-				RhythmPattern voiceNewArpeggio = (RhythmPattern)voices.get(j);
+				RhythmPattern voiceNewArpeggio = voices.get(j);
 
 				double voiceDuration = voiceNewArpeggio.getDuration();
 				if(voiceDuration < startTime){
@@ -173,7 +173,7 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 	 * Lower the number is, lower the note pitch.
 	 */
 	public void insertBar(Bar bar, int voice){
-		((RhythmPattern)voices.get(voice)).insertBar(bar);
+		voices.get(voice).insertBar(bar);
 	}
 
 	
@@ -205,6 +205,7 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 	 * @param rhythmPattern
 	 * @deprecated
 	 */
+	@Deprecated
 	public void setVoices(RhythmPattern[] rhythmPattern){
 		voices = new Vector<RhythmPattern>(Arrays.asList(rhythmPattern));
 	}
@@ -221,12 +222,12 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 		double resolution = 4.0;
 		for(int x=0;x<voices.size();x++){
 			double time = 0;
-			RhythmPattern rp =(RhythmPattern)voices.get(x);
+			RhythmPattern rp =voices.get(x);
 			for (int e = 0; e < rp.bars.size(); e++) {
 				if(rp.bars.get(e) instanceof Bar){
 					Bar bar = (Bar) rp.bars.get(e);
 					for (int i = 0; i < bar.rhythmEvents.size(); i++) {
-						Bar.RhythmEvent rhythmEvent = (Bar.RhythmEvent) bar.rhythmEvents.get(i);
+						Bar.RhythmEvent rhythmEvent = bar.rhythmEvents.get(i);
 						double value = rhythmEvent.duration;
 						double duration = (value * 4.0) * resolution;
 						//double duration = 4;
@@ -250,34 +251,35 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 		}
 
 		Collections.sort(rhythmEvents);
-		return (SortableRhythmEvent[])rhythmEvents.toArray(new SortableRhythmEvent[0]);
+		return rhythmEvents.toArray(new SortableRhythmEvent[0]);
 	}
 
 
 	public RhythmPattern[] getVoices(){
-		return (RhythmPattern[])voices.toArray(new RhythmPattern[0]);
+		return voices.toArray(new RhythmPattern[0]);
 	}
 
 	public RhythmPattern getVoice(int voice){
-		return (RhythmPattern)voices.get(voice);
+		return voices.get(voice);
 	}
 
 	public void insertMark(String name, int voice){
-		((RhythmPattern)voices.get(voice)).insertMark(name);
+		voices.get(voice).insertMark(name);
 	}
 
 
+	@Override
 	public String toString(){
 		String r = "";
 		for(int s=0; s<this.getPolyphony();s++){
 			r+=(s + "================== \n");
-			RhythmPattern rp = ((RhythmPattern)voices.get(s));
+			RhythmPattern rp = (voices.get(s));
 			if(rp.bars.size() ==0){
 				// if(bars.size()>0){
 				// super.print();
 				//}
 			}else{
-				r+=((RhythmPattern) voices.get(s)).toString();
+				r+=voices.get(s).toString();
 			}
 		}
 		return r;
@@ -291,7 +293,7 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 	public double getDuration(){
 		double maxDuration = 0.0;
 		for(int i = 0; i < voices.size(); i++){
-			double tempDuration = ((RhythmPattern)voices.get(i)).getDuration();
+			double tempDuration = voices.get(i).getDuration();
 			if(tempDuration > maxDuration){
 				maxDuration = tempDuration;
 			}
@@ -312,7 +314,7 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 		for(int i=0;i<voices.size();i++){
 			int se=0;
 			long time = 0;
-			RhythmPattern rp =(RhythmPattern)voices.get(i);
+			RhythmPattern rp =voices.get(i);
 			for (int j = 0; j < rp.bars.size(); j++) {
 				if (! (rp.bars.get(j) instanceof Bar)) {
 					if (rp.bars.get(j) instanceof String) {
@@ -328,7 +330,7 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 				else {
 					Bar bar = (Bar) rp.bars.get(j);
 					for (int k = 0; k < bar.rhythmEvents.size(); k++) {
-						Bar.RhythmEvent rhythmEvent = (Bar.RhythmEvent) bar.rhythmEvents.get(k);
+						Bar.RhythmEvent rhythmEvent = bar.rhythmEvents.get(k);
 						double value = rhythmEvent.duration;
 						double duration = (value * 4.0) * resolution;
 						//double duration = 4;
@@ -345,7 +347,7 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 						if(type==1){
 							Long key = new Long(time);
 							if (ht.containsKey(key)) {
-								Integer repetitions = (Integer)ht.get(key);
+								Integer repetitions = ht.get(key);
 								repetitions = new Integer(repetitions.intValue() + 1);
 								ht.put( (key), repetitions);
 								if(repetitions.intValue()>simultaneousAttacks){
@@ -478,6 +480,7 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 			this.rhythmEvent = re;
 		}
 
+		@Override
 		public int compareTo(Object obj2) {
 			SortableRhythmEvent o = (SortableRhythmEvent) obj2;
 			if (o.time == time) {
@@ -534,19 +537,20 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 			}
 			arpeggioRhythmEvents.add(voiceRhythmEvents);
 		}
-		return (Bar.RhythmEvent[][])arpeggioRhythmEvents.toArray(new Bar.RhythmEvent[0][0]);
+		return arpeggioRhythmEvents.toArray(new Bar.RhythmEvent[0][0]);
 
 	}
 
 
 
 
+	@Override
 	public MusicalEventSequence getMusicalEventSequence() {
 		MusicalEventSequence p =new MusicalEventSequence();
 
 		for(int i=0;i<voices.size();i++){
 
-			RhythmPattern rhythmPattern =(RhythmPattern)voices.get(i);
+			RhythmPattern rhythmPattern =voices.get(i);
 
 			//Note note  =rhythmPattern.pitchRhythmNote;
 			try{

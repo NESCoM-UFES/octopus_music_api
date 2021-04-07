@@ -36,7 +36,8 @@ public class LinesBorder extends AbstractBorder implements SwingConstants {
     setThickness(insets);
   }
 
-  public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+  @Override
+public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
     Color oldColor = g.getColor();
 
     g.setColor(northColor);
@@ -59,16 +60,19 @@ public class LinesBorder extends AbstractBorder implements SwingConstants {
     g.setColor(oldColor);
   }
 
-  public Insets getBorderInsets(Component c)       {
+  @Override
+public Insets getBorderInsets(Component c)       {
     return new Insets(northThickness, westThickness, southThickness, eastThickness);
   }
 
-  public Insets getBorderInsets(Component c, Insets insets) {
+  @Override
+public Insets getBorderInsets(Component c, Insets insets) {
     return new Insets(northThickness, westThickness, southThickness, eastThickness);
   }
 
 
-  public boolean isBorderOpaque() { return true; }
+  @Override
+public boolean isBorderOpaque() { return true; }
 
   public void setColor(Color c) {
     northColor = c;

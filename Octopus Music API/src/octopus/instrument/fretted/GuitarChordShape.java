@@ -78,14 +78,14 @@ Vector<BarPosition> barPositions = new Vector<BarPosition>();
  }
 
  public GuitarNotePosition[] getGuitarNotePositions(){
-    GuitarNotePosition[] instrumentNotePositions = (GuitarNotePosition[])notePositions.toArray(new GuitarNotePosition[0]);
+    GuitarNotePosition[] instrumentNotePositions = notePositions.toArray(new GuitarNotePosition[0]);
     Arrays.sort(instrumentNotePositions);
     return instrumentNotePositions;
   }
 
 
    public BarPosition[] getBarsPostions(){
-    return (BarPosition[])barPositions.toArray(new BarPosition[0]);
+    return barPositions.toArray(new BarPosition[0]);
   }
 
 
@@ -289,7 +289,7 @@ public String toString(){
      }
 
    }
-   GuitarNotePosition[] retorno = (GuitarNotePosition[])posNotesRetorno.toArray(new GuitarNotePosition[posNotesRetorno.size()]);
+   GuitarNotePosition[] retorno = posNotesRetorno.toArray(new GuitarNotePosition[posNotesRetorno.size()]);
    Arrays.sort(retorno);
 
     return retorno;
@@ -318,7 +318,7 @@ public String toString(){
        }
 
     }
-    GuitarNotePosition[] returnArray = (GuitarNotePosition[])guitarNotePositions.toArray(new GuitarNotePosition[guitarNotePositions.size()]);
+    GuitarNotePosition[] returnArray = guitarNotePositions.toArray(new GuitarNotePosition[guitarNotePositions.size()]);
     Arrays.sort(returnArray);
 
     return returnArray;
@@ -436,7 +436,7 @@ public String toString(){
         availableStrings.remove(new Integer(((GuitarNotePosition)notePositions.get(i)).getString()));
       }
 
-      Integer[] cordasRestantes = (Integer[])availableStrings.toArray(new Integer[availableStrings.size()]);
+      Integer[] cordasRestantes = availableStrings.toArray(new Integer[availableStrings.size()]);
       arrayReturn = new int[cordasRestantes.length];
 
       for(int i=0;i<cordasRestantes.length;i++){
@@ -459,14 +459,15 @@ public String toString(){
 	strings.add(instrument.getString(i));
       }
     }
-    return (InstumentString[])strings.toArray(new InstumentString[0]);
+    return strings.toArray(new InstumentString[0]);
   }
 
 
  /**
   * If this method is changed, then the fingering suggestion should be checked too.
   */
-  public int compareTo(Object obj2){
+  @Override
+public int compareTo(Object obj2){
     GuitarChordShape rep2 = (GuitarChordShape) obj2;
     int retorno = 0;
     int qtComparacao;
@@ -552,6 +553,7 @@ int initialString;
     return guitarNotePositions;
   }
 
+@Override
 public String toString(){
      return "Bar on fret "  + fret +" starting on string " + initialString + " and ending on string " +finalString;
    }

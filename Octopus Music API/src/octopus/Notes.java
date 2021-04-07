@@ -1,5 +1,10 @@
 package octopus;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Vector;
+
 /**
  * The Notes class creates and performs computations over Note objects.   
  *
@@ -588,6 +593,26 @@ public class Notes {
 		}
 		return notes;
 	}
+	
+	public static Note[] suffle(Note[] notes, int noNotes){
+		Vector<Note> returnNotes = new Vector<Note>();
+
+		for (int i = 0; i < noNotes; i++) {
+			int randomIndex = (int)(Math.random()* notes.length);		  
+			returnNotes.add(notes[randomIndex]);		
+		}
+		return returnNotes.toArray(new Note[0]);
+	}
+	
+	public static Note[] suffle(Note[] notes){
+						
+		List<Note> noteList = Arrays.asList(notes);
+
+		Collections.shuffle(noteList);
+
+		return noteList.toArray(new Note[0]);
+	}
+	
 	/*public static Note[] transpose(Note[] notes, int semitones) throws NoteException{
 		if(semitones > 0) {
 			int octaves = 0;

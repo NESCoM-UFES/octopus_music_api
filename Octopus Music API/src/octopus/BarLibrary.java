@@ -7,11 +7,11 @@ public class BarLibrary {
   public static Bar getDemoBar(){
     Bar bar = new Bar(4,4);
 
-    bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_NOTE);
-    bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_REST);
-    bar.addRhythmEvent(Bar.QUARTER_NOTE, Bar.RHYTHM_EVENT_NOTE,true);
-    bar.addRhythmEvent(Bar.EIGHT_NOTE, Bar.RHYTHM_EVENT_NOTE);
-    bar.addRhythmEvent(Bar.EIGHT_NOTE, Bar.RHYTHM_EVENT_REST);
+    bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE, RhythmConstants.RHYTHM_EVENT_NOTE);
+    bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE, RhythmConstants.RHYTHM_EVENT_REST);
+    bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE, RhythmConstants.RHYTHM_EVENT_NOTE,true);
+    bar.addRhythmEvent(RhythmConstants.EIGHT_NOTE, RhythmConstants.RHYTHM_EVENT_NOTE);
+    bar.addRhythmEvent(RhythmConstants.EIGHT_NOTE, RhythmConstants.RHYTHM_EVENT_REST);
 
 
     return bar;
@@ -20,7 +20,7 @@ public class BarLibrary {
     Bar bM = new Bar(beats, resolution);
 
     for (int i = 0; i < beats; i++) {
-      bM.addRhythmEvent((double)(1.0/resolution), 1);
+      bM.addRhythmEvent(1.0/resolution, 1);
     }
 
 
@@ -28,22 +28,24 @@ public class BarLibrary {
 }
 public void getTupletBar(){
   Bar bar = new Bar(2,4);
-    bar.addRhythmEvent(Bar.QUARTER_NOTE,Bar.RHYTHM_EVENT_NOTE);
-    double[ ] reDurations = {Bar.EIGHT_NOTE , 
-                             Bar.EIGHT_NOTE, 
-                             Bar.EIGHT_NOTE };
+  
+    bar.addRhythmEvent(RhythmConstants.QUARTER_NOTE,RhythmConstants.RHYTHM_EVENT_NOTE);
+  
+    double[ ] reDurations = {RhythmConstants.EIGHT_NOTE , 
+                             RhythmConstants.EIGHT_NOTE, 
+                             RhythmConstants.EIGHT_NOTE };
     
-    int   [ ] reTypes = {Bar.RHYTHM_EVENT_NOTE ,
-                         Bar.RHYTHM_EVENT_REST,
-                         Bar.RHYTHM_EVENT_NOTE};
+    int   [ ] reTypes = {RhythmConstants.RHYTHM_EVENT_NOTE ,
+                         RhythmConstants.RHYTHM_EVENT_REST,
+                         RhythmConstants.RHYTHM_EVENT_NOTE};
     
     boolean isTie = true ;
-    double tupletDuration = bar.QUARTER_NOTE;
+    double tupletDuration = RhythmConstants.QUARTER_NOTE;
     
     bar.addRhythmEvent(reTypes, tupletDuration , isTie);
-    bar.addRhythmEvent(Bar.SIXTEENTH_NOTE, Bar.RHYTHM_EVENT_NOTE);
-    bar.addRhythmEvent(bar.getDottedValue(Bar.EIGHT_NOTE), 
-                       Bar.RHYTHM_EVENT_REST); 
+    bar.addRhythmEvent(RhythmConstants.SIXTEENTH_NOTE, RhythmConstants.RHYTHM_EVENT_NOTE);
+    bar.addRhythmEvent(bar.getDottedValue(RhythmConstants.EIGHT_NOTE), 
+                       RhythmConstants.RHYTHM_EVENT_REST); 
 }
 
   

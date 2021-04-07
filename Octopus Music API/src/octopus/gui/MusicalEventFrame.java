@@ -105,14 +105,18 @@ import javax.swing.border.Border;
       }
 
       // CellBorder
-      public void setBorder(Border border) {
+      @Override
+	public void setBorder(Border border) {
         this.border = border;
       }
-      public Border getBorder() {
+      @Override
+	public Border getBorder() {
         return border;
       }
-      public void setBorder(Border border, int row, int col) {}
-      public Border getBorder(int row, int col) { return null; }
+      @Override
+	public void setBorder(Border border, int row, int col) {}
+      @Override
+	public Border getBorder(int row, int col) { return null; }
 
       public String getHashKey(){
 	return ( String.valueOf(linha) + String.valueOf(colunaInicial) + String.valueOf(colunaFinal));
@@ -120,7 +124,8 @@ import javax.swing.border.Border;
 
 
       //ordenacao por coluna e lihna (esquerda mais alta)
-      public int compareTo(Object o){
+      @Override
+	public int compareTo(Object o){
         MusicalEventFrame musicalEventFrame = (MusicalEventFrame)o;
         int retorno =1;
         if (musicalEventFrame.colunaInicial < this.colunaInicial){

@@ -24,7 +24,8 @@ import javax.swing.table.TableCellRenderer;
            setOpaque(true);
          }
 
-         public Component getTableCellRendererComponent(JTable table, Object value,
+         @Override
+		public Component getTableCellRendererComponent(JTable table, Object value,
            boolean isSelected, boolean hasFocus, int row, int column) {
 
            MusicalEventFrame me = (MusicalEventFrame)value;
@@ -41,7 +42,7 @@ import javax.swing.table.TableCellRenderer;
              setBackground(cor);
             } else{
                if(TimeEventPanel.selectedTool != TimeEventPanel.SPLIT_TOOL){
-                 model.primeiraColunaSelecionada =  model.primeiraColunaSelecionada== -1?column: model.primeiraColunaSelecionada;
+                 MusicalTableModel.primeiraColunaSelecionada =  MusicalTableModel.primeiraColunaSelecionada== -1?column: MusicalTableModel.primeiraColunaSelecionada;
                   if(TimeEventPanel.selectedTool == TimeEventPanel.MOVE_TOOL){
                    //this.setBorder(me.getBorder());
                     setColumnBorder(me.getBorder());
@@ -92,13 +93,17 @@ import javax.swing.table.TableCellRenderer;
          }
 
          // CellBorder
+@Override
 public void setBorder(Border border) {
   this.border = border;
 }
+@Override
 public Border getBorder() {
   return border;
 }
+@Override
 public void setBorder(Border border, int row, int col) {}
-      public Border getBorder(int row, int col) { return null; }
+      @Override
+	public Border getBorder(int row, int col) { return null; }
 
     }

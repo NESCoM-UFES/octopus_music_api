@@ -61,7 +61,7 @@ public class GuitarGraphicalInterface extends InstrumentGraphicalInterface{
   public void turnOn(GuitarChordShape chordShape){
 	 InstrumentNotePosition[] notePositions =chordShape.getInstrumentNotePositions();
 	 for(int i=0; i< notePositions.length;i++){
-		 this.turnOn((GuitarNotePosition)notePositions[i]);
+		 this.turnOn(notePositions[i]);
 	   	 }
 	  
   }
@@ -115,7 +115,8 @@ public class GuitarGraphicalInterface extends InstrumentGraphicalInterface{
          bts[s][f].setBackground(Color.black);
          bts[s][f].setActionCommand("kn"+ String.valueOf(s) + String.valueOf(f));
          bts[s][f].addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(ActionEvent e) {
+         @Override
+		public void actionPerformed(ActionEvent e) {
 
          String ac = e.getActionCommand();
          int s = Integer.parseInt(ac.substring(2,3));
@@ -220,7 +221,8 @@ public void turnOff(InstrumentNotePosition instrumentNotePosition) {
      originalColor = Color.yellow;
      
    }
-   public void run() {
+   @Override
+public void run() {
    try{
      int xalpha = originalColor.getAlpha();
      int xgreen = originalColor.getGreen();

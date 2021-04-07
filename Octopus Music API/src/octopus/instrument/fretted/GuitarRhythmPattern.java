@@ -54,14 +54,14 @@ public class GuitarRhythmPattern extends Arpeggio implements Serializable{
 
   @Override
 public void insertBar(Bar bar, int string){
-    ((RhythmPattern)voices.get(string-1)).insertBar(bar);
+    voices.get(string-1).insertBar(bar);
   }
 
   @Override
 public void insertMark(String name, int notePich){
     //bars.add(name);
     //repetitionMarks.put(name, new StringReturnPoint(notePich, bars.size()));
-    ((RhythmPattern)voices.get(notePich-1)).insertMark(name);
+    voices.get(notePich-1).insertMark(name);
   }
 
  /* public void insertReturn(String mark, int repetitions){

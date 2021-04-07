@@ -1,7 +1,6 @@
 import javax.sound.midi.MidiUnavailableException;
 
 import octopus.*;
-import octopus.communication.*;
 import octopus.communication.midi.*;
 
 public class LiveOctopus {

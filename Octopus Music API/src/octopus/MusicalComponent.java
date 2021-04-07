@@ -51,7 +51,7 @@ public abstract class MusicalComponent implements Playable {
   
   public MusicalEventSequence getMusicalEventSequence(Note[] notes, Bar.RhythmEvent[] rhythmEvents, boolean circularListNotes ) {
 	  MusicalEventSequence musicalEventSequence = new MusicalEventSequence();		  
-	  
+
 	  double time= 0;
 	  int indexNotes = 0;
 
@@ -60,29 +60,22 @@ public abstract class MusicalComponent implements Playable {
 
 		  if(rhythmEvents[i].type==1){ // Note rest
 			  MusicalEvent meOct = new MusicalEvent(i, time, notes[indexNotes], duration,
-					                                rhythmEvents[i].velocity);
+					  rhythmEvents[i].velocity);
 			  MusicalEvent meOctOff = new MusicalEvent(i, time + duration,
-					                                   notes[indexNotes], 0, 0);
+					  notes[indexNotes], 0, 0);
 			  musicalEventSequence.addMusicalEvent(meOct);
 			  musicalEventSequence.addMusicalEvent(meOctOff);
-		  }
-		  time += duration;
 
-		  if (indexNotes >= notes.length - 1) {
-			  if (circularListNotes){  
-				  indexNotes = 0;
-			  }else{
-				  break;
+			  //Circular list treatment - do not allow index out of bounds
+			  indexNotes++;
+			  if(indexNotes > (notes.length -1)) {
+				  if(circularListNotes) indexNotes = 0;
+				  else break;
 			  }
 		  }
-		  else {
-			  indexNotes++;
-		  }		  
-
+		  time += duration;
 	  }
-
 	  return musicalEventSequence;	
-
   }
   
   /**

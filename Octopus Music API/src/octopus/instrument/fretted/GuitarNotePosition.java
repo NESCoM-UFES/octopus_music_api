@@ -44,7 +44,8 @@ public String toString(){
   // Implementação do metódo herdado da interface comparable. Usado para ordenar
   //as representacoes: ordem decrecente das corda e cresencente de casa;
   // Ex: 50 < 53
-  public int compareTo(Object obj2){
+  @Override
+public int compareTo(Object obj2){
     GuitarNotePosition posNote2 = (GuitarNotePosition) obj2;
     int retorno;
 

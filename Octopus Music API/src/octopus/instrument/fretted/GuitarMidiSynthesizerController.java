@@ -121,7 +121,7 @@ public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceE
           seqTransmitter.setReceiver(synthReceiver);
           for (int i = 0; i < receivers.size(); i++) {
             seqTransmitter = sequencer.getTransmitter();
-            seqTransmitter.setReceiver( (Receiver) receivers.get(i));
+            seqTransmitter.setReceiver( receivers.get(i));
           }
 
           //Playing inicialization

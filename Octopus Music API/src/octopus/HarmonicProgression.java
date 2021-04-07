@@ -63,20 +63,20 @@ public Chord[] getChords(Note key){
   Vector<Chord> chords = new Vector<Chord>();
 
   for(int i =0;i<degrees.size();i++){
-    ScaleDegree sd = (ScaleDegree)degrees.get(i);
+    ScaleDegree sd = degrees.get(i);
     Chord chord = Chord.getChord(key,sd);
     chords.add(chord);
   }
-  return (Chord[])chords.toArray(new Chord[0]);
+  return chords.toArray(new Chord[0]);
 }
 
   @Override
 public String toString(){
     String retorno = "";
     for (int i=0;i<degrees.size()-1;i++){
-      retorno +=((ScaleDegree)degrees.get(i)).toString() + " - ";
+      retorno +=degrees.get(i).toString() + " - ";
     }
-    retorno+=((ScaleDegree)degrees.get(degrees.size()-1));
+    retorno+=(degrees.get(degrees.size()-1));
     return retorno;
   }
 
@@ -140,6 +140,7 @@ public String toString(){
  * @see getChord; 
  * @return
  */
+@Override
 public MusicalEventSequence getMusicalEventSequence() {
 
     Chord[] chords =  this.getChords(Notes.getC());

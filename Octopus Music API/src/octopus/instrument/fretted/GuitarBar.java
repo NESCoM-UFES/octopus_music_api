@@ -80,7 +80,7 @@ public class GuitarBar extends Bar implements Serializable {
 
   public void addSingleRhythmEvent(double duration, int type, int beat,  int StrokeDirection, double StrokeRegion, String finger){
     super.addSingleRhythmEvent( duration,  type,  beat);
-    RhythmEvent re = (RhythmEvent)this.rhythmEvents.get(rhythmEvents.size() -1);
+    RhythmEvent re = this.rhythmEvents.get(rhythmEvents.size() -1);
     strokes.put(re,new Stroke(StrokeDirection, StrokeRegion, finger));
   }
 
@@ -121,7 +121,7 @@ public class GuitarBar extends Bar implements Serializable {
 
   public GuitarBar.Stroke getStroke(Bar.RhythmEvent rhythmEvent){
     if (strokes.containsKey(rhythmEvent)){
-      return (GuitarBar.Stroke)strokes.get(rhythmEvent);
+      return strokes.get(rhythmEvent);
     }
     return null;
   }
@@ -138,7 +138,7 @@ public String toString(){
     String retorno = metre.toString();
     retorno+=" ( ";
     for(int i=0;i <this.rhythmEvents.size(); i++){
-      RhythmEvent rEv = (RhythmEvent)rhythmEvents.get(i);
+      RhythmEvent rEv = rhythmEvents.get(i);
       Fraction f =  rEv.getFractionValue();
       retorno+=f.toString();
       if(rEv.type == 0){
@@ -150,7 +150,7 @@ public String toString(){
       }
 
       if(strokes.containsKey(rEv)){
-        Stroke s = (Stroke)strokes.get(rEv);
+        Stroke s = strokes.get(rEv);
          retorno+= s.toString();
       }
        retorno+= " ";

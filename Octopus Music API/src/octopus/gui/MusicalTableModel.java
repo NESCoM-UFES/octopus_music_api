@@ -88,19 +88,23 @@ import javax.swing.table.AbstractTableModel;
 
 
 
-          public int getColumnCount() {
+          @Override
+		public int getColumnCount() {
                return columnNames.size();
            }
 
-           public int getRowCount() {
+           @Override
+		public int getRowCount() {
                return data.length;
            }
 
-           public String getColumnName(int col) {
+           @Override
+		public String getColumnName(int col) {
                return ((String)columnNames.get(col));
            }
 
-           public Object getValueAt(int row, int col) {
+           @Override
+		public Object getValueAt(int row, int col) {
                return data[row][col];
            }
 
@@ -110,7 +114,8 @@ import javax.swing.table.AbstractTableModel;
             * then the last column would contain text ("true"/"false"),
             * rather than a check box.
             */
-           public Class getColumnClass(int c) {
+           @Override
+		public Class getColumnClass(int c) {
                return getValueAt(0, c).getClass();
            }
 
@@ -118,7 +123,8 @@ import javax.swing.table.AbstractTableModel;
             * Don't need to implement this method unless your table's
             * editable.
             */
-           public boolean isCellEditable(int row, int col) {
+           @Override
+		public boolean isCellEditable(int row, int col) {
                //Note that the data/cell address is constant,
                //no matter where the cell appears onscreen.
                if (col < 1) {
@@ -128,7 +134,8 @@ import javax.swing.table.AbstractTableModel;
                }
            }
 
-           public void setValueAt(Object value, int row, int col) {
+           @Override
+		public void setValueAt(Object value, int row, int col) {
                data[row][col] = value;
                fireTableCellUpdated(row, col);
             }
@@ -271,12 +278,12 @@ import javax.swing.table.AbstractTableModel;
                 //System.out.println("Não pode - excedeu o limite");
                }
              }
-             this.primeiraColunaSelecionada = -1;
+             MusicalTableModel.primeiraColunaSelecionada = -1;
              }
            }
 
            public void moveSelectedMusicalEventFrame(int colunaDestino){
-             int distancia = this.primeiraColunaSelecionada - colunaDestino;
+             int distancia = MusicalTableModel.primeiraColunaSelecionada - colunaDestino;
              MusicalEventFrame me;
              Collections.sort(selectedEventFrames);
              for(int i=0;i<selectedEventFrames.size();i++){
@@ -285,7 +292,7 @@ import javax.swing.table.AbstractTableModel;
                moveMusicalEventFrame(me.linha,me.colunaInicial+me.quadroAtual,colunaDestino);
              }
                 selectedEventFrames.clear();
-                this.primeiraColunaSelecionada = -1;
+                MusicalTableModel.primeiraColunaSelecionada = -1;
               }
 
 /*           public void selectMusicalEventFrames(int linha, int colunaInicial, int colunaFinal){
@@ -361,7 +368,7 @@ import javax.swing.table.AbstractTableModel;
 	      MusicalEventFrame me = (MusicalEventFrame)selectedEventFrames.get(i);
 	      String key = String.valueOf(me.linha) + String.valueOf(me.colunaInicial) + String.valueOf(me.colunaFinal);
 
-	      selectedEvents.add((MusicalEvent) musicalEvents.get(key));
+	      selectedEvents.add(musicalEvents.get(key));
 	    }
 
 	    return (MusicalEvent[])selectedEvents.toArray(new MusicalEvent[0]);
