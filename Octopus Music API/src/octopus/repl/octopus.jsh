@@ -235,9 +235,6 @@ Note[] suffle(Note[] notes, int noNotes){
  }*/
  //Rhythm
  
- BarREPL barREL(String textualNotation){
-      return BarREPL.bar(textualNotation);
- }
 
   Bar bar(String textualNotation){
       Bar bar = new Bar(4,4);
