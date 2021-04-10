@@ -227,14 +227,14 @@ private String description;
    * Adiciona o intervalo fundamental (primeira justa) na relação de intervalos da chordName.
    */
   protected void addRoot() {
-    intervals.add(IntervalFactory.getRoot());
+    intervals.add(Intervals.getRoot());
   }
 
 /*
    * Remove o intervalo fundamental (primeira justa) da relação de intervalos da chordName.
    */
   protected void removeRoot(){
-    intervals.remove(intervals.indexOf(IntervalFactory.getRoot()));
+    intervals.remove(intervals.indexOf(Intervals.getRoot()));
   }
 
 // Segunda Menor
@@ -242,7 +242,7 @@ private String description;
    * Adiciona o intervalo Segunda Menor na relação de intervalos da chordName.
    */
   protected void addMinorSecond(){
-    intervals.add(IntervalFactory.getMinorSecond());
+    intervals.add(Intervals.getMinorSecond());
   }
 
 /*
@@ -252,14 +252,14 @@ private String description;
    * onde o intervalo deve ser adicionado.
    */
   protected void addMinorSecond(int indexVet){
-    intervals.add(indexVet, IntervalFactory.getMinorSecond());
+    intervals.add(indexVet, Intervals.getMinorSecond());
   }
 
 /*
    * Remove o intervalo Segunda Menor da relação de intervalos da chordName.
    */
   protected void removeMinorSecond() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getMinorSecond()));
+    intervals.remove(intervals.indexOf(Intervals.getMinorSecond()));
   }
 
 // Segunda Maior
@@ -267,14 +267,14 @@ private String description;
    * Adiciona o intervalo Segunda Maior na relação de intervalos da chordName.
    */
   protected void addMajorSecond() {
-    intervals.add(IntervalFactory.getMajorSecond());
+    intervals.add(Intervals.getMajorSecond());
   }
 
 /*
    * Remove o intervalo Segunda Maior da relação de intervalos da chordName.
    */
   protected void removeMajorSecond() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getMajorSecond()));
+    intervals.remove(intervals.indexOf(Intervals.getMajorSecond()));
   }
 
 // Segunda Aumentada
@@ -282,7 +282,7 @@ private String description;
    * Adiciona o intervalo Segunda Aumentada na relação de intervalos da chordName.
    */
   protected void addAugmentedSecond() {
-    intervals.add(IntervalFactory.getAugSecond());
+    intervals.add(Intervals.getAugSecond());
   }
 
 /*
@@ -292,14 +292,14 @@ private String description;
    * o intervalo deve ser adicionado.
    */
   protected void addAugmentedSecond(int indexVet) {
-    intervals.add(indexVet, IntervalFactory.getAugSecond());
+    intervals.add(indexVet, Intervals.getAugSecond());
   }
 
 /*
    * Remove o intervalo Segunda Aumentada da relação de intervalos da chordName.
    */
   protected void removeAugmentedSecond() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getAugSecond()));
+    intervals.remove(intervals.indexOf(Intervals.getAugSecond()));
   }
 
 // Terça Menor
@@ -307,14 +307,14 @@ private String description;
    * Adiciona o intervalo Terça Menor na relação de intervalos da chordName.
    */
   protected void addMinorThird() {
-    intervals.add(IntervalFactory.getMinorThird());
+    intervals.add(Intervals.getMinorThird());
   }
 
 /*
    * Remove o intervalo Terça Menor da relação de intervalos da chordName.
    */
   protected void removeMinorThird() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getMinorThird()));
+    intervals.remove(intervals.indexOf(Intervals.getMinorThird()));
   }
 
 // Terça Maior
@@ -322,14 +322,14 @@ private String description;
    * Adiciona o intervalo Terça Maior na relação de intervalos da chordName.
    */
   protected void addMajorThird() {
-    intervals.add(IntervalFactory.getMajorThird());
+    intervals.add(Intervals.getMajorThird());
   }
 
 /*
    * Remove o intervalo Terça Maior da relação de intervalos da chordName.
    */
   protected void removeMajorThird() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getMajorThird()));
+    intervals.remove(intervals.indexOf(Intervals.getMajorThird()));
   }
 
 /*
@@ -348,7 +348,7 @@ private String description;
    * @param pos pos, na relação de intervalos da chordName, do intervalo a ser substituído.
    */
   protected void changeMajorThirdToMinor(int pos) {
-    intervals.set(pos, IntervalFactory.getMinorThird());
+    intervals.set(pos, Intervals.getMinorThird());
   }
 
 /*
@@ -393,7 +393,7 @@ private String description;
    * @param pos pos, na relação de intervalos da chordName, do intervalo a ser substituído.
    */
   protected void changeMajorThirdToPerfect12th (int pos) {
-    intervals.set(pos, IntervalFactory.getPerfect12th());
+    intervals.set(pos, Intervals.getPerfect12th());
   }
 
 // Quarta Diminuta
@@ -404,7 +404,7 @@ private String description;
    * onde o intervalo deve ser adicionado.
    */
   protected void addDiminishedFourth(int indexVet) {
-    intervals.add(indexVet, IntervalFactory.getDimFourth());
+    intervals.add(indexVet, Intervals.getDimFourth());
   }
 
 // Quarta Justa
@@ -412,14 +412,14 @@ private String description;
    * Adiciona o intervalo Quarta Justa na relação de intervalos da chordName.
    */
   protected void addPerfectFourth() {
-    intervals.add(IntervalFactory.getPerfectFourth());
+    intervals.add(Intervals.getPerfectFourth());
   }
 
 /*
    * Remove o intervalo Quarta Justa da relação de intervalos da chordName.
    */
   protected void removePerfectFourth(){
-    intervals.remove(intervals.indexOf(IntervalFactory.getPerfectFourth()));
+    intervals.remove(intervals.indexOf(Intervals.getPerfectFourth()));
   }
 
 // Quarta Aumentada
@@ -427,7 +427,7 @@ private String description;
    * Adiciona o intervalo Quarta Aumentada na relação de intervalos da chordName.
    */
   protected void addAugmentedFourth(){
-    intervals.add(IntervalFactory.getAugFourth());
+    intervals.add(Intervals.getAugFourth());
   }
 
 /*
@@ -437,14 +437,14 @@ private String description;
    * onde o intervalo deve ser adicionado.
    */
   protected void addAugmentedFourth(int indexVet) {
-    intervals.add(indexVet, IntervalFactory.getAugFourth());
+    intervals.add(indexVet, Intervals.getAugFourth());
   }
 
 /*
    * Remove o intervalo Quarta Aumentada da relação de intervalos da chordName.
    */
   protected void removeAugmentedFourth() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getAugFourth()));
+    intervals.remove(intervals.indexOf(Intervals.getAugFourth()));
   }
 
 // Quinta Diminuta
@@ -452,14 +452,14 @@ private String description;
    * Adiciona o intervalo Quinta Diminuta na relação de intervalos da chordName.
    */
   protected void addDiminishedFifth() {
-    intervals.add(IntervalFactory.getDimFifth());
+    intervals.add(Intervals.getDimFifth());
   }
 
 /*
    * Remove o intervalo Quinta Diminuta da relação de intervalos da chordName.
    */
   protected void removeDiminishedFifth() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getDimFifth()));
+    intervals.remove(intervals.indexOf(Intervals.getDimFifth()));
   }
 
 // Quinta Justa
@@ -467,14 +467,14 @@ private String description;
    * Adiciona o intervalo Quinta Justa na relação de intervalos da chordName.
    */
   protected void addPerfectFifth() {
-    intervals.add(IntervalFactory.getPerfectFifth());
+    intervals.add(Intervals.getPerfectFifth());
   }
 
 /*
    * Remove o intervalo Quinta Justa da relação de intervalos da chordName.
    */
   protected void removePerfectFifth() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getPerfectFifth()));;
+    intervals.remove(intervals.indexOf(Intervals.getPerfectFifth()));;
   }
 
 /*
@@ -483,7 +483,7 @@ private String description;
    * @param pos pos, na relação de intervalos da chordName, do intervalo a ser substituído.
    */
   protected void changePerfectFifthToDiminished (int pos) {
-    intervals.set(pos, IntervalFactory.getDimFifth());
+    intervals.set(pos, Intervals.getDimFifth());
   }
 
 /*
@@ -492,7 +492,7 @@ private String description;
    * @param pos pos, na relação de intervalos da chordName, do intervalo a ser substituído.
    */
   protected void changePerfectFifthToAugmented (int pos) {
-    intervals.set(pos, IntervalFactory.getAugFifth());
+    intervals.set(pos, Intervals.getAugFifth());
   }
 
 /*
@@ -518,14 +518,14 @@ private String description;
    * Adiciona o intervalo Quinta Aumentada na relação de intervalos da chordName.
    */
   protected void addAugmentedFifth() {
-    intervals.add(IntervalFactory.getAugFifth());
+    intervals.add(Intervals.getAugFifth());
   }
 
 /*
    * Remove o intervalo Quinta Aumentada da relação de intervalos da chordName.
    */
   protected void removeAugmentedFifth() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getAugFifth()));;
+    intervals.remove(intervals.indexOf(Intervals.getAugFifth()));;
   }
 
 // Sexta Menor
@@ -533,7 +533,7 @@ private String description;
    * Adiciona o intervalo Sexta Menor na relação de intervalos da chordName.
    */
   protected void addMinorSixth() {
-    intervals.add(IntervalFactory.getMinorSixth());
+    intervals.add(Intervals.getMinorSixth());
   }
 
 /*
@@ -543,14 +543,14 @@ private String description;
    * onde o intervalo deve ser adicionado.
    */
   protected void addMinorSixth(int indexVet) {
-    intervals.add(indexVet, IntervalFactory.getMinorSixth());
+    intervals.add(indexVet, Intervals.getMinorSixth());
   }
 
 /*
    * Remove o intervalo Sexta Menor da relação de intervalos da chordName.
    */
   protected void removeMinorSixth() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getMinorSixth()));
+    intervals.remove(intervals.indexOf(Intervals.getMinorSixth()));
   }
 
 // Sexta Maior
@@ -558,7 +558,7 @@ private String description;
    * Adiciona o intervalo Sexta Maior na relação de intervalos da chordName.
    */
   protected void addMajorSixth() {
-    intervals.add(IntervalFactory.getMajorSixth());
+    intervals.add(Intervals.getMajorSixth());
   }
 
 
@@ -570,7 +570,7 @@ private String description;
    * onde o intervalo deve ser adicionado.
    */
   protected void addAugmentedSixth(int indexVet) {
-    intervals.add(indexVet, IntervalFactory.getAugSixth());
+    intervals.add(indexVet, Intervals.getAugSixth());
   }
 
 // Setima Diminuta
@@ -578,14 +578,14 @@ private String description;
    * Adiciona o intervalo Sétima Diminuta na relação de intervalos da chordName.
    */
   protected void addDiminishedSeventh() {
-    intervals.add(IntervalFactory.getDimSeventh());
+    intervals.add(Intervals.getDimSeventh());
   }
 
 /*
    * Remove o intervalo Sétima Diminuta da relação de intervalos da chordName.
    */
   protected void removeDiminishedSeventh() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getDimSeventh()));;
+    intervals.remove(intervals.indexOf(Intervals.getDimSeventh()));;
   }
 
 // Setima Menor
@@ -593,14 +593,14 @@ private String description;
    * Adiciona o intervalo Sétima Menor na relação de intervalos da chordName.
    */
   protected void addMinorSeventh() {
-    intervals.add(IntervalFactory.getMinorSeventh());
+    intervals.add(Intervals.getMinorSeventh());
   }
 
 /*
    * Remove o intervalo Sétima Menor da relação de intervalos da chordName.
    */
   protected void removeMajorSeventh() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getMinorSeventh()));;
+    intervals.remove(intervals.indexOf(Intervals.getMinorSeventh()));;
   }
 
 // Setima Maior
@@ -608,7 +608,7 @@ private String description;
  * Adiciona o intervalo Sétima Maior na relação de intervalos.
  */
   protected void addMajorSeventh() {
-    intervals.add(IntervalFactory.getMajorSeventh());
+    intervals.add(Intervals.getMajorSeventh());
   }
 
 /*
@@ -618,14 +618,14 @@ private String description;
    * onde o intervalo deve ser adicionado.
    */
   protected void addMajorSeventh(int indexVet) {
-    intervals.set(indexVet, IntervalFactory.getMajorSeventh());
+    intervals.set(indexVet, Intervals.getMajorSeventh());
   }
 
 /*
    * Remove o intervalo Sétima Maior da relação de intervalos da chordName.
    */
   protected void removerSetimaMaior() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getMajorSeventh()));;
+    intervals.remove(intervals.indexOf(Intervals.getMajorSeventh()));;
   }
 
 // Nona Menor
@@ -633,14 +633,14 @@ private String description;
    * Adiciona o intervalo Nona Menor na relação de intervalos da chordName.
    */
   protected void addMinorNinth() {
-    intervals.add(IntervalFactory.getMinorNinth());
+    intervals.add(Intervals.getMinorNinth());
   }
 
 /*
    * Remove o intervalo Nona Menor da relação de intervalos da chordName.
    */
   protected void removeMinorNinth() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getMinorNinth()));;
+    intervals.remove(intervals.indexOf(Intervals.getMinorNinth()));;
   }
 
 // Nona Maior
@@ -651,21 +651,21 @@ private String description;
    * onde o intervalo deve ser adicionado.
    */
   protected void addMajorNinth(int indexVet) {
-    intervals.add(indexVet, IntervalFactory.getMajorNinth());
+    intervals.add(indexVet, Intervals.getMajorNinth());
   }
 
 /*
    * Adiciona o intervalo Nona Maior na relação de intervalos da chordName.
    */
   protected void addMajorNinth() {
-    intervals.add(IntervalFactory.getMajorNinth());
+    intervals.add(Intervals.getMajorNinth());
   }
 
 /*
    * Remove o intervalo Nona Maior da relação de intervalos da chordName.
    */
   protected void removeMajorNinth() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getMajorNinth()));;
+    intervals.remove(intervals.indexOf(Intervals.getMajorNinth()));;
   }
 
 // Nona Aumentada
@@ -673,14 +673,14 @@ private String description;
    * Adiciona o intervalo Nona Aumentada na relação de intervalos da chordName.
    */
   protected void addAugmentedNinth() {
-    intervals.add(IntervalFactory.getAugNinth());
+    intervals.add(Intervals.getAugNinth());
   }
 
 /*
    * Remove o intervalo Nona Aumentada da relação de intervalos da chordName.
    */
   protected void removeAugmentedNinth() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getAugNinth()));;
+    intervals.remove(intervals.indexOf(Intervals.getAugNinth()));;
   }
 
 // DecimaPrimeira Diminuta
@@ -688,14 +688,14 @@ private String description;
    * Adiciona o intervalo Décima Primeira Diminuta na relação de intervalos da chordName.
    */
   protected void addDiminished11th() {
-    intervals.add(IntervalFactory.getDim11th());
+    intervals.add(Intervals.getDim11th());
   }
 
 /*
    * Remove o intervalo Décima Primeira Diminuta da relação de intervalos da chordName.
    */
   protected void removeDiminished11th() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getDim11th()));
+    intervals.remove(intervals.indexOf(Intervals.getDim11th()));
   }
 
 // DecimaPrimeira Justa
@@ -703,7 +703,7 @@ private String description;
    * Adiciona o intervalo Décima Primeira Justa na relação de intervalos da chordName.
    */
   protected void addPerfect11th() {
-    intervals.add(IntervalFactory.getPerfect11th());
+    intervals.add(Intervals.getPerfect11th());
   }
 
 /*
@@ -720,7 +720,7 @@ private String description;
    * Remove o intervalo Décima Primeira Justa da relação de intervalos da chordName.
    */
   protected void removePerfect11th() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getPerfect11th()));;
+    intervals.remove(intervals.indexOf(Intervals.getPerfect11th()));;
   }
 
 // DecimaPrimeira Aumentada
@@ -728,14 +728,14 @@ private String description;
    * Adiciona o intervalo Décima Primeira Aumentada na relação de intervalos da chordName.
    */
   protected void addAugmented11th() {
-    intervals.add(IntervalFactory.getAug11th());
+    intervals.add(Intervals.getAug11th());
   }
 
 /*
    * Remove o intervalo Décima Primeira Aumentada da relação de intervalos da chordName.
    */
   protected void removeAugmented11th() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getAug11th()));;
+    intervals.remove(intervals.indexOf(Intervals.getAug11th()));;
   }
 
 // DecimaSegunda Justa
@@ -745,7 +745,7 @@ private String description;
    * @param pos pos, na relação de intervalos da chordName, do intervalo a ser substituído.
    */
   protected void changePerfect12thToDiminished(int pos) {
-    intervals.set(pos, IntervalFactory.getDim12th());
+    intervals.set(pos, Intervals.getDim12th());
   }
 
 /*
@@ -754,7 +754,7 @@ private String description;
    * @param pos pos, na relação de intervalos da chordName, do intervalo a ser substituído.
    */
   protected void changePerfec12thtToAugmented(int pos) {
-    intervals.set(pos, IntervalFactory.getAug12th());
+    intervals.set(pos, Intervals.getAug12th());
   }
 
 // DecimaTerceira Menor
@@ -762,14 +762,14 @@ private String description;
    * Adiciona o intervalo Décima Terceira Menor na relação de intervalos da chordName.
    */
   protected void addMinor13th() {
-    intervals.add(IntervalFactory.getMinor13th());
+    intervals.add(Intervals.getMinor13th());
   }
 
 /*
    * Remove o intervalo Décima Terceira Menor da relação de intervalos da chordName.
    */
   protected void removeMinor13th() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getMinor13th()));;
+    intervals.remove(intervals.indexOf(Intervals.getMinor13th()));;
   }
 
 // DecimaTerceira Maior
@@ -777,14 +777,14 @@ private String description;
    * Adiciona o intervalo Décima Terceira Maior na relação de intervalos da chordName.
    */
   protected void addMajor13th() {
-    intervals.add(IntervalFactory.getMajor13th());
+    intervals.add(Intervals.getMajor13th());
   }
 
 /*
    * Remove o intervalo Décima Terceira Maior da relação de intervalos da chordName.
    */
   protected void removeMajor13th() {
-    intervals.remove(intervals.indexOf(IntervalFactory.getMajor13th()));;
+    intervals.remove(intervals.indexOf(Intervals.getMajor13th()));;
   }
 
 // DecimaTerceira Aumentada
@@ -792,7 +792,7 @@ private String description;
    * Adiciona o intervalo Décima Terceira Aumentada na relação de intervalos da chordName.
    */
   protected void addAugmented13th() {
-    intervals.add(IntervalFactory.getAug13th());
+    intervals.add(Intervals.getAug13th());
   }
 
 /*

@@ -113,6 +113,15 @@ void midi(int  midiOut) throws Exception{
      musician.play(note.getMusicalEventSequence(duration, dynamics));  
  }
 
+//Not working...but not really a necessity! Check that latter.
+/*void play(Note[] ns)throws Exception{
+     Melody m = Melody(ns, RhythmPattern.getConstantRhythmPattern(notes.length, QUARTER_NOTE));
+     musician.play(m);
+}
+
+void play(Chord[] cs){
+	musician.play(harmony(chords));
+}*/
 
 //Playables Note
 
@@ -146,13 +155,6 @@ Note note(String symbol, int octave) throws NoteException{
     return Notes.getNote(symbol, 4);
  }
  
- 
- //chord
- 
- Chord chord(String chordName) throws Exception{
-   Chord chord = Chord.getChord(chordName);
-   return chord;
- }
  
  //Scale
  Scale scale(Note key, int mode) throws Exception{
@@ -323,6 +325,64 @@ Note[] suffle(Note[] notes, int noNotes){
  	return rp;	
  }
 
+ //chord
+ 
+ Chord chord(String chordName) throws Exception{
+   Chord chord = Chord.getChord(chordName);
+   return chord;
+ }
+ 
+ Chord chord(Note... notes) throws Exception{
+     return new Chord(notes);
+ }
 
  
+ Chord[] chords (Chord...chords) throws Exception{
+    return chords;
+ }
+ 
+ Chord[] chords(String...chords) throws Exception{
+    Chord[] objChords = new Chord[chords.length];
+     for (int i=0; i<chords.length; i++){
+     	objChords[i] = Chord.getChord(chords[i]);
+     }
+     return objChords;
+ }
+ 
+ 
+ Chord[] chords (HarmonicProgression harmonicprogression, Note key) throws Exception{
+    return harmonicprogression.getChords(key);
+ }
+ 
+ Harmony harmony(HarmonicProgression harmonicprogression, Note key){
+ 	return new Harmony(harmonicprogression.getChords(key));
+ }
+ 
+  Harmony harmony(Chord... chords){
+ 	return new Harmony(chords);
+ }
+ 
+ Harmony harmony(String... chordsNames)throws Exception{
+ 	 Chord[] objChords = new Chord[chordsNames.length];
+     for (int i=0; i<chordsNames.length; i++){
+     	objChords[i] = Chord.getChord(chordsNames[i]);
+     }
+ 	return new Harmony(objChords);
+ }
+ 
+ HarmonicProgression progression(String... scaleDegrees) throws Exception{
+   HarmonicProgression harmonicprogression =  new  HarmonicProgression("no name");
+   for (String degree: scaleDegrees){
+   	harmonicprogression.addScaleDegree(degree);
+   }
+   return harmonicprogression;
+ }
+ 
+  /*HarmonicProgression progression( HarmonicProgression.ScaleDegree... scaleDegrees) throws Exception{
+   HarmonicProgression harmonicprogression =  new  HarmonicProgression("no name");
+   for (HarmonicProgression.ScaleDegree degree: scaleDegrees){
+   	harmonicprogression.addScaleDegree(degree);
+   }
+   return harmonicprogression;
+ }*/
  

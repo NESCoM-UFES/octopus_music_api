@@ -7,7 +7,7 @@ import octopus.ChordException;
 import octopus.ChordNotationException;
 import octopus.HarmonicProgression;
 import octopus.Harmony;
-import octopus.IntervalFactory;
+import octopus.Intervals;
 import octopus.Melody;
 import octopus.Music;
 import octopus.Note;
@@ -85,7 +85,7 @@ public class PlayableThings implements OMC {
 		HarmonicProgression harmonicprogression = new HarmonicProgression("Test");
 		harmonicprogression.addScaleDegree("I");
 		harmonicprogression.addScaleDegree("ii");
-		harmonicprogression.addScaleDegree("V", IntervalFactory.getMajorSeventh());
+		harmonicprogression.addScaleDegree("V", Intervals.getMajorSeventh());
 
 		return harmonicprogression;
 

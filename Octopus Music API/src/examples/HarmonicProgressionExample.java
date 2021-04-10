@@ -2,7 +2,7 @@ package examples;
 import octopus.Chord;
 import octopus.ChordNotationException;
 import octopus.HarmonicProgression;
-import octopus.IntervalFactory;
+import octopus.Intervals;
 import octopus.Note;
 import octopus.NoteException;
 
@@ -16,18 +16,18 @@ public class HarmonicProgressionExample {
 
             // Define the degrees ;
 			harmonicprogression.addScaleDegree("I");
-			harmonicprogression.addScaleDegree("IV",IntervalFactory.getMajorSeventh()); //IV7
+			harmonicprogression.addScaleDegree("IV",Intervals.getMajorSeventh()); //IV7
 			harmonicprogression.addScaleDegree("I");	
-			harmonicprogression.addScaleDegree("I",IntervalFactory.getMajorSeventh());		
-			harmonicprogression.addScaleDegree("IV",IntervalFactory.getMajorSeventh()); //IV7
-			harmonicprogression.addScaleDegree("IV",IntervalFactory.getMajorSeventh()); //IV7
+			harmonicprogression.addScaleDegree("I",Intervals.getMajorSeventh());		
+			harmonicprogression.addScaleDegree("IV",Intervals.getMajorSeventh()); //IV7
+			harmonicprogression.addScaleDegree("IV",Intervals.getMajorSeventh()); //IV7
 			harmonicprogression.addScaleDegree("I");
 			harmonicprogression.addScaleDegree("I");
-			harmonicprogression.addScaleDegree("II",IntervalFactory.getMinorSeventh());
-			harmonicprogression.addScaleDegree("IV",IntervalFactory.getMajorSeventh()); //IV7
+			harmonicprogression.addScaleDegree("II",Intervals.getMinorSeventh());
+			harmonicprogression.addScaleDegree("IV",Intervals.getMajorSeventh()); //IV7
 			harmonicprogression.addScaleDegree("I");	
-			harmonicprogression.addScaleDegree("II",IntervalFactory.getMinorSeventh()); //half bar
-			harmonicprogression.addScaleDegree("V",IntervalFactory.getMajorSeventh()); //half bar*/
+			harmonicprogression.addScaleDegree("II",Intervals.getMinorSeventh()); //half bar
+			harmonicprogression.addScaleDegree("V",Intervals.getMajorSeventh()); //half bar*/
 			
 			// Print ;
 			System.out.println(harmonicprogression);

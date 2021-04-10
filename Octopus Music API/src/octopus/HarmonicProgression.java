@@ -54,6 +54,10 @@ public class HarmonicProgression implements Playable{
   ScaleDegree sd = new ScaleDegree(scaleDegree,intervals);
   degrees.add(sd);
 }
+  
+  public void addScaleDegree(HarmonicProgression.ScaleDegree scaleDegree)throws ChordNotationException{
+    degrees.add(scaleDegree);
+  }
 /**
  *
  * @param key Note from where the scale degrees will start be counted.
@@ -83,7 +87,7 @@ public String toString(){
   /**
    * Represents one of the degrees in a Harmonic Prossession. E.g I or V7
    */
-  class ScaleDegree {
+  public class ScaleDegree {
     Interval[] intervals;
     String scaleDegree;
     int numericValue;
@@ -146,7 +150,7 @@ public MusicalEventSequence getMusicalEventSequence() {
     Chord[] chords =  this.getChords(Notes.getC());
 
 
-    RhythmPattern rhythmPattern = RhythmPattern.getDemoRhythmPattern();
+    RhythmPattern rhythmPattern = RhythmPattern.getConstantRhythmPattern(chords.length, RhythmConstants.QUARTER_NOTE);
     Harmony harmony = new Harmony(chords,rhythmPattern) ;
     
     return harmony.getMusicalEventSequence();

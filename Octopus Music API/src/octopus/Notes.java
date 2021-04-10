@@ -16,13 +16,13 @@ import java.util.Vector;
 public class Notes {
 
 
-	private static Note A = new Note("A","A",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond());
-	private static Note B = new Note("B","B",IntervalFactory.getMajorSecond(),IntervalFactory.getMinorSecond());
-	private static Note C = new Note("C","C",IntervalFactory.getMinorSecond(),IntervalFactory.getMajorSecond());
-	private static Note D = new Note("D","D",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond());
-	private static Note E = new Note("E","E",IntervalFactory.getMajorSecond(),IntervalFactory.getMinorSecond());
-	private static Note F = new Note("F","F",IntervalFactory.getMinorSecond(),IntervalFactory.getMajorSecond());
-	private static Note G = new Note("G","G",IntervalFactory.getMajorSecond(),IntervalFactory.getMajorSecond());
+	private static Note A = new Note("A","A",Intervals.getMajorSecond(),Intervals.getMajorSecond());
+	private static Note B = new Note("B","B",Intervals.getMajorSecond(),Intervals.getMinorSecond());
+	private static Note C = new Note("C","C",Intervals.getMinorSecond(),Intervals.getMajorSecond());
+	private static Note D = new Note("D","D",Intervals.getMajorSecond(),Intervals.getMajorSecond());
+	private static Note E = new Note("E","E",Intervals.getMajorSecond(),Intervals.getMinorSecond());
+	private static Note F = new Note("F","F",Intervals.getMinorSecond(),Intervals.getMajorSecond());
+	private static Note G = new Note("G","G",Intervals.getMajorSecond(),Intervals.getMajorSecond());
 
 	//Diatonic Scale: Used to find the relationship between natural notes.
 	static Note notes[] = {C, D, E, F, G, A, B};
@@ -214,15 +214,15 @@ public class Notes {
 		String simbNovaNota = notaBase.getSymbol() + "bb";
 		String nomeNovaNota = notaBase.getName() + " Double Flat";
 		/*@todo errado*/
-		notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota, IntervalFactory.getMinorSecond(),IntervalFactory.getMinorSecond());
+		notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota, Intervals.getMinorSecond(),Intervals.getMinorSecond());
 		return notaAlteradaRetorno;
 	}
 	public static Note getDoubleSharp(Note notaBase) {
 		Note notaAlteradaRetorno;
 		String simbNovaNota = notaBase.getSymbol() + "##";
 		String nomeNovaNota = notaBase.getName() + " Double Sharp";
-		notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota,IntervalFactory.getMinorSecond(),
-				IntervalFactory.getMinorSecond());
+		notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota,Intervals.getMinorSecond(),
+				Intervals.getMinorSecond());
 		return notaAlteradaRetorno;
 	}
 	/*
@@ -274,7 +274,7 @@ public class Notes {
 		Note notaAlteradaRetorno;
 		String simbNovaNota = notaBase.getSymbol() + "b";
 		String nomeNovaNota = notaBase.getName() + " Flat";
-		notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota, IntervalFactory.getMinorSecond(),IntervalFactory.getMinorSecond());
+		notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota, Intervals.getMinorSecond(),Intervals.getMinorSecond());
 
 		return notaAlteradaRetorno;
 	}
@@ -299,7 +299,7 @@ public class Notes {
 	}
 
 	public static Note getNote(Note notaFundamental, int semitones)  throws NoteException{
-		Interval intervalo = IntervalFactory.getInterval(Math.abs(semitones));
+		Interval intervalo = Intervals.getInterval(Math.abs(semitones));
 		if(semitones > 0){
 
 			return getNote(notaFundamental, intervalo);
@@ -509,7 +509,7 @@ public class Notes {
 	 * @return A Note correspondente ao intervalo dado contando a partir da nota dada.
 	 */
 	public static Note getNote(String simbFundamental, String simbIntervalo)  throws NoteException {
-		Interval intervalo = IntervalFactory.getInterval(simbIntervalo);
+		Interval intervalo = Intervals.getInterval(simbIntervalo);
 		Note notaFundamental = getNote(simbFundamental);
 		return getNote(notaFundamental, intervalo);
 	}
@@ -557,8 +557,8 @@ public class Notes {
 		Note notaAlteradaRetorno;
 		String simbNovaNota = notaBase.getSymbol() + "#";
 		String nomeNovaNota = notaBase.getName() + " Sharp";
-		notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota,IntervalFactory.getMinorSecond(),
-				IntervalFactory.getMinorSecond());
+		notaAlteradaRetorno = new Note(simbNovaNota, nomeNovaNota,Intervals.getMinorSecond(),
+				Intervals.getMinorSecond());
 		return notaAlteradaRetorno;
 	}
 
@@ -645,7 +645,7 @@ public class Notes {
 	}*/
 
 	public static void main(String args[]) {
-		Interval[] intervals = IntervalFactory.getIntervals();
+		Interval[] intervals = Intervals.getIntervals();
 		for(int i=0;i< notes.length;i++){
 			for(int j=0;j<intervals.length;j++){
 				try{

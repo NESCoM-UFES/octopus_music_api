@@ -323,7 +323,7 @@ package octopus;
           ponteiro = simbJuncaoIntervalo.getPosition(ponteiro);
           IntervalSymbol simbNumB = currentChordNotation.getSimboloIntervaloNumB(chordName,ponteiro);
           if (simbNumB != null) {
-            if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+            if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbNumB.getUsedSymbol())))){
               cifraValida = configuraAcordeAddNumB(cifraValida, simbNumB);
               //  cifraValida.ordenaVetorIntervalo();
@@ -339,7 +339,7 @@ package octopus;
            ponteiro = simbSuspensao.getPosition(ponteiro);
            IntervalSymbol simbNumC = currentChordNotation.getSimboloIntervaloNumC(chordName,ponteiro);
            if (simbNumC != null) {
-             if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+             if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                simbNumC.getUsedSymbol())))){
                cifraValida = configuraAcordeSuspensao(cifraValida, simbNumC);
              //  cifraValida.ordenaVetorIntervalo();
@@ -391,7 +391,7 @@ package octopus;
           //eh usado o metodo configuraAcordeDiminutoAlteracao por ser generico.
           //A chordName de entrada eh menor
           if (simbNumD != null) {
-            if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+            if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbAlteracao.getUsedSymbol()
                                               + simbNumD.getUsedSymbol())))){
               cifraValida = configuraAcordeDiminutoAlteracao(cifraValida, simbAlteracao, simbNumD);
@@ -405,7 +405,7 @@ package octopus;
              }
           }
           else if (simbNumB != null) {
-            if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+            if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbAlteracao.getUsedSymbol()
                                               + simbNumB.getUsedSymbol())))){
               cifraValida = configuraAcordeDiminutoAlteracao(cifraValida, simbAlteracao, simbNumB);
@@ -429,7 +429,7 @@ package octopus;
             //eh usado o metodo configuraAcordeDiminutoAlteracao por ser generico.
             //A chordName de entrada eh menor
             if (simbNumB != null) {
-              if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+              if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbAlteracao.getUsedSymbol()
                                               + simbNumB.getUsedSymbol())))){
                 cifraValida = configuraAcordeDiminutoAlteracao(cifraValida, simbAlteracao, simbNumB);
@@ -446,7 +446,7 @@ package octopus;
             }
           }else if (simbNumB != null) {
               ponteiro = simbNumB.getPosition(ponteiro);
-              if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+              if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbNumB.getUsedSymbol())))){
                 cifraValida = configuraAcordeAddNumB(cifraValida, simbNumB);
                 // cifraValida.ordenaVetorIntervalo();
@@ -498,7 +498,7 @@ package octopus;
         IntervalSymbol simbNumB = currentChordNotation.getSimboloIntervaloNumB(chordName,ponteiro);
         NotationalSymbol simbAlteracao = currentChordNotation.getAlterationSymbol(chordName,ponteiro);
         if (simbNumB != null) {
-          if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+          if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbNumB.getUsedSymbol())))){
             cifraValida = configuraAcordeAddNumB(cifraValida, simbNumB);
             // cifraValida.ordenaVetorIntervalo();
@@ -516,7 +516,7 @@ package octopus;
           ponteiro = simbAlteracao.getPosition(ponteiro);
           simbNumB = currentChordNotation.getSimboloIntervaloNumB(chordName,ponteiro);
           if (simbNumB != null) {
-            if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+            if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbAlteracao.getUsedSymbol()
                                               + simbNumB.getUsedSymbol())))){
               ponteiro = simbNumB.getPosition(ponteiro);
@@ -545,7 +545,7 @@ package octopus;
            ponteiro = simbSuspensao.getPosition(ponteiro);
            IntervalSymbol simbNumC = currentChordNotation.getSimboloIntervaloNumC(chordName,ponteiro);
            if (simbNumC != null) {
-             if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+             if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbNumC.getUsedSymbol())))){
                cifraValida = configuraAcordeSuspensao(cifraValida, simbNumC);
               //  cifraValida.ordenaVetorIntervalo();
@@ -589,7 +589,7 @@ package octopus;
             ponteiro = simbSuspensao.getPosition(ponteiro);
             IntervalSymbol simbNumC = currentChordNotation.getSimboloIntervaloNumC(chordName,ponteiro);
             if (simbNumC != null) {
-              if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+              if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                  simbNumC.getUsedSymbol())))){
                 cifraValida = configuraAcordeSuspensao(cifraValida, simbNumC);
                //  cifraValida.ordenaVetorIntervalo();
@@ -616,7 +616,7 @@ package octopus;
             ponteiro = simbSuspensao.getPosition(ponteiro);
             IntervalSymbol simbNumC = currentChordNotation.getSimboloIntervaloNumC(chordName,ponteiro);
             if (simbNumC != null) {
-              if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+              if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                  simbNumC.getUsedSymbol())))){
                 cifraValida = configuraAcordeSuspensao(cifraValida, simbNumC);
                //  cifraValida.ordenaVetorIntervalo();
@@ -661,7 +661,7 @@ package octopus;
            ponteiro = simbSuspensao.getPosition(ponteiro);
            IntervalSymbol simbNumC = currentChordNotation.getSimboloIntervaloNumC(chordName,ponteiro);
            if (simbNumC != null) {
-             if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+             if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                  simbNumC.getUsedSymbol())))){
                cifraValida = configuraAcordeSuspensao(cifraValida, simbNumC);
                //  cifraValida.ordenaVetorIntervalo();
@@ -788,7 +788,7 @@ package octopus;
              simbNumB = currentChordNotation.getSimboloIntervaloNumB(chordName, ponteiro);
              simbAlteracao = currentChordNotation.getAlterationSymbol(chordName, ponteiro);
              if (simbNumB != null) {
-               if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+               if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbNumB.getUsedSymbol())))){
                 cifraValida = configuraAcordeAddNumB(cifraValida, simbNumB);
                 ponteiro = simbNumB.getPosition(ponteiro);
@@ -801,7 +801,7 @@ package octopus;
                 ponteiro = simbAlteracao.getPosition(ponteiro);
                 simbNumB = currentChordNotation.getSimboloIntervaloNumB(chordName, ponteiro);
                 if (simbNumB != null) {
-                  if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+                  if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbNumB.getUsedSymbol())))){
                     cifraValida = configuraAcordeDiminutoAlteracao(cifraValida, simbAlteracao, simbNumB);
                     ponteiro = simbNumB.getPosition(ponteiro);
@@ -835,7 +835,7 @@ package octopus;
                }
 
            }else if (simbNumB != null) {
-              if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+              if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbNumB.getUsedSymbol())))){
                 cifraValida = configuraAcordeAddNumB(cifraValida, simbNumB);
                 ponteiro = simbNumB.getPosition(ponteiro);
@@ -863,7 +863,7 @@ package octopus;
            ponteiro = simbSuspensao.getPosition(ponteiro);
            IntervalSymbol simbNumC = currentChordNotation.getSimboloIntervaloNumC(chordName,ponteiro);
            if (simbNumC != null) {
-             if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+             if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbNumC.getUsedSymbol())))){
                cifraValida = configuraAcordeSuspensao(cifraValida, simbNumC);
               //  cifraValida.ordenaVetorIntervalo();
@@ -948,7 +948,7 @@ package octopus;
         }
         IntervalSymbol simbNumB = currentChordNotation.getSimboloIntervaloNumB(chordName,ponteiro);
         if ((simbNumB != null) && (simbJuncaoIntervalo != null)) {
-          if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+          if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbNumB.getUsedSymbol())))){
             cifraValida = configuraAcordeAddNumB(cifraValida, simbNumB);
           //  cifraValida.ordenaVetorIntervalo();
@@ -988,7 +988,7 @@ package octopus;
           //eh usado o metodo configuraAcordeDiminutoAlteracao por ser generico.
           //A chordName de entrada eh menor
           if (simbNumD != null) {
-            if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+            if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbAlteracao.getUsedSymbol()
                                               + simbNumD.getUsedSymbol())))){
               cifraValida = configuraAcordeDiminutoAlteracao(cifraValida, simbAlteracao, simbNumD);
@@ -1002,7 +1002,7 @@ package octopus;
              }
           }
           else if (simbNumB != null) {
-            if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+            if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbAlteracao.getUsedSymbol()
                                               + simbNumB.getUsedSymbol())))){
               cifraValida = configuraAcordeDiminutoAlteracao(cifraValida, simbAlteracao, simbNumB);
@@ -1026,7 +1026,7 @@ package octopus;
             //eh usado o metodo configuraAcordeDiminutoAlteracao por ser generico.
             //A chordName de entrada eh menor
             if (simbNumB != null) {
-              if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+              if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbAlteracao.getUsedSymbol()
                                               + simbNumB.getUsedSymbol())))){
                 cifraValida = configuraAcordeDiminutoAlteracao(cifraValida, simbAlteracao, simbNumB);
@@ -1043,7 +1043,7 @@ package octopus;
             }
           }else if (simbNumB != null) {
               ponteiro = simbNumB.getPosition(ponteiro);
-              if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+              if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbNumB.getUsedSymbol())))){
                 cifraValida = configuraAcordeAddNumB(cifraValida, simbNumB);
                 // cifraValida.ordenaVetorIntervalo();
@@ -1096,7 +1096,7 @@ package octopus;
         IntervalSymbol simbNumB = currentChordNotation.getSimboloIntervaloNumB(chordName,ponteiro);
         NotationalSymbol simbAlteracao = currentChordNotation.getAlterationSymbol(chordName,ponteiro);
         if (simbNumB != null) {
-          if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+          if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbNumB.getUsedSymbol())))){
             cifraValida = configuraAcordeAddNumB(cifraValida, simbNumB);
             // cifraValida.ordenaVetorIntervalo();
@@ -1114,7 +1114,7 @@ package octopus;
           ponteiro = simbAlteracao.getPosition(ponteiro);
           simbNumB = currentChordNotation.getSimboloIntervaloNumB(chordName,ponteiro);
           if (simbNumB != null) {
-            if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+            if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbAlteracao.getUsedSymbol()
                                               + simbNumB.getUsedSymbol())))){
               ponteiro = simbNumB.getPosition(ponteiro);
@@ -1306,7 +1306,7 @@ package octopus;
              simbNumB = currentChordNotation.getSimboloIntervaloNumB(chordName, ponteiro);
              simbAlteracao = currentChordNotation.getAlterationSymbol(chordName, ponteiro);
              if (simbNumB != null) {
-               if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+               if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbNumB.getUsedSymbol())))){
                 cifraValida = configuraAcordeAddNumB(cifraValida, simbNumB);
                 ponteiro = simbNumB.getPosition(ponteiro);
@@ -1319,7 +1319,7 @@ package octopus;
                 ponteiro = simbAlteracao.getPosition(ponteiro);
                 simbNumB = currentChordNotation.getSimboloIntervaloNumB(chordName, ponteiro);
                 if (simbNumB != null) {
-                  if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+                  if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbNumB.getUsedSymbol())))){
                     cifraValida = configuraAcordeDiminutoAlteracao(cifraValida, simbAlteracao, simbNumB);
                     ponteiro = simbNumB.getPosition(ponteiro);
@@ -1353,7 +1353,7 @@ package octopus;
                }
 
            }else if (simbNumB != null) {
-              if (!(cifraValida.containsInterval(IntervalFactory.getInterval(
+              if (!(cifraValida.containsInterval(Intervals.getInterval(
                                                 simbNumB.getUsedSymbol())))){
                 cifraValida = configuraAcordeAddNumB(cifraValida, simbNumB);
                 ponteiro = simbNumB.getPosition(ponteiro);

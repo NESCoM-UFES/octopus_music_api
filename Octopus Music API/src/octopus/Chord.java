@@ -71,7 +71,7 @@ public class Chord implements Serializable,Playable{
 		notes = new ArrayList<Note>();
 		intervals = new ArrayList<Interval>(); 
 		notes.add(rootNote);
-		intervals.add(IntervalFactory.fundamental);
+		intervals.add(Intervals.fundamental);
 
 		rootPos = bassPos = notes.indexOf(rootNote);
 		bassPos = notes.indexOf(rootNote); // Automatic definition of the bass as the root note;
@@ -105,6 +105,23 @@ public class Chord implements Serializable,Playable{
 		chordInit();
 	}
 
+	/*
+	 * Inserted to support REPL mode.
+	 */
+	public Chord(Note... notes) throws ChordNotationException, NoteException {
+		this(notes[0]);
+		for (int i=1; i< notes.length; i++){
+			addNote(notes[i]);
+	     }
+	   
+	}
+	
+	/*public Chord(Note root, Interval... intervals) throws ChordNotationException, NoteException {
+		this(root);
+		
+	   
+	}*/
+	 
 
 	public String getChordName(){
 		String chordName = "";
@@ -158,7 +175,7 @@ public class Chord implements Serializable,Playable{
 
 	public void addNote(Note note) throws NoteException{
 		Note rootNote = notes.get(rootPos);
-		Interval interval = IntervalFactory.getInterval(rootNote, note);
+		Interval interval = Intervals.getInterval(rootNote, note);
 		addNote(note,interval);
 	}
 
@@ -335,7 +352,7 @@ public class Chord implements Serializable,Playable{
 				 int distanceRootBass = Notes.getDistance(validChordName.getRootNote().
 						 getNote(),
 						 bassNote, false);
-				 Interval bassNoteFundamentalInterval = IntervalFactory.getInterval(
+				 Interval bassNoteFundamentalInterval = Intervals.getInterval(
 						 distanceRootBass);       
 				 addNote(bassNote, bassNoteFundamentalInterval);
 				 setBassNote(getNotes().length - 1);
@@ -355,22 +372,22 @@ public class Chord implements Serializable,Playable{
 				 note = key;
 			 }
 			 else {
-				 note = Notes.getNote(key,IntervalFactory.getInterval(
+				 note = Notes.getNote(key,Intervals.getInterval(
 						 String.valueOf(scaleDegree.numericValue)));
 
 			 }
 			 Chord chord = new Chord(note);
 			 // 3th addition
 			 if (scaleDegree.mode == 0) {
-				 interval = IntervalFactory.getMinorThird();
+				 interval = Intervals.getMinorThird();
 				 chord.addNote(Notes.getNote(note,interval),interval);
 			 }
 			 else {
-				 interval = IntervalFactory.getMajorThird();
+				 interval = Intervals.getMajorThird();
 				 chord.addNote(Notes.getNote(note,interval),interval);
 			 }
 			 // 5th addtion
-			 interval = IntervalFactory.getPerfectFifth();
+			 interval = Intervals.getPerfectFifth();
 			 chord.addNote(Notes.getNote(note,interval),interval);
 
 			 if (scaleDegree.intervals != null) {
@@ -435,7 +452,7 @@ public class Chord implements Serializable,Playable{
 			 Note bassNote = validChordName.getBassNote().getNote();
 			 int distanciaFundamentalBaixo =    Notes.getDistance(validChordName.getRootNote().getNote(),
 					 bassNote, false);
-			 Interval bassFundamentalInterval = IntervalFactory.getInterval(distanciaFundamentalBaixo);      
+			 Interval bassFundamentalInterval = Intervals.getInterval(distanciaFundamentalBaixo);      
 			 acordeRetorno.addNote(bassNote,bassFundamentalInterval);
 			 acordeRetorno.setBassNote(acordeRetorno.getNotes().length -1);
 		 }

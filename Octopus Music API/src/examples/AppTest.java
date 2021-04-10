@@ -1,5 +1,6 @@
 package examples;
 import octopus.Bar;
+import octopus.*;
 import octopus.Melody;
 import octopus.Musician;
 import octopus.Note;
@@ -10,6 +11,9 @@ import octopus.RhythmPattern;
 public class AppTest {
 	public static void main(String[] args) {
 		try {
+			
+			
+			Chord chord = new Chord(Notes.getC(),Notes.getE(),Notes.getG());
 			
 			//Chord chord = Chord.getChord("X#m7(9)");
 			

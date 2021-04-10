@@ -1,6 +1,5 @@
 import octopus.*;
 import octopus.repl.*;
-import octopus.repl.*;
 import octopus.communication.*;
 import octopus.communication.midi.*;
 import examples.*;
@@ -63,7 +62,7 @@ int random(int min, int max){
 
 //Library
 
-Library lib = new Library();
+//Library lib = new Library();
 
 //MIDI
 
@@ -114,6 +113,15 @@ void midi(int  midiOut) throws Exception{
      musician.play(note.getMusicalEventSequence(duration, dynamics));  
  }
 
+//Not working...but not really a necessity! Check that latter.
+/*void play(Note[] ns)throws Exception{
+     Melody m = Melody(ns, RhythmPattern.getConstantRhythmPattern(notes.length, QUARTER_NOTE));
+     musician.play(m);
+}
+
+void play(Chord[] cs){
+	musician.play(harmony(chords));
+}*/
 
 //Playables Note
 
@@ -148,13 +156,6 @@ Note note(String symbol, int octave) throws NoteException{
  }
  
  
- //chord
- 
- Chord chord(String chordName) throws Exception{
-   Chord chord = Chord.getChord(chordName);
-   return chord;
- }
- 
  //Scale
  Scale scale(Note key, int mode) throws Exception{
     return Scale.getDiatonicScale(key,mode);
@@ -186,6 +187,14 @@ Note[] notes(Melody melody) throws Exception{
 Note[] notes(String[] noteSymbols) throws Exception{
 	return Notes.getNotes(noteSymbols);
 }
+
+Note[] notes(String... noteSymbols) throws Exception{
+	return Notes.getNotes(noteSymbols);
+}
+
+Note[] notes(Note... notes) throws Exception{
+	return notes;
+}
  
 /** Utilitarian methods over array of notes**/
 NotesREPL notes = new  NotesREPL();
@@ -205,23 +214,30 @@ Note[] suffle(Note[] notes, int noNotes){
  
  //Melody
  
- Melody melody(Note[] notes){     
-     return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, WHOLE_NOTE));
+ Melody melody (Note... notes){
+  //System.out.println(notes.length);
+  return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, QUARTER_NOTE));
  }
+
+ /*Melody melody(Note[] notes){     
+     return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, QUARTER_NOTE));
+ }*/
  
   Melody melody(Note[] notes, double noteDuration){     
-     return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, noteDuration));
- }
- 
- Melody melody(Note[] notes, double noteDuration){     
      return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, noteDuration));
  }
 
  Melody melody(Note[] notes, RhythmPattern rhythmPattern){     
      return new Melody(notes, rhythmPattern);
  }
+ 
+ //Fazer depois "C++F---F+F-"
+ /*Melody melody (String melodyTextualNotation){
+       
+ }*/
  //Rhythm
  
+
   Bar bar(String textualNotation){
       Bar bar = new Bar(4,4);
       bar.addRhythmEvent(textualNotation,SIXTEENTH_NOTE);
@@ -242,7 +258,7 @@ Note[] suffle(Note[] notes, int noNotes){
  }
  
   Bar bar(int nUnits, int measurementUnit, String textualNotation, double subBeatDuration){
-      Bar bar = new Bar(nUnits,nUnits);
+      Bar bar = new Bar(nUnits,measurementUnit);
       bar.addRhythmEvent(textualNotation,subBeatDuration);
       return bar;
  }
@@ -254,7 +270,119 @@ Note[] suffle(Note[] notes, int noNotes){
  	}
  	return rp;	
  }
-
+ 
+  RhythmPattern rhythm(String... barsTextualNotation){
+ 	RhythmPattern rp = new RhythmPattern();
+ 	for (String t: barsTextualNotation){
+ 		rp.insertBar(bar(t));
+ 	}
+ 	return rp;	
+ }
+ 
+ RhythmREPL.Mark mark(String name){
+   return RhythmREPL.mark(name);
+ }
+ 
+ RhythmREPL.ReturnPoint returnTo(String name, int repetitions){
+   return RhythmREPL.returnTo(name,repetitions);
+ }
+ 
+ RhythmPattern rhythm(RhythmPattern.Things... rhythmThings){
+ 	RhythmPattern rp = new RhythmPattern();
+ 	for (RhythmPattern.Things item: rhythmThings){
+ 		if(item instanceof RhythmREPL.Mark) rp.insertMark(((RhythmREPL.Mark)item).name);
+ 		if(item instanceof Bar) rp.insertBar((Bar)item);
+ 		if(item instanceof RhythmREPL.ReturnPoint) rp.insertReturn(
+ 													   ((RhythmREPL.ReturnPoint)item).markName, 
+ 													   ((RhythmREPL.ReturnPoint)item).repetitions); 		
+ 	}
+ 	return rp;	
+ }
+ 
 
  
+   RhythmPattern rhythm(String barTextualNotation, int repetitions){
+ 	RhythmPattern rp = new RhythmPattern();
+ 	for(int i = 0; i< repetitions; i++){
+	 	rp.insertBar(bar(barTextualNotation));
+	 }
+ 	
+ 	return rp;	
+ }
+  RhythmPattern rhythm(Bar bar, int repetitions){
+ 	RhythmPattern rp = new RhythmPattern();
+ 	rp.insertMark("beginning");
+ 	rp.insertBar(bar);
+    rp.insertReturn("beginning",repetitions);
+ 	return rp;	
+ }
+ 
+ RhythmPattern rhythm(Bar[] bars, int repetitions){
+ 	RhythmPattern rp = new RhythmPattern();
+ 	rp.insertMark("beginning");
+ 	rp.insertBar(bars);
+    rp.insertReturn("beginning",repetitions);
+ 	return rp;	
+ }
+
+ //chord
+ 
+ Chord chord(String chordName) throws Exception{
+   Chord chord = Chord.getChord(chordName);
+   return chord;
+ }
+ 
+ Chord chord(Note... notes) throws Exception{
+     return new Chord(notes);
+ }
+
+ 
+ Chord[] chords (Chord...chords) throws Exception{
+    return chords;
+ }
+ 
+ Chord[] chords(String...chords) throws Exception{
+    Chord[] objChords = new Chord[chords.length];
+     for (int i=0; i<chords.length; i++){
+     	objChords[i] = Chord.getChord(chords[i]);
+     }
+     return objChords;
+ }
+ 
+ 
+ Chord[] chords (HarmonicProgression harmonicprogression, Note key) throws Exception{
+    return harmonicprogression.getChords(key);
+ }
+ 
+ Harmony harmony(HarmonicProgression harmonicprogression, Note key){
+ 	return new Harmony(harmonicprogression.getChords(key));
+ }
+ 
+  Harmony harmony(Chord... chords){
+ 	return new Harmony(chords);
+ }
+ 
+ Harmony harmony(String... chordsNames)throws Exception{
+ 	 Chord[] objChords = new Chord[chordsNames.length];
+     for (int i=0; i<chordsNames.length; i++){
+     	objChords[i] = Chord.getChord(chordsNames[i]);
+     }
+ 	return new Harmony(objChords);
+ }
+ 
+ HarmonicProgression progression(String... scaleDegrees) throws Exception{
+   HarmonicProgression harmonicprogression =  new  HarmonicProgression("no name");
+   for (String degree: scaleDegrees){
+   	harmonicprogression.addScaleDegree(degree);
+   }
+   return harmonicprogression;
+ }
+ 
+  /*HarmonicProgression progression( HarmonicProgression.ScaleDegree... scaleDegrees) throws Exception{
+   HarmonicProgression harmonicprogression =  new  HarmonicProgression("no name");
+   for (HarmonicProgression.ScaleDegree degree: scaleDegrees){
+   	harmonicprogression.addScaleDegree(degree);
+   }
+   return harmonicprogression;
+ }*/
  

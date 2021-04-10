@@ -40,54 +40,54 @@ public class Scale implements Playable{ //Diatonic
 
 	// protected static int[] majorScale = {2,2,1,2,2,2,1};
 	protected static Interval[] majorScaleI = {
-		IntervalFactory.getMajorSecond(), IntervalFactory.getMajorSecond(),
-		IntervalFactory.getMinorSecond(), IntervalFactory.getMajorSecond(),
-		IntervalFactory.getMajorSecond(),
-		IntervalFactory.getMajorSecond(), IntervalFactory.getMinorSecond()};
+		Intervals.getMajorSecond(), Intervals.getMajorSecond(),
+		Intervals.getMinorSecond(), Intervals.getMajorSecond(),
+		Intervals.getMajorSecond(),
+		Intervals.getMajorSecond(), Intervals.getMinorSecond()};
 
 
 	// protected static int[] minorScale = {2,1,2,2,1,2,2};
 	protected static Interval[] minorScaleI = {
-		IntervalFactory.getMajorSecond(), IntervalFactory.getMinorSecond(),
-		IntervalFactory.getMajorSecond(), IntervalFactory.getMajorSecond(),
-		IntervalFactory.getMinorSecond(),
-		IntervalFactory.getMajorSecond(), IntervalFactory.getMajorSecond()};
+		Intervals.getMajorSecond(), Intervals.getMinorSecond(),
+		Intervals.getMajorSecond(), Intervals.getMajorSecond(),
+		Intervals.getMinorSecond(),
+		Intervals.getMajorSecond(), Intervals.getMajorSecond()};
 
 	// protected static int[] pentatonicMinorScale = {3,2,2,3,2};
 	protected static Interval[] pentatonicMinorScale = {
-		IntervalFactory.getMinorThird(), IntervalFactory.getMajorSecond(),
-		IntervalFactory.getMajorSecond(), IntervalFactory.getMinorThird(),
-		IntervalFactory.getMajorSecond()};
+		Intervals.getMinorThird(), Intervals.getMajorSecond(),
+		Intervals.getMajorSecond(), Intervals.getMinorThird(),
+		Intervals.getMajorSecond()};
 
 	Note[] notes;
 
 	//  protected static int[] pentatonicScale = {2,2,3,2,3};
 	protected static Interval[] pentatonicMajorScale = {
-		IntervalFactory.getMajorSecond(), IntervalFactory.getMajorSecond(),
-		IntervalFactory.getMinorThird(), IntervalFactory.getMajorSecond(),
-		IntervalFactory.getMinorThird()};
+		Intervals.getMajorSecond(), Intervals.getMajorSecond(),
+		Intervals.getMinorThird(), Intervals.getMajorSecond(),
+		Intervals.getMinorThird()};
 
 	private static Note noteC = new Note("C", "C",
-			IntervalFactory.getMinorSecond(),
-			IntervalFactory.getMajorSecond());
+			Intervals.getMinorSecond(),
+			Intervals.getMajorSecond());
 	private static Note noteD = new Note("D", "D",
-			IntervalFactory.getMajorSecond(),
-			IntervalFactory.getMajorSecond());
+			Intervals.getMajorSecond(),
+			Intervals.getMajorSecond());
 	private static Note noteE = new Note("E", "E",
-			IntervalFactory.getMajorSecond(),
-			IntervalFactory.getMinorSecond());
+			Intervals.getMajorSecond(),
+			Intervals.getMinorSecond());
 	private static Note noteF = new Note("F", "F",
-			IntervalFactory.getMinorSecond(),
-			IntervalFactory.getMajorSecond());
+			Intervals.getMinorSecond(),
+			Intervals.getMajorSecond());
 	private static Note noteG = new Note("G", "G",
-			IntervalFactory.getMajorSecond(),
-			IntervalFactory.getMajorSecond());
+			Intervals.getMajorSecond(),
+			Intervals.getMajorSecond());
 	private static Note noteA = new Note("A", "A",
-			IntervalFactory.getMajorSecond(),
-			IntervalFactory.getMajorSecond());
+			Intervals.getMajorSecond(),
+			Intervals.getMajorSecond());
 	private static Note noteB = new Note("B", "A",
-			IntervalFactory.getMajorSecond(),
-			IntervalFactory.getMinorSecond());
+			Intervals.getMajorSecond(),
+			Intervals.getMinorSecond());
 
 
 	/*
@@ -154,7 +154,7 @@ public class Scale implements Playable{ //Diatonic
 		Interval[] intervals = new Interval[semitones.length]; 
 		for (int i = 0; i < semitones.length; i++) {
 			//Interval interval = intervals[i];
-			intervals[i] = IntervalFactory.getInterval(semitones[i]);
+			intervals[i] = Intervals.getInterval(semitones[i]);
 		}
 		return getScale(key,intervals,CmajDiatonicNotes);
 		//return getScale(key,intervals);

@@ -28,7 +28,8 @@ public class Harmony extends MusicalComponent implements Playable {
 	 * @param chords array of chords of the Harmony.
 	 */
 	public Harmony(Chord[] chords) {/**@todo verificar se esta funcionando*/
-		super(new RhythmPattern(4,4,chords.length));
+		//super(new RhythmPattern(4,4,chords.length));
+		super(RhythmPattern.getConstantRhythmPattern(chords.length, RhythmConstants.QUARTER_NOTE));	
 		this.chords = new Vector<Chord>(Arrays.asList(chords));
 
 	}
