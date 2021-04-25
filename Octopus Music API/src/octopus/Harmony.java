@@ -197,34 +197,36 @@ public class Harmony extends MusicalComponent implements Playable {
 		Bar.RhythmEvent[] harmonyRhythmEvents = this.rhythmPattern.getRhythmEvents(true);
 		double time = 0.0;	  
 		for (int i = 0; i < harmonyRhythmEvents.length; i++) {
-			Chord chord = chordsHarmony[indexChords];
-			Arpeggio arpeggio = getArpeggio(chord);
+			if(harmonyRhythmEvents[i].type == RhythmConstants.RHYTHM_EVENT_NOTE) {
+				Chord chord = chordsHarmony[indexChords];
+				Arpeggio arpeggio = getArpeggio(chord);
 
-			if(arpeggio==null){			  
-				arpeggio = new Arpeggio(chord.getPolyphony(), harmonyRhythmEvents[i].duration);
-			}
-
-			//the the RhythmEvents with the adjusted duration.
-			Bar.RhythmEvent[][] arpeggioRhythmEvents = arpeggio.getRhythmEvents(harmonyRhythmEvents[i].duration);
-			Note[] notes =  chord.getNotes();
-
-			MusicalEventSequence chordMusicalEventSequence = getMusicalEventSequence(notes,arpeggioRhythmEvents);
-
-
-			chordMusicalEventSequence.delayEvents(time);
-			harmonyMusicalEventSequence.addMusicalEventSequence(chordMusicalEventSequence);
-
-			if (indexChords >= chordsHarmony.length - 1) {
-				if (circularList){  
-					indexChords = 0;
-				}else{
-					break;
+				if(arpeggio==null){			  
+					arpeggio = new Arpeggio(chord.getPolyphony(), harmonyRhythmEvents[i].duration);
 				}
+
+				//the the RhythmEvents with the adjusted duration.
+				Bar.RhythmEvent[][] arpeggioRhythmEvents = arpeggio.getRhythmEvents(harmonyRhythmEvents[i].duration);
+				Note[] notes =  chord.getNotes();
+
+				MusicalEventSequence chordMusicalEventSequence = getMusicalEventSequence(notes,arpeggioRhythmEvents);
+
+
+				chordMusicalEventSequence.delayEvents(time);
+				harmonyMusicalEventSequence.addMusicalEventSequence(chordMusicalEventSequence);
+
+				if (indexChords >= chordsHarmony.length - 1) {
+					if (circularList){  
+						indexChords = 0;
+					}else{
+						break;
+					}
+				}
+				else {
+					indexChords++;
+				}
+				time += harmonyRhythmEvents[i].duration;
 			}
-			else {
-				indexChords++;
-			}
-			time += harmonyRhythmEvents[i].duration;
 		}
 
 		return harmonyMusicalEventSequence;

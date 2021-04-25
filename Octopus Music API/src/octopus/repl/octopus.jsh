@@ -79,6 +79,10 @@ void midi(boolean midiIn, boolean midiOut){
    OctopusMidiSystem.listDevices(midiIn, midiOut, true);
 }
 
+void bpm(int bpm) {
+	musician.setPlayingSpeed(bpm);
+}
+
 /** Set midi out port to the current Musician. */
 void midi(String midiOutPortName) throws Exception{
    if(synthController!=null)  synthController.closeDevices();
@@ -279,6 +283,29 @@ Note[] suffle(Note[] notes, int noNotes){
  	return rp;	
  }
  
+ Arpeggio arpeggio(String... barsTextualNotation){
+	 int nVoices = barsTextualNotation.length;
+	 Arpeggio gpr = new Arpeggio(nVoices);	      	     
+	 for(int i = 0; i<nVoices; i++){
+	   gpr.insertBar(bar(barsTextualNotation[i]),i);
+	 }
+	
+	 return gpr;
+ }
+ 
+ Arpeggio arpeggio(Bar... bars){
+	 int nVoices = bars.length;
+	 Arpeggio arpeggio = new Arpeggio(nVoices);	      	     
+	 for(int i = 0; i<nVoices; i++){
+		 arpeggio.insertBar(bars[i],i);
+	 }
+	
+	 return arpeggio;
+ }
+ Arpeggio arpeggio(RhythmPattern... patterns){
+	 return new Arpeggio(patterns);	      	     		 
+ }
+ 
  RhythmREPL.Mark mark(String name){
    return RhythmREPL.mark(name);
  }
@@ -325,6 +352,9 @@ Note[] suffle(Note[] notes, int noNotes){
  	return rp;	
  }
 
+
+
+
  //chord
  
  Chord chord(String chordName) throws Exception{
@@ -361,6 +391,14 @@ Note[] suffle(Note[] notes, int noNotes){
   Harmony harmony(Chord... chords){
  	return new Harmony(chords);
  }
+ 
+   Harmony harmony(Chord[] chords, RhythmPattern rhythm){
+ 	return new Harmony(chords,rhythm);
+   }
+   
+   Harmony harmony(Chord[] chords, RhythmPattern rhythm, Arpeggio arpeggio){
+ 	return new Harmony(chords,rhythm,arpeggio);
+   }
  
  Harmony harmony(String... chordsNames)throws Exception{
  	 Chord[] objChords = new Chord[chordsNames.length];

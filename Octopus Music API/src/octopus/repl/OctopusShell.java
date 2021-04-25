@@ -1,0 +1,461 @@
+package octopus.repl;
+import octopus.*;
+import octopus.repl.*;
+import octopus.communication.*;
+import octopus.communication.midi.*;
+import examples.*;
+
+import java.util.concurrent.TimeUnit;
+
+import javax.sound.midi.MidiUnavailableException;
+
+public class OctopusShell {
+
+
+	// ==== CONSTANTS ===== //Talvez criar classes staticas específicas
+	// para retornar esses valores. Ex dynamics.fortissimo;
+
+
+	 // SCALES
+	   	public  final int MAJOR = 0;
+		public  final int MINOR = 5;
+
+	   //DYNAMICS VALUES
+	  /**{@value}*/
+	  public  final double DYNAMIC_PIANISSIMO = 0.1;
+	  /**{@value}*/
+	  public  final double DYNAMIC_PIANO = 0.2;
+	  /**{@value}*/
+	  public  final double DYNAMIC_FORTE = 0.8;
+	  /**{@value}*/
+	  public  final double DYNAMIC_MEZZO_PIANO = 0.4;
+	  /**{@value}*/
+	  public  final double DYNAMIC_MEZZO_FORTE = 0.6;
+	  /**{@value}*/
+	  public  final double DYNAMIC_FORTISSIMO = 1.0;
+	 
+	 
+	  //NOTE DURATIONS
+	  /**{@value}*/
+	  public  final double DOUBLE_WHOLE = 2;
+	  /**{@value}*/
+	  public  final double WHOLE_NOTE = 1;
+	  /**{@value}*/
+	  public  final double HALF_NOTE = 0.5; //(1/2);4);
+	  /**{@value}*/
+	  public  final double QUARTER_NOTE = 0.25; //(1/4);
+	  /**{@value}*/
+	  public  final double EIGHT_NOTE = 0.125; //(1/8);
+	  /**{@value}*/
+	  public  final double SIXTEENTH_NOTE = 0.0625; //(1/16);
+	  /**{@value}*/
+	  public  final double THIRTY_SECOND_NOTE = 0.03125; //(1/32);
+
+
+
+	//util
+	void pause(int milliseconds) throws Exception{
+	    TimeUnit.MILLISECONDS.sleep(milliseconds);
+	}
+
+	double random(){
+	   return Math.random();		
+	}
+
+	int random(int min, int max){
+	    return (int)((Math.random()*max) + min);
+	}
+
+
+	//MIDI
+	
+	LiveMidiSynthesizerController synthController; 
+	//synthController = new LiveMidiSynthesizerController();
+	Musician musician = new Musician(synthController);
+
+
+	public OctopusShell() {
+		super();
+		try {
+			synthController = new LiveMidiSynthesizerController();
+		
+		musician = new Musician(synthController);
+		} catch (MidiUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	
+
+	void midi(){
+	   OctopusMidiSystem.listDevices(true, true, true);
+	}
+
+	void midi(boolean midiIn, boolean midiOut){
+	   OctopusMidiSystem.listDevices(midiIn, midiOut, true);
+	}
+
+	/** Set midi out port to the current Musician. */
+	void midi(String midiOutPortName) throws Exception{
+	   if(synthController!=null)  synthController.closeDevices();
+	   
+	   synthController = new LiveMidiSynthesizerController(midiOutPortName);
+	   musician.setSynthesizerController(synthController);
+	}
+
+	void bpm(int bpm) {
+		musician.setPlayingSpeed(bpm);
+	}
+	
+	
+	/** Set midi out port to the current Musician. */
+	void midi(int  midiOut) throws Exception{   
+	   String midiOutPortName = OctopusMidiSystem.getMidiDeviceInfo(midiOut).getName();
+	   if(synthController!=null)  synthController.closeDevices();
+	   
+	   synthController = new LiveMidiSynthesizerController(midiOutPortName);
+	   musician.setSynthesizerController(synthController);
+	}
+	//Interpreters
+
+	 void play(Playable p) throws MusicPerformanceException{
+	     musician.play(p);
+	 }
+	 
+	 void play (Chord chord, Arpeggio arpeggio) throws Exception{
+	    musician.play(chord.getMusicalEventSequence(arpeggio));    
+	 }
+	 
+	 void play(Note note, double duration) throws Exception{
+	     musician.play(note.getMusicalEventSequence(duration));  
+	 }
+	 
+	 void play(Note note, double duration, double dynamics) throws Exception{
+	     musician.play(note.getMusicalEventSequence(duration, dynamics));  
+	 }
+
+	//Not working...but not really a necessity! Check that latter.
+	/*void play(Note[] ns)throws Exception{
+	     Melody m = Melody(ns, RhythmPattern.getConstantRhythmPattern(notes.length, QUARTER_NOTE));
+	     musician.play(m);
+	}
+
+	void play(Chord[] cs){
+		musician.play(harmony(chords));
+	}*/
+
+	//Playables Note
+
+	Note A = Notes.getA();
+	Note B = Notes.getB();
+	Note C = Notes.getC();
+	Note D = Notes.getD();
+	Note E = Notes.getE();
+	Note F = Notes.getF();
+	Note G = Notes.getG();
+
+	Note sharp(Note note){
+	    return Notes.getSharp(note);
+	}
+
+	Note flat(Note note){
+	    return Notes.getFlat(note);
+	}
+
+	Note pitch(Note note, int octave) throws NoteException{
+	      Note retorno = (Note)note.clone();
+	      retorno.setOctavePitch(octave);
+	      return retorno;
+	 }
+
+	Note note(String symbol, int octave) throws NoteException{
+	    return Notes.getNote(symbol, octave);
+	 }
+	 
+	 Note note(String symbol) throws NoteException{
+	    return Notes.getNote(symbol, 4);
+	 }
+	 
+	 
+	 //Scale
+	 Scale scale(Note key, int mode) throws Exception{
+	    return Scale.getDiatonicScale(key,mode);
+	 }
+	 
+	 Scale scale(Note key, int[] semitones) throws Exception{
+	    return Scale.getScale(key,semitones);
+	 }
+	  
+	  
+	final ScaleREPL scale = new ScaleREPL();
+
+	// notes() method
+	/** Return as array of notes of some playables */
+	Note[] notes(Scale scale) throws Exception{
+	  return scale.getNotes();
+	}
+
+	/** Return as array of notes of some playables */
+	Note[] notes(Chord chord) throws Exception{
+	  return chord.getNotes();
+	}
+
+	/** Return as array of notes of some playables */
+	Note[] notes(Melody melody) throws Exception{
+	  return melody.getNotes();
+	}
+
+	/*Note[] notes(String[] noteSymbols) throws Exception{
+		return Notes.getNotes(noteSymbols);
+	}*/
+
+	Note[] notes(String... noteSymbols) throws Exception{
+		return Notes.getNotes(noteSymbols);
+	}
+
+	Note[] notes(Note... notes) throws Exception{
+		return notes;
+	}
+	 
+	/** Utilitarian methods over array of notes**/
+	NotesREPL notes = new  NotesREPL();
+	 
+	Note[] transpose(Note[] notes, int semitones) throws Exception{
+	    return Notes.transpose(notes,semitones);
+	 }
+	  
+	Note[] suffle(Note[] notes){
+	  return Notes.suffle(notes);
+	}   
+
+	Note[] suffle(Note[] notes, int noNotes){
+	  return Notes.suffle(notes, noNotes);
+	}   
+	 
+	 
+	 //Melody
+	 
+	 Melody melody (Note... notes){
+	  //System.out.println(notes.length);
+	  return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, QUARTER_NOTE));
+	 }
+
+	 /*Melody melody(Note[] notes){     
+	     return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, QUARTER_NOTE));
+	 }*/
+	 
+	  Melody melody(Note[] notes, double noteDuration){     
+	     return new Melody(notes, RhythmPattern.getConstantRhythmPattern(notes.length, noteDuration));
+	 }
+
+	 Melody melody(Note[] notes, RhythmPattern rhythmPattern){     
+	     return new Melody(notes, rhythmPattern);
+	 }
+	 
+	 //Fazer depois "C++F---F+F-"
+	 /*Melody melody (String melodyTextualNotation){
+	       
+	 }*/
+	 //Rhythm
+	 
+
+	  Bar bar(String textualNotation){
+	      Bar bar = new Bar(4,4);
+	      bar.addRhythmEvent(textualNotation,SIXTEENTH_NOTE);
+	      return bar;
+	 }
+	 
+	  Bar bar(String textualNotation, double subBeatDuration){
+	      Bar bar = new Bar(4,4);
+	      bar.addRhythmEvent(textualNotation,subBeatDuration);
+	      return bar;
+	 }
+	 
+	 Bar bar(int nUnits, int measurementUnit, String textualNotation){
+	      Bar bar = new Bar(nUnits,measurementUnit);
+	      double subBeatDuration = (double)(1.0/measurementUnit);
+	      bar.addRhythmEvent(textualNotation,subBeatDuration);
+	      return bar;
+	 }
+	 
+	  Bar bar(int nUnits, int measurementUnit, String textualNotation, double subBeatDuration){
+	      Bar bar = new Bar(nUnits,measurementUnit);
+	      bar.addRhythmEvent(textualNotation,subBeatDuration);
+	      return bar;
+	 }
+	 
+	 RhythmPattern rhythm(Bar... bars){
+	 	RhythmPattern rp = new RhythmPattern();
+	 	for (Bar b: bars){
+	 		rp.insertBar(b);
+	 	}
+	 	return rp;	
+	 }
+	 
+	  RhythmPattern rhythm(String... barsTextualNotation){
+	 	RhythmPattern rp = new RhythmPattern();
+	 	for (String t: barsTextualNotation){
+	 		rp.insertBar(bar(t));
+	 	}
+	 	return rp;	
+	 }
+	 
+	 Arpeggio arpeggio(String... barsTextualNotation){
+		 int nVoices = barsTextualNotation.length;
+		 Arpeggio gpr = new Arpeggio(nVoices);	      	     
+		 for(int i = 0; i<nVoices; i++){
+		   gpr.insertBar(bar(barsTextualNotation[i]),i);
+		 }
+		
+		 return gpr;
+	 }
+	 Arpeggio arpeggio(Bar... bars){
+		 int nVoices = bars.length;
+		 Arpeggio arpeggio = new Arpeggio(nVoices);	      	     
+		 for(int i = 0; i<nVoices; i++){
+			 arpeggio.insertBar(bars[i],i);
+		 }
+		
+		 return arpeggio;
+	 }
+	 Arpeggio arpeggio(RhythmPattern... patterns){
+		 return new Arpeggio(patterns);	      	     		 
+	 }
+	 
+	 RhythmREPL.Mark mark(String name){
+	   return RhythmREPL.mark(name);
+	 }
+	 
+	 RhythmREPL.ReturnPoint returnTo(String name, int repetitions){
+	   return RhythmREPL.returnTo(name,repetitions);
+	 }
+	 
+	 RhythmPattern rhythm(RhythmPattern.Things... rhythmThings){
+	 	RhythmPattern rp = new RhythmPattern();
+	 	for (RhythmPattern.Things item: rhythmThings){
+	 		if(item instanceof RhythmREPL.Mark) rp.insertMark(((RhythmREPL.Mark)item).name);
+	 		if(item instanceof Bar) rp.insertBar((Bar)item);
+	 		if(item instanceof RhythmREPL.ReturnPoint) rp.insertReturn(
+	 													   ((RhythmREPL.ReturnPoint)item).markName, 
+	 													   ((RhythmREPL.ReturnPoint)item).repetitions); 		
+	 	}
+	 	return rp;	
+	 }
+	 
+
+	 
+	   RhythmPattern rhythm(String barTextualNotation, int repetitions){
+	 	RhythmPattern rp = new RhythmPattern();
+	 	for(int i = 0; i< repetitions; i++){
+		 	rp.insertBar(bar(barTextualNotation));
+		 }
+	 	
+	 	return rp;	
+	 }
+	  RhythmPattern rhythm(Bar bar, int repetitions){
+	 	RhythmPattern rp = new RhythmPattern();
+	 	rp.insertMark("beginning");
+	 	rp.insertBar(bar);
+	    rp.insertReturn("beginning",repetitions);
+	 	return rp;	
+	 }
+	 
+	 RhythmPattern rhythm(Bar[] bars, int repetitions){
+	 	RhythmPattern rp = new RhythmPattern();
+	 	rp.insertMark("beginning");
+	 	rp.insertBar(bars);
+	    rp.insertReturn("beginning",repetitions);
+	 	return rp;	
+	 }
+
+	 //chord
+	 
+	 Chord chord(String chordName) throws Exception{
+	   Chord chord = Chord.getChord(chordName);
+	   return chord;
+	 }
+	 
+	 Chord chord(Note... notes) throws Exception{
+	     return new Chord(notes);
+	 }
+
+	 
+	 Chord[] chords (Chord...chords) throws Exception{
+	    return chords;
+	 }
+	 
+	 Chord[] chords(String...chords) throws Exception{
+	    Chord[] objChords = new Chord[chords.length];
+	     for (int i=0; i<chords.length; i++){
+	     	objChords[i] = Chord.getChord(chords[i]);
+	     }
+	     return objChords;
+	 }
+	 
+	 
+	 Chord[] chords (HarmonicProgression harmonicprogression, Note key) throws Exception{
+	    return harmonicprogression.getChords(key);
+	 }
+	 
+	 Harmony harmony(HarmonicProgression harmonicprogression, Note key){
+	 	return new Harmony(harmonicprogression.getChords(key));
+	 }
+	 
+	  Harmony harmony(Chord... chords){
+	 	return new Harmony(chords);
+	 }
+	 
+	   Harmony harmony(Chord[] chords, RhythmPattern rhythm){
+	 	return new Harmony(chords,rhythm);
+	   }
+	   
+	   Harmony harmony(Chord[] chords, RhythmPattern rhythm, Arpeggio arpeggio){
+	 	return new Harmony(chords,rhythm,arpeggio);
+	   }
+	 
+	 Harmony harmony(String... chordsNames)throws Exception{
+	 	 Chord[] objChords = new Chord[chordsNames.length];
+	     for (int i=0; i<chordsNames.length; i++){
+	     	objChords[i] = Chord.getChord(chordsNames[i]);
+	     }
+	 	return new Harmony(objChords);
+	 }
+	 
+	 HarmonicProgression progression(String... scaleDegrees) throws Exception{
+	   HarmonicProgression harmonicprogression =  new  HarmonicProgression("no name");
+	   for (String degree: scaleDegrees){
+	   	harmonicprogression.addScaleDegree(degree);
+	   }
+	   return harmonicprogression;
+	 }
+	 
+	  /*HarmonicProgression progression( HarmonicProgression.ScaleDegree... scaleDegrees) throws Exception{
+	   HarmonicProgression harmonicprogression =  new  HarmonicProgression("no name");
+	   for (HarmonicProgression.ScaleDegree degree: scaleDegrees){
+	   	harmonicprogression.addScaleDegree(degree);
+	   }
+	   return harmonicprogression;
+	 }*/
+	 
+
+	public static void main(String[] args) {
+		//System.out.println("ok");
+		try {
+	    	OctopusShell s = new OctopusShell();
+	    	//s.play(s.harmony(s.chords("C","D", "E"),s.rhythm("0+++0+--0+++")));
+		
+	    	//s.play(s.harmony(s.chords("C","D", "E"),s.rhythm(s.bar("000",s.WHOLE_NOTE)),s.arpeggio("0+++++++","0+++++++","00000000")));		
+	    	s.play(s.harmony(s.chords("C","C","D", "E"),s.rhythm(s.bar("0000",s.HALF_NOTE)),s.arpeggio("0+++","-0++","--0+")));
+		} catch (MusicPerformanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+}

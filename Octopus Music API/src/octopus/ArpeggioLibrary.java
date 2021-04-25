@@ -12,6 +12,8 @@ import java.io.ObjectOutputStream;
 public  class ArpeggioLibrary {
 
 
+
+	
   public static Arpeggio getDemoArpeggio(){
     Arpeggio gpr = new Arpeggio(3);
 
@@ -78,8 +80,8 @@ public  class ArpeggioLibrary {
   }
 
   public static Arpeggio getFastArpeggio(int nVoices){
-      Arpeggio gpr = new Arpeggio(nVoices);
-      gpr.setName("5 Notes Fast Arpeggio");
+	  Arpeggio gpr = new Arpeggio(nVoices);
+      gpr.setName(nVoices + "Notes Fast Arpeggio");
       Bar[] bars = new Bar[nVoices];
       for(int i = 0; i<nVoices; i++){
         bars[i] = new Bar(nVoices,16);
@@ -89,7 +91,7 @@ public  class ArpeggioLibrary {
 
      return gpr;
   }
-
+  
 /**
  * Serialize the arpeggio object in the specified file. In the future this method
  * will probable be replaced by a XML strore one.
@@ -121,18 +123,18 @@ public  class ArpeggioLibrary {
 */
 
 public static Arpeggio load(File file) throws FileNotFoundException,
-      IOException, ClassNotFoundException {
-  Arpeggio rhythmPattern = null;;
+     IOException, ClassNotFoundException {
+  Arpeggio arpeggio = null;;
   if (file != null) {
     FileInputStream fIn = new FileInputStream(file);
     ObjectInputStream in = new ObjectInputStream(fIn);
-    rhythmPattern = (Arpeggio) in.readObject();
+    arpeggio = (Arpeggio) in.readObject();
 
     in.close();
 
   }
 
-  return rhythmPattern;
+  return arpeggio;
 
 }
 

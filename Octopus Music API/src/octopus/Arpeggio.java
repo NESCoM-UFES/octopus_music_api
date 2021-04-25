@@ -41,7 +41,7 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 	protected Vector<RhythmPattern> voices = new Vector<RhythmPattern>();
 
 	protected String name = "unknown";
-	float bpm = 120; //Overall bpm
+	//float bpm = 120; //Overall bpm
 
 	//Stretch the arpeggio duration to  match a certain duration;
 	private boolean timeStretch = true; 
@@ -367,7 +367,7 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 	}
 
 
-	public static Arpeggio getDemoArpeggio(int nVoices){
+/*	public static Arpeggio getDemoArpeggio(int nVoices){
 		Arpeggio arpeggio = new Arpeggio(nVoices);
 		arpeggio.setName("Demo Arpeggio:" + nVoices + " voices");
 		Bar[] bars = new Bar[nVoices];
@@ -378,7 +378,7 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 		}
 
 		return arpeggio;
-	}
+	}*/
 
 	/**
 	 * Serialise the arpeggio object in the specified file. In the future this method
@@ -439,13 +439,13 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 	/**
 	 * This BPM can be overridden by the Music BPM.
 	 */
-	public void setBpm(float bpm) {
+	/*public void setBpm(float bpm) {
 		this.bpm = bpm;
 	}
 
 	public float getBpm() {
 		return bpm;
-	}
+	}*/
 
 	public void setName(String name) {
 		this.name = name;
