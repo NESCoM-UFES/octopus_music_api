@@ -57,7 +57,7 @@ public class Melody  extends MusicalComponent implements Playable{
 
 	@Override
 	public MusicalEventSequence getMusicalEventSequence() {
-		return this.getMusicalEventSequence(getNotes(), 
+		return this.getMusicalEventSequence(getNotes(), //use of MusicalComponent (superclass) implementation.
 				rhythmPattern.getRhythmEvents(true),
 				this.isCircularListNotes());
 	}

@@ -55,7 +55,8 @@ public abstract class MusicalComponent implements Playable {
 	  double time= 0;
 	  int indexNotes = 0;
 
-	  for (int i = 0; i < rhythmEvents.length; i++) {
+	  int i =0;
+	  for (i = 0; i < rhythmEvents.length; i++) {
 		  double duration =  rhythmEvents[i].duration;
 
 		  if(rhythmEvents[i].type==1){ // Note rest
@@ -75,6 +76,8 @@ public abstract class MusicalComponent implements Playable {
 		  }
 		  time += duration;
 	  }
+	  //garante que as pausas/silencios/rest sejam também "tocadas"
+	  musicalEventSequence.addMusicalEvent(new MusicalEvent(i,time,0,0)); 
 	  return musicalEventSequence;	
   }
   
@@ -109,6 +112,7 @@ public abstract class MusicalComponent implements Playable {
 				chordMusicalEventSequence.addMusicalEventSequence(voiceSequence);					
 
 		}
+		//No need to add END_BLOCK type of musical event since it calls the a method that already does it.
 		return chordMusicalEventSequence;
 
 	}

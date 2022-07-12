@@ -537,13 +537,17 @@ public MusicalEventSequence getMusicalEventSequence(){
        
        if(type==1){
     	  Note note = Notes.getC();
-    	   MusicalEvent meOct = new MusicalEvent(i, time,note, duration, velocity);
-          MusicalEvent meOctOff = new MusicalEvent(i, time + duration,note, 0, 0);
+    	  MusicalEvent meOct = new MusicalEvent(i, time,note, duration, velocity);        
+    	  MusicalEvent meOctOff = new MusicalEvent(i, time + duration,note, 0, 0);
           p.addMusicalEvent(meOct);
           p.addMusicalEvent(meOctOff);
-        }
+        }/*else {
+           MusicalEvent meSilence = new MusicalEvent(i, time, duration, velocity);   
+           p.addMusicalEvent(meSilence);
+        }*/
       time+=duration;
     }
+    p.addMusicalEvent(new MusicalEvent(rhythmEvents.size(),time,0,0));
     return p;
        
     

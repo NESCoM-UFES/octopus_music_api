@@ -115,8 +115,8 @@ public static Music getMusicToPlay() throws ChordNotationException, NoteExceptio
 	Music music = new Music();
 	
 	Melody melody = getMelodyToPlay();
-	music.insertMusicalComponent(melody);
-	music.insertMusicalComponent(getHarmonyToPlay(), melody.getDuration());
+	music.insert(melody);
+	music.insert(getHarmonyToPlay(), melody.getDuration());
 	
 	return music;
 

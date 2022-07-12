@@ -187,7 +187,7 @@ public class Note implements Cloneable, Playable,Serializable,Comparable<Object>
 		p.addMusicalEvent(new MusicalEvent(0,0,this,duration,dynamics));
 
 		//If this line is removed the the synth will clip the note's sound.
-		p.addMusicalEvent(new MusicalEvent(1,duration,this,dynamics,0));
+		p.addMusicalEvent(new MusicalEvent(1,duration,this,0,0));
 
 		return p;
 	}

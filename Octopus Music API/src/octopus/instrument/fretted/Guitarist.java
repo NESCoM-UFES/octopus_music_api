@@ -3,6 +3,7 @@ package octopus.instrument.fretted;
 import javax.sound.midi.MidiUnavailableException;
 
 import octopus.Arpeggio;
+import octopus.ArpeggioLibrary;
 import octopus.Bar;
 import octopus.Chord;
 import octopus.Harmony;
@@ -138,7 +139,8 @@ public void play(PerformableMelody pMelody) throws MusicPerformanceException {
         time += duration;
       }
     }
-    p.setBpm(this.playingSpeed);
+    //p.setBpm(this.playingSpeed); //BPM now to the players ue to REPL
+    player.play(p);
     player.play(p);
 
   }
@@ -162,7 +164,8 @@ public void play(PerformableMelody pMelody) throws MusicPerformanceException {
 
       p.addMusicalEvent(me);
     }
-    p.setBpm(playingSpeed);
+    //p.setBpm(playingSpeed); //BPM now to the players due to REPL
+    //player.play(p);
     return p;
   }
 
@@ -268,7 +271,7 @@ public void play(PerformableHarmony pHarmony) throws MusicPerformanceException, 
       }
 
     }
-    p.setBpm(this.playingSpeed);
+    //p.setBpm(this.playingSpeed);
     player.play(p);
 
   }
@@ -719,7 +722,7 @@ public PerformableHarmony learn(Harmony harmony) throws MusicPerformanceExceptio
          Guitarist g = new Guitarist(guitar);
 
           Harmony h = new Harmony(RhythmPattern.getDemoRhythmPattern());
-          Arpeggio guitarArpeggio = Arpeggio.getDemoArpeggio(4);
+          Arpeggio guitarArpeggio = ArpeggioLibrary.getFastArpeggio(4);
           System.out.println(guitarArpeggio.toString());
           guitarArpeggio.setTimeStratch(false);
 
@@ -745,7 +748,7 @@ public PerformableHarmony learn(Harmony harmony) throws MusicPerformanceExceptio
          System.out.println(pMelody);
 
          g.showInstrumentLayout();
-         g.setPlayingSpeed(60.0);
+         g.setPlayingSpeed(60);
          g.play(h);
 
        }

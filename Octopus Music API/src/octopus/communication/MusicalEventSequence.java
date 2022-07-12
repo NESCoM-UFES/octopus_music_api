@@ -22,8 +22,11 @@ import octopus.Note;
 
 
 public class MusicalEventSequence {//implements Playable{
-  protected double bpm = 120.0;
-  protected Vector<MusicalEvent> musicalEvents;
+  //protected double bpm = 120.0;
+ // protected boolean isLoop = false;
+
+
+protected Vector<MusicalEvent> musicalEvents;
 
 
   public MusicalEventSequence() {
@@ -40,6 +43,21 @@ public class MusicalEventSequence {//implements Playable{
 
  public void addMusicalEvent(MusicalEvent musicalEvent){
      musicalEvents.add(musicalEvent);
+ }
+ 
+ //Em teste
+ public double getDuration() {
+	 MusicalEvent lastMusicalEvent = ((MusicalEvent)musicalEvents.lastElement());
+	 double duration = lastMusicalEvent.timing + lastMusicalEvent.duration;
+	 return duration;
+	 /* double duration = 0.0;
+	 for (MusicalEvent musicalEvent : musicalEvents) {
+	
+		 duration+=musicalEvent.duration;
+	
+	 }
+	 return duration;*/
+	 
  }
 
  public void delayEvents(double time){
@@ -94,11 +112,20 @@ public class MusicalEventSequence {//implements Playable{
     MusicalEventSequence playableMusic = new MusicalEventSequence();
   }*/
 
-  public void setBpm(double bpm) {
+ /* public void setBpm(double bpm) {
     this.bpm = bpm;
   }
 
   public double getBpm() {
     return bpm;
   }
+  
+  public boolean isLooping() {
+		return isLoop;
+	}
+
+	public void setLoop(boolean isLoop) {
+		this.isLoop = isLoop;
+	}*/
+
 }

@@ -299,7 +299,11 @@ public class Notes {
 	}
 
 	public static Note getNote(Note notaFundamental, int semitones)  throws NoteException{
-		Interval intervalo = Intervals.getInterval(Math.abs(semitones));
+		
+		
+		if (semitones ==0) return notaFundamental;
+		
+		Interval intervalo = Intervals.getInterval(Math.abs(semitones));		
 		if(semitones > 0){
 
 			return getNote(notaFundamental, intervalo);

@@ -239,7 +239,7 @@ public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceE
 
           //Playing inicialization
           sequencer.setSequence(s);
-          sequencer.setTempoInBPM( (float) ( musicalStructure).getBpm());
+         // sequencer.setTempoInBPM( (float) ( musicalStructure).getBpm());
           sequencer.start();
 
           //Release resourses after end of playing
@@ -302,4 +302,15 @@ public void stop(){
       ex.printStackTrace();
     }
   }*/
+ 
+ public void setBPM(float bpm) {	 
+	 sequencer.setTempoInBPM(bpm);
+ }
+
+
+
+/*public void setLoop(boolean isLoop) {
+	// TODO Auto-generated method stub
+	
+}*/
 }

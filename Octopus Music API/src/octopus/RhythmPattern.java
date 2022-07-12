@@ -536,13 +536,13 @@ public static RhythmPattern getConstantRhythmPattern(int nNotes, double noteDura
 @Override
 public MusicalEventSequence getMusicalEventSequence() {
 
-Note[] notes = {this.pitchRhythmNote};
+	Note[] notes = {this.pitchRhythmNote};
 
-Melody melody = new Melody(notes, this);
+	Melody melody = new Melody(notes, this);
 
-melody.setCircularListNotes(true);
+	melody.setCircularListNotes(true);
 
-return melody.getMusicalEventSequence();
+	return melody.getMusicalEventSequence();
 
 }
 

@@ -19,6 +19,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import octopus.communication.MusicalEvent;
 import octopus.communication.MusicalEventSequence;
 
 /**
@@ -46,20 +47,38 @@ public class Music implements Playable{
 
 	}
 
-	public void insertMusicalComponent( MusicalComponent component ){
-		timeline.add(component,0.0);
+	public Music(Playable[] playables){
+		this();
+		this.insert(playables, 0.0);
 	}
 	
-	public void insertMusicalComponent( MusicalComponent component, double startPos){
-		timeline.add(component,startPos);
+	/**
+	 * Adds the playable element at the end of the music.
+	 * @return
+	 */
+	/*public void append(Playable playable) {
+		
+	}*/
+	
+	public void insert( Playable playable ){		
+		timeline.add(playable,0.0);
+	}
+	
+	/**
+	 * 
+	 * @param playable element to be added
+	 * @param startPos starting position @see RhythmConstants
+	 */
+	public void insert( Playable playable, double startPos){
+		timeline.add(playable,startPos);
 	}
 
 
 
-	public void insertMusicalComponentSequencially( MusicalComponent[] componentArray,double startPos){
-		for (int i=0; i< componentArray.length;i++){
-			timeline.add(componentArray[i],startPos);
-			startPos = componentArray[i].getDuration();
+	public void insert( Playable[] playables,double startPos){
+		for (int i=0; i< playables.length;i++){
+			timeline.add(playables[i],startPos);
+			startPos += playables[i].getMusicalEventSequence().getDuration();
 		}
 	}
 
@@ -76,9 +95,7 @@ public class Music implements Playable{
 
 	@SuppressWarnings("unchecked")
 	public class Timeline extends Vector{
-		/**
-		 * 
-		 */
+
 		private static final long serialVersionUID = 1L;
 		//Estrutura com hasbtable otimiza espaco e velocidade de acesso.
 		Hashtable<Double, Integer> heap;
@@ -88,7 +105,7 @@ public class Music implements Playable{
 		}
 
 
-		public void add(MusicalComponent component, double pos){
+		public void add(Playable playable, double pos){
 			Double ts = new Double(pos);
 			Object objPosStack = heap.get(ts);
 			TimelineElement te = null;
@@ -100,7 +117,7 @@ public class Music implements Playable{
 			}else{
 				te = (TimelineElement)get(((Integer)objPosStack).intValue());
 			}
-			te.add(component);
+			te.add(playable);
 		}
 
 		public TimelineElement[] getTimelineElements(){
@@ -144,13 +161,16 @@ public class Music implements Playable{
 		for (int i=0;i<elements.length;i++){
 			double startPos = elements[i].timeStamp;
 			for (Enumeration<?> e = elements[i].elements() ; e.hasMoreElements() ;) {
-				MusicalComponent musicalComponent = (MusicalComponent)e.nextElement();
-				MusicalEventSequence musicalComponentSequence= musicalComponent.getMusicalEventSequence();
+				Playable musicalComponent = (Playable)e.nextElement();
+				MusicalEventSequence musicalComponentSequence= musicalComponent.getMusicalEventSequence(); //playable
 				musicalComponentSequence.delayEvents(startPos);
 				musicMusicalEventSequence.addMusicalEventSequence(musicalComponentSequence);
 			}
-			musicMusicalEventSequence.setBpm(bpm);
+			//musicMusicalEventSequence.setBpm(bpm);
 		}
+		//I belive there is no need for the END_BLOCK musical event since it already gets from the musical components.
+		//p.addMusicalEvent(new MusicalEvent(rhythmEvents.size(),time,0,0));
+		
 		return musicMusicalEventSequence;
 	}
 

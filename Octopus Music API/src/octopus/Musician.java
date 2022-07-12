@@ -28,7 +28,7 @@ public class Musician {
 
 
 protected SynthesizerController player;
-  protected double playingSpeed = 120.0; //used whem the musical stricuture does not have the BPM
+  protected float playingSpeed = 120; //used whem the musical stricuture does not have the BPM
 
   public Musician() throws MusicPerformanceException  {
     try {
@@ -49,8 +49,9 @@ protected SynthesizerController player;
     this.player = synthesizerController;
   }
 
-  public void setPlayingSpeed(double playingSpeed) {
-    this.playingSpeed = playingSpeed;
+  public void setPlayingSpeed(float playingSpeed) {
+    this.playingSpeed = playingSpeed;  
+    player.setBPM(playingSpeed);
   }
 
   public SynthesizerController getSynthesizerController() {
@@ -69,12 +70,29 @@ protected SynthesizerController player;
  
  public void play(Playable playable)throws MusicPerformanceException{
      MusicalEventSequence p = playable.getMusicalEventSequence();     
-     p.setBpm(this.playingSpeed); 
+     //p.setBpm(this.playingSpeed); 
+     //player.setBPM((int)playingSpeed);
+     //p.setLoop(false);
+     //player.setLoop(false);
+     player.setBPM((int)playingSpeed);
      player.play(p);
  }
  
+ /*public void play(Playable playable, boolean isLoop)throws MusicPerformanceException{
+     MusicalEventSequence p = playable.getMusicalEventSequence();    
+    // p.setLoop(isLoop);
+     //p.setBpm(this.playingSpeed); 
+     //player.setBPM((int)playingSpeed);
+     player.setLoop(isLoop);
+     player.setBPM((int)playingSpeed);
+     player.play(p);
+ }*/
+ 
+
+ 
  public void play(MusicalEventSequence musicalEventSequence)throws MusicPerformanceException{   
-	 musicalEventSequence.setBpm(this.playingSpeed); 
+	 //musicalEventSequence.setBpm(this.playingSpeed);
+	 player.setBPM(playingSpeed);
      player.play(musicalEventSequence);
  }
 

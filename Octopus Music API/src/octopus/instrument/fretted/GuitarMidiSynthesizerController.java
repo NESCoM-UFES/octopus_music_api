@@ -126,7 +126,7 @@ public void play(MusicalEventSequence musicalStructure) throws MusicPerformanceE
 
           //Playing inicialization
           sequencer.setSequence(s);
-          sequencer.setTempoInBPM( (float) ( musicalStructure).getBpm());
+          //sequencer.setTempoInBPM( (float) ( musicalStructure).getBpm());
           sequencer.start();
 
           //Release resourses after end of playing

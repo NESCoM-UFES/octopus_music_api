@@ -11,7 +11,8 @@ import octopus.communication.MusicalEventSequence;
 public interface Playable {
 
   public MusicalEventSequence getMusicalEventSequence();
-
+  
+ 
   //public Map getPlayableAttributes();
 	
   @Override

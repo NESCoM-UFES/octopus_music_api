@@ -309,9 +309,10 @@ public class Intervals {
  //Retorna o intervalo dando preferencia aos intervalor naturais. Modificado...ver comentário abaixo.
   public static Interval getInterval(int semitons) {
     Interval retorno = null;
-    while (semitons>11){
+    //Comentadado para permitir retornar intervalos acima da oitava.
+    /*while (semitons>11){
       semitons-=12;
-    }
+    }*/
 
     for (int i=0; i<intervals.length ;i++ ) {
       if (intervals[i].getDistanceFromRoot() == semitons) {

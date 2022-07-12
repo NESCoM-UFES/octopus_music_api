@@ -51,7 +51,7 @@ int minimumPolyphony = 1; //???
  protected GuitarArpeggio(Arpeggio arpeggio){
    super();
    this.setName(arpeggio.getName());
-   this.setBpm(arpeggio.getBpm()); //Overall bpm
+   //this.setBpm(arpeggio.getBpm()); //Overall bpm
    this.setTimeStratch(arpeggio.isTimeStratch());
    this.setMinimumPolyphony(arpeggio.getPolyphony()); // Modificado pelo desejo do usuario
    this.setTimeStratch(arpeggio.isTimeStratch());
@@ -154,7 +154,8 @@ public boolean isFullArpeggio() {
 public static GuitarArpeggio getDemoGuitarArpeggio(){
 
   GuitarArpeggio gpr = new GuitarArpeggio(4);
-   gpr.setBpm(240);
+   //gpr.setBpm(240);
+   
 
    GuitarBar bs1 = new GuitarBar(4,4);
    bs1.addSingleRhythmEvent(RhythmConstants.WHOLE_NOTE,RhythmConstants.RHYTHM_EVENT_NOTE,1,GuitarBar.DIRECTION_UP_STROKE,GuitarBar.REGION_NEAR_MOUTH,GuitarBar.FINGERPICKING_THUMB_FINGER);

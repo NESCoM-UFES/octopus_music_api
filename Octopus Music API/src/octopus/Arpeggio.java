@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import octopus.communication.MusicalEvent;
 import octopus.communication.MusicalEventSequence;
 
 /**
@@ -548,22 +549,42 @@ public class Arpeggio  implements Serializable,Playable,RhythmConstants{
 	public MusicalEventSequence getMusicalEventSequence() {
 		MusicalEventSequence p =new MusicalEventSequence();
 
+	   /*	Note notes[] = {
+	   			Notes.getC(),
+	   			Notes.getE(),
+	   			Notes.getG(), 
+	   			Notes.getB()}; 
+	   	
+	   	if (voices.size() > notes.length) {
+	   		
+	   	}*/
+		
 		for(int i=0;i<voices.size();i++){
 
 			RhythmPattern rhythmPattern =voices.get(i);
 
-			//Note note  =rhythmPattern.pitchRhythmNote;
 			try{
-				rhythmPattern.pitchRhythmNote = Notes.getNote(rhythmPattern.pitchRhythmNote,(i * 5));
+										
+			    Note baseNote = Notes.getC();
+				Note voiceNote = Notes.getNote(baseNote,(i * 5));
+				
+				rhythmPattern.pitchRhythmNote = voiceNote;
+			
+			
 			}catch(NoteException ex){
 				ex.printStackTrace();
 			}
+			
+			//rhythmPattern.pitchRhythmNote = notes[i];
 
 			MusicalEventSequence voiceMusicalSequence = rhythmPattern.getMusicalEventSequence();
 			p.addMusicalEventSequence(voiceMusicalSequence);
-
+			
 
 		}
+		//p.addMusicalEvent(new MusicalEvent(id,time,0,0));
+		//no need (I think) to add an END_BLOCK type of midiEvent since rhythmpattern does it..
+		  
 		return p;
 	}
 

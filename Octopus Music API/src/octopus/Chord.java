@@ -462,9 +462,13 @@ public class Chord implements Serializable,Playable{
 	 @Override
 	public MusicalEventSequence getMusicalEventSequence() {
 
-		 double velocity=1;
-		 double delay=0.2;
-		 double duration = 1;
+		 double velocity=RhythmConstants.DYNAMIC_MEZZO_FORTE;
+		 double duration = RhythmConstants.WHOLE_NOTE;
+		 
+		 //double delay=0.2;
+		 double delay=0.0;
+		
+		
 
 		 return getMusicalEventSequence (velocity,delay,duration);
 
@@ -477,11 +481,14 @@ public class Chord implements Serializable,Playable{
 		 for (int i=0; i<notes.length;i++){
 			 Note note = notes[i];
 			 double time =  i * delay;
-			 MusicalEvent meOct = new MusicalEvent(i,time,note,duration,velocity);
-			 MusicalEvent meOctOff = new MusicalEvent(i,time+duration,note,0,0);
+			 MusicalEvent meOct = new MusicalEvent(i,time,note,(duration - time),velocity);
+			 MusicalEvent meOctOff = new MusicalEvent(i,duration,note,0,0);
 			 p.addMusicalEvent(meOct);
 			 p.addMusicalEvent(meOctOff);
 		 }
+		 //no need to add the END_OF_BLOCK message since it is a one off play of all note at same time and duration.
+		 //p.addMusicalEvent(new MusicalEvent(rhythmEvents.size(),time,0,0)); // END_OF_BLOCK
+		 
 		 return p;
 	 }
 
@@ -489,10 +496,14 @@ public class Chord implements Serializable,Playable{
 		 MusicalEventSequence chordMusicalEventSequence = new MusicalEventSequence();;
 		 Bar.RhythmEvent[][] arpeggioRhythmEvents = arpeggio.getRhythmEvents(arpeggio.getDuration());
 		 Note[] chordNotes = getNotes();
+		 
+		 int id = 0;
 
 		 for (int i = 0; i < arpeggioRhythmEvents.length; i++) {
 			 Bar.RhythmEvent[] voiceRhythmEvents = arpeggioRhythmEvents[i];
 			 double time = 0;
+			
+		
 			 for (int j = 0; j < voiceRhythmEvents.length; j++) {
 				 Note note; 
 				 if (i < chordNotes.length) {
@@ -503,101 +514,82 @@ public class Chord implements Serializable,Playable{
 					 note = chordNotes[chordNotes.length - 1];
 				 }
 				 if(voiceRhythmEvents[j].type == 1){
-					 MusicalEvent meOct = new MusicalEvent(j, time, note,
+					 MusicalEvent meOct = new MusicalEvent(id++, time, note,
 							 voiceRhythmEvents[j].duration,
 							 voiceRhythmEvents[j].velocity);
-					 MusicalEvent meOctOff = new MusicalEvent(j,
+					 MusicalEvent meOctOff = new MusicalEvent(id++,
 							 time + voiceRhythmEvents[j].duration,
 							 note,0, 0);
 					 chordMusicalEventSequence.addMusicalEvent(meOct);
 					 chordMusicalEventSequence.addMusicalEvent(meOctOff);
 				 }
 				 time += voiceRhythmEvents[j].duration;	
-			 }
-
+			 }		
+			 chordMusicalEventSequence.addMusicalEvent(new MusicalEvent(id++,time,0,0)); //one end of block per voice? Must test.
 		 }
+		 
 		 return chordMusicalEventSequence;
 
 	 }
 
 
-	 /*chordDuration is given by the RythmPattern of the Harmony.
-This method was extracted from Musician as it is. It should suffer alterations to 
-make use of the other gerMusicalEvents methods. The idea is not wirte the same code in different
-methods. The problem we've got at this stage is to adjust the arpeggio duration to chord duration.
-I think I've done this before...will check and come back if not.
-	  */
-	 public MusicalEventSequence getMusicalEventSequence(Arpeggio arpeggio, double chordDuration){
-		 MusicalEventSequence p =new MusicalEventSequence();
-		 double timeAdjustiveFactor = 0.0;
-
-		 for(int i=0;i<arpeggio.voices.size();i++){ //para cada voz do arpeggio
-			 double time = 0;
-			 RhythmPattern rhythmPattern = arpeggio.voices.get(i);
-			 Note[] chordNotes = getNotes();
-			 Bar[] bars = rhythmPattern.getBars();
-			 for (int j = 0; j < bars.length; j++) {;
-			 Note note;
-
-			 //pega as notas correspondente as vozes
-			 if (i < chordNotes.length) {
-				 note = chordNotes[i];
-			 }
-			 else {//repete a ultima nota caso polifonia do acorde seja menor
-				 // do que a acorde. REPENSAR ISSO!!!
-				 note = chordNotes[chordNotes.length - 1];
-			 }
-
-			 Bar.RhythmEvent[] rhythmEvents = bars[j].getRhythmEvents();
-			 while(time <chordDuration){
-				 for (int k = 0; k < rhythmEvents.length; k++) { // para cara evento
-
-					 double duration = rhythmEvents[k].duration;
-					 boolean tie = rhythmEvents[k].tie;
-					 int type = rhythmEvents[k].type;
-					 if ( (tie) && (k < rhythmEvents.length - 1)) { //verifica se nota está ligada a outra.
-						 k++;
-						 duration += rhythmEvents[k].duration;
-					 }
-
-					 double velocity = type == 1 ? bars[j].getAccentuation(k) : 0;
-
-					 if(!(time >= chordDuration)){ // Significa que o evento deveria comecar junto com o termino da duracao do acorde.
-						 if (arpeggio.isTimeStratch()) {
-							 if (timeAdjustiveFactor==0.0){
-								 double arpeggioDuration = arpeggio.getDuration();
-								 timeAdjustiveFactor = (chordDuration/arpeggioDuration);
-							 }
-							 duration = duration * timeAdjustiveFactor;
-						 }
-						 else {
-							 double finalDuration = time + duration; //da tempo de acabar?
-									 if (finalDuration > chordDuration) {
-										 duration = finalDuration - chordDuration;
-									 }
-						 }
-
-						 if(velocity>0){
-							 MusicalEvent meOct = new MusicalEvent(k, time, note,
-									 duration,
-									 velocity);
-							 MusicalEvent meOctOff = new MusicalEvent(k,
-									 time + duration, note,
-									 0, 0);
-							 p.addMusicalEvent(meOct);
-							 p.addMusicalEvent(meOctOff);
-						 }
-						 time += duration;
-
-					 }
-
-				 }
-			 }
-			 }
-		 }
-
-		 return (p);
-	 }
+	/*chordDuration is given by the RythmPattern of the Harmony.
+	This method was extracted from Musician as it is. It should suffer alterations to 
+	make use of the other getMusicalEvents methods. The idea is not write the same code in different
+	methods. The problem we've got at this stage is to adjust the arpeggio duration to chord duration.
+	I think I've done this before...will check and come back if not.
+	
+	Update 11/07/2022: I´ve decided to comment this method. At the moment no one is using it. If necessary
+	to reactive it, it must be adaptated to consider the used END_BLOCK musical message in order to be able
+	to properly loop by the LoopMidiController (synthController).
+	*/	
+	
+	 
+	 /*
+	 * public MusicalEventSequence getMusicalEventSequence(Arpeggio arpeggio, double
+	 * chordDuration){ MusicalEventSequence p =new MusicalEventSequence(); double
+	 * timeAdjustiveFactor = 0.0;
+	 * 
+	 * for(int i=0;i<arpeggio.voices.size();i++){ //para cada voz do arpeggio double
+	 * time = 0; RhythmPattern rhythmPattern = arpeggio.voices.get(i); Note[]
+	 * chordNotes = getNotes(); Bar[] bars = rhythmPattern.getBars(); for (int j =
+	 * 0; j < bars.length; j++) {; Note note;
+	 * 
+	 * //pega as notas correspondente as vozes if (i < chordNotes.length) { note =
+	 * chordNotes[i]; } else {//repete a ultima nota caso polifonia do acorde seja
+	 * menor // do que a acorde. REPENSAR ISSO!!! note =
+	 * chordNotes[chordNotes.length - 1]; }
+	 * 
+	 * Bar.RhythmEvent[] rhythmEvents = bars[j].getRhythmEvents(); while(time
+	 * <chordDuration){ for (int k = 0; k < rhythmEvents.length; k++) { // para cara
+	 * evento
+	 * 
+	 * double duration = rhythmEvents[k].duration; boolean tie =
+	 * rhythmEvents[k].tie; int type = rhythmEvents[k].type; if ( (tie) && (k <
+	 * rhythmEvents.length - 1)) { //verifica se nota está ligada a outra. k++;
+	 * duration += rhythmEvents[k].duration; }
+	 * 
+	 * double velocity = type == 1 ? bars[j].getAccentuation(k) : 0;
+	 * 
+	 * if(!(time >= chordDuration)){ // Significa que o evento deveria comecar junto
+	 * com o termino da duracao do acorde. if (arpeggio.isTimeStratch()) { if
+	 * (timeAdjustiveFactor==0.0){ double arpeggioDuration = arpeggio.getDuration();
+	 * timeAdjustiveFactor = (chordDuration/arpeggioDuration); } duration = duration
+	 * * timeAdjustiveFactor; } else { double finalDuration = time + duration; //da
+	 * tempo de acabar? if (finalDuration > chordDuration) { duration =
+	 * finalDuration - chordDuration; } }
+	 * 
+	 * if(velocity>0){ MusicalEvent meOct = new MusicalEvent(k, time, note,
+	 * duration, velocity); MusicalEvent meOctOff = new MusicalEvent(k, time +
+	 * duration, note, 0, 0); p.addMusicalEvent(meOct); p.addMusicalEvent(meOctOff);
+	 * } time += duration;
+	 * 
+	 * }
+	 * 
+	 * } } } }
+	 * 
+	 * return (p); }
+	 */
 
 
 }
