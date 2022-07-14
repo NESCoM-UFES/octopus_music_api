@@ -52,6 +52,12 @@ public class OctopusShell {
 	public  final double THIRTY_SECOND_NOTE = 0.03125; //(1/32);
 
 
+	//LOOP EVENTS
+	/**{@value}*/
+	public static final int LOOPS = 0;
+	public static final int STOPS= 1;
+
+
 	//NOTES
 	public  final Note A = Notes.getA();
 	public  final Note B = Notes.getB();
@@ -189,10 +195,26 @@ public class OctopusShell {
 	}*/
 
 
+	//start looping immediately
 	public int loop(Playable playable) throws Exception{
 		return musician.loop(playable);
 	}
+	
+	//start the secondary loop when the primary loops.
+	public int loop(int primaryLoop, Playable playable) throws Exception{
+		return musician.loop(primaryLoop,playable);
+	}
 
+	//This is a pretty dumb method just of improve the syntax os the language.
+	//i.e when(loop(1), LOOPS, loop(melody(C,D,E))
+	public int loop(int loopIndex) { 
+		return loopIndex;
+	}
+	public void when(int primaryLoop, int LOOP_EVENT, int secondaryLoop) throws Exception{
+		 musician.loopWhen(primaryLoop,LOOP_EVENT,secondaryLoop);
+	}
+
+	
 
 	public Playable together(Playable...playables) {
 		Music m = new Music();
@@ -202,9 +224,6 @@ public class OctopusShell {
 		}
 		return m;
 	}
-
-
-
 	//============================  Information of all the Playables ===============================
 
 	public double duration(Playable playable) {
@@ -510,7 +529,25 @@ public class OctopusShell {
 		try {
 			//## USE JUST FOR QUICK TESTING...IF NEEDED MORE FANCY STUFF, GO TO TestingOctopusREPL
 			OctopusShell s = new OctopusShell();
+			
+			int l1 = s.loop(s.A);
+			
+			s.when(s.loop(l1),s.LOOPS,s.loop(s.G));
+			
+			/*when(loop(l1),LOOPS,play(C));
+			when(loop(0),STOPS,loop(A,B,C));
+			
+			
+			
+			
+			loop(0).stop();
+			loop(0).midiChannel(2);
+			
+			loop(A,B,C).when(loop(1),LOOPS)*/
+			
+			//System.out.println();
 
+			
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

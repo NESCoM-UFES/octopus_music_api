@@ -28,7 +28,7 @@ import octopus.communication.SynthesizerController;
 import octopus.communication.midi.LiveMidiSynthesizerController;
 import octopus.communication.midi.OctopusMidiSystem;
 
-public class LoopMidiController extends LiveMidiSynthesizerController {
+public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 	private final int DEFAULT_LOOPS_COUNT = 4;
 
 	private final int END_OF_LOOP = 1;
@@ -45,32 +45,32 @@ public class LoopMidiController extends LiveMidiSynthesizerController {
 	// silencio após a última nota soar na barra/ritmo.
 
 	private final Sequencer[] loops;
-	private final GearBoxNew gearBox; // gearBox is the metaphor for the looping (gears) mechanism proposed.
+	private final GearBox gearBox; // gearBox is the metaphor for the looping (gears) mechanism proposed.
 	private final int[] loopStatus;
 
 	// String midiOut;
 
-	public LoopMidiController() throws MidiUnavailableException {
+	public LoopMidiSynthController() throws MidiUnavailableException {
 		// this.midiOut = MidiSystem.getSynthesizer().getDeviceInfo().getName();
 		loops = new Sequencer[DEFAULT_LOOPS_COUNT];
 		loopStatus = new int[DEFAULT_LOOPS_COUNT];
-		gearBox = new GearBoxNew(DEFAULT_LOOPS_COUNT);
+		gearBox = new GearBox(DEFAULT_LOOPS_COUNT);
 		createLoops(DEFAULT_LOOPS_COUNT);
 	}
 
-	public LoopMidiController(String midiOut, int numberLoops) throws MidiUnavailableException {
+	public LoopMidiSynthController(String midiOut, int numberLoops) throws MidiUnavailableException {
 		super(midiOut);
 		loops = new Sequencer[numberLoops];
 		loopStatus = new int[numberLoops];
-		gearBox = new GearBoxNew(numberLoops);
+		gearBox = new GearBox(numberLoops);
 		createLoops(numberLoops);
 	}
 
-	public LoopMidiController(String midiOutPortName) throws MidiUnavailableException {
+	public LoopMidiSynthController(String midiOutPortName) throws MidiUnavailableException {
 		super(midiOutPortName);
 		loops = new Sequencer[DEFAULT_LOOPS_COUNT];
 		loopStatus = new int[DEFAULT_LOOPS_COUNT];
-		gearBox = new GearBoxNew(DEFAULT_LOOPS_COUNT);
+		gearBox = new GearBox(DEFAULT_LOOPS_COUNT);
 		createLoops(DEFAULT_LOOPS_COUNT);
 	}
 
@@ -431,10 +431,10 @@ public class LoopMidiController extends LiveMidiSynthesizerController {
 
 }
 
-class GearBox {
+class GearBoxNew {
 	ArrayList gearBox[];
 
-	public GearBox(int loopCount) {
+	public GearBoxNew(int loopCount) {
 		gearBox = new ArrayList[loopCount];
 	}
 
