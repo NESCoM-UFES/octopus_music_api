@@ -31,7 +31,8 @@ public class LivePerformer extends Musician {
 		// TODO Auto-generated constructor stub
 	}
 
-	
+		
+
 	public int loop(int primaryLoop, Playable playable)throws MusicPerformanceException{
 		MusicalEventSequence p = playable.getMusicalEventSequence();  
 		return ((LoopMidiController)player).loop(primaryLoop,p);

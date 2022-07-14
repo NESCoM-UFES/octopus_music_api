@@ -42,6 +42,7 @@ public class Loop implements Playable {
 	// its state.
 	
 	Sequencer sequencer;
+	Playable playable; // ou deveria ja ser um MusicalEventSequence?
 	int status;
 	
 	public Loop(Sequencer sequencer) {

@@ -44,7 +44,7 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 	// private final int END_OF_BLOCK = 0; //Usado para garantir as figuras de
 	// silencio após a última nota soar na barra/ritmo.
 
-	private final Sequencer[] loops;
+	private final Sequencer[] sequencers;
 	private final GearBox gearBox; // gearBox is the metaphor for the looping (gears) mechanism proposed.
 	private final int[] loopStatus;
 
@@ -52,26 +52,26 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 
 	public LoopMidiSynthController() throws MidiUnavailableException {
 		// this.midiOut = MidiSystem.getSynthesizer().getDeviceInfo().getName();
-		loops = new Sequencer[DEFAULT_LOOPS_COUNT];
+		sequencers = new Sequencer[DEFAULT_LOOPS_COUNT];
 		loopStatus = new int[DEFAULT_LOOPS_COUNT];
 		gearBox = new GearBox(DEFAULT_LOOPS_COUNT);
-		createLoops(DEFAULT_LOOPS_COUNT);
+		loadSequencers(DEFAULT_LOOPS_COUNT);
 	}
 
 	public LoopMidiSynthController(String midiOut, int numberLoops) throws MidiUnavailableException {
 		super(midiOut);
-		loops = new Sequencer[numberLoops];
+		sequencers = new Sequencer[numberLoops];
 		loopStatus = new int[numberLoops];
 		gearBox = new GearBox(numberLoops);
-		createLoops(numberLoops);
+		loadSequencers(numberLoops);
 	}
 
 	public LoopMidiSynthController(String midiOutPortName) throws MidiUnavailableException {
 		super(midiOutPortName);
-		loops = new Sequencer[DEFAULT_LOOPS_COUNT];
+		sequencers = new Sequencer[DEFAULT_LOOPS_COUNT];
 		loopStatus = new int[DEFAULT_LOOPS_COUNT];
 		gearBox = new GearBox(DEFAULT_LOOPS_COUNT);
-		createLoops(DEFAULT_LOOPS_COUNT);
+		loadSequencers(DEFAULT_LOOPS_COUNT);
 	}
 
 	// Change the transmitters/receivers connection without creating a new
@@ -80,67 +80,27 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 	public void setMidiOut(String midiOut) throws MidiUnavailableException {
 		super.setMidiOut(midiOut);
 
-		for (int i = 0; i < loops.length; i++) {
-			if (loops[i] != null) {
-				if (loops[i].isRunning())
-					loops[i].stop();
+		for (int i = 0; i < sequencers.length; i++) {
+			if (sequencers[i] != null) {
+				if (sequencers[i].isRunning())
+					sequencers[i].stop();
 				loopStatus[i] = STATUS_STOPPED;
 			}
-			rewireSequencer(loops[i], this.outputDeviceName);
+			rewireSequencer(sequencers[i], this.outputDeviceName);
 
 		}
 	}
 
-	/**
-	 * @todo 1)definir sincronia com main sequencer do pai.
-	 * @todo 2)Lançar evento quando lupar e tentar sincronizar
-	 * @todo 3) parar em série @todo) tentar o triger ou play
-	 * 
-	 * 
-	 */
-	/*
-	 * private final void rewireSequencer(Sequencer sequencer, String midiOut)
-	 * throws MidiUnavailableException {
-	 * 
-	 * 
-	 * Transmitter mainSequencerTransmitter = this.sequencer.getTransmitter();
-	 * mainSequencerTransmitter.setReceiver(sequencer.getReceiver());
-	 * sequencer.setSlaveSyncMode(Sequencer.SyncMode.MIDI_SYNC);
-	 * 
-	 * /// sequencer.addMetaEventListener(new MetaEventListener( ) { public void
-	 * meta(MetaMessage m) { if (m.getType( ) == END_OF_TRACK) {
-	 * System.out.println("end of track"); return; } } }); ////
-	 * 
-	 * 
-	 * MidiDevice outputDevice= OctopusMidiSystem.getMidiDevice(midiOut);
-	 * 
-	 * if(outputDevice==null){ // outputDevice = MidiSystem.getSynthesizer();
-	 * }else{//Using external MIDI Port //Remove the virtual java synthesizer (bug
-	 * of Java Sound) List list = sequencer.getTransmitters();
-	 * ((Transmitter)list.get(0)).close(); } if (!outputDevice.isOpen())
-	 * outputDevice.open();
-	 * 
-	 * Receiver synthReceiver = outputDevice.getReceiver();
-	 * 
-	 * //Setting up the connections Transmitter seqTransmitter =
-	 * sequencer.getTransmitter(); seqTransmitter.setReceiver(synthReceiver);
-	 * 
-	 * for (int i = 0; i < receivers.size(); i++) { seqTransmitter =
-	 * sequencer.getTransmitter(); seqTransmitter.setReceiver( receivers.get(i)); }
-	 * 
-	 * 
-	 * }
-	 */
-
-	private final void createLoops(int numberSequencers) throws MidiUnavailableException {
+	
+	private final void loadSequencers(int numberSequencers) throws MidiUnavailableException {
 
 		for (int i = 0; i < numberSequencers; i++) {
-			if (loops[i] == null) {
-				loops[i] = MidiSystem.getSequencer();
-				loops[i].open();
-				loops[i].setLoopCount(loops[i].LOOP_CONTINUOUSLY);
+			if (sequencers[i] == null) {
+				sequencers[i] = MidiSystem.getSequencer();
+				sequencers[i].open();
+				sequencers[i].setLoopCount(sequencers[i].LOOP_CONTINUOUSLY);
 
-				loops[i].addMetaEventListener(new MetaEventListener() {
+				sequencers[i].addMetaEventListener(new MetaEventListener() {
 					public void meta(MetaMessage m) {
 						if (m.getType() == END_OF_LOOP) {
 							int loopIdex = m.getData()[0];
@@ -151,7 +111,7 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 				});
 
 			}
-			rewireSequencer(loops[i], this.outputDeviceName);
+			rewireSequencer(sequencers[i], this.outputDeviceName);
 			loopStatus[i] = STATUS_CREATED;
 		}
 	}
@@ -160,12 +120,16 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 		ArrayList<Integer> pendingLoops = gearBox.getEngagedLoops(loopIndex);
 		for (Integer pendindLoopIndex : pendingLoops) {
 			if (loopStatus[pendindLoopIndex] == STATUS_WAITING) {
-				loops[pendindLoopIndex].start();
+				sequencers[pendindLoopIndex].start();
 				loopStatus[pendindLoopIndex] = STATUS_PLAYING;
 			}
 		}
 	}
 
+	/**
+	 * Return the next avaliable sequencer.
+	 * @return
+	 */
 	private int getIndexFreeSequencer() {
 		for (int i = 0; i < loopStatus.length; i++) {
 			if ((loopStatus[i] == STATUS_CREATED) || (loopStatus[i] == STATUS_STOPPED)) {
@@ -176,6 +140,8 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 		return -1;
 	}
 
+	/**this method adds a final MetaMessage to midi Sequences so the sequencer can inform othes of its state change,
+	 in this case, a loop.*/
 	private Sequence stampMetaMessage(Sequence sequence, int loopIndex) throws InvalidMidiDataException {
 		Track track = sequence.getTracks()[0];
 
@@ -188,6 +154,13 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 		return sequence;
 	}
 
+	
+	/**
+	 * Convert the Octopus MusicEventSequence into a midi sequence used by the sequencers.
+	 * @param musicalStructure
+	 * @return
+	 * @throws InvalidMidiDataException
+	 */
 	protected final Sequence getSequence(MusicalEventSequence musicalStructure) throws InvalidMidiDataException {
 
 		int resolution = 96;
@@ -221,6 +194,12 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 	}
 
 
+	/**
+	 * 
+	 * @param musicalStructure
+	 * @return
+	 * @throws MusicPerformanceException
+	 */
 	public int registerLoop(MusicalEventSequence musicalStructure) throws MusicPerformanceException {
 		try {
 			int i = getIndexFreeSequencer();
@@ -232,8 +211,8 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 
 				s = stampMetaMessage(s,  i);
 
-				loops[i].setSequence(s);
-				loops[i].setTempoInBPM(bpm);
+				sequencers[i].setSequence(s);
+				sequencers[i].setTempoInBPM(bpm);
 				loopStatus[i] = STATUS_CREATED;
 				
 				return i;
@@ -265,7 +244,7 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 	public int loop(MusicalEventSequence musicalStructure) throws MusicPerformanceException {
 
 		int i = registerLoop(musicalStructure);
-		loops[i].start();
+		sequencers[i].start();
 		loopStatus[i] = STATUS_PLAYING;
 
 		return i;
@@ -273,56 +252,7 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 	}
 
 
-	// Immediately start looping
-	/*
-	 * public int loop(MusicalEventSequence musicalStructure) throws
-	 * MusicPerformanceException { try {
-	 * 
-	 * // int resolution = 4; int resolution = 96;
-	 * 
-	 * Sequence s = new Sequence(Sequence.PPQ, resolution);
-	 * 
-	 * Track track = s.createTrack(); MusicalEvent[] musicalEvents =
-	 * musicalStructure.getMusicalEvents();
-	 * 
-	 * for (int i = 0; i < musicalEvents.length; i++) { Note note =
-	 * musicalEvents[i].note; MidiMessage msg; if (note != null) { msg = new
-	 * ShortMessage(); if (musicalEvents[i].velocity > 0) { int velocity = (int)
-	 * (MAX_PARAMETER_VALUE * musicalEvents[i].velocity); ((ShortMessage)
-	 * msg).setMessage(ShortMessage.NOTE_ON, note.getMidiValue(), velocity); } else
-	 * { ((ShortMessage) msg).setMessage(ShortMessage.NOTE_OFF, note.getMidiValue(),
-	 * 0); }
-	 * 
-	 * } else { msg = new MetaMessage(END_OF_BLOCK, null, 0); } double timing =
-	 * (musicalEvents[i].timing * 4.0) * resolution; MidiEvent me = new
-	 * MidiEvent(msg, (int) timing); track.add(me); }
-	 * 
-	 * // == ATTENTION == DONT TRY TO PLACE THIS CODE INTO A PRIVATE METHOD!! // IT
-	 * WILL NOT WORK. NEED TO RUN IMEDIATELLY BEFORE THE Sequencer.start() //
-	 * Getting the virtual resources. Dont need to get the external // midi port
-	 * (midiOut) because it was created on the super. //
-	 * 
-	 * // Playing inicialization int i = getIndexFreeSequencer();
-	 * 
-	 * if (i > -1) { Sequence s = getSequence(musicalStructure);
-	 * 
-	 * s = stampMetaMessage(s,(byte)i);
-	 * 
-	 * loops[i].setSequence(s); loops[i].setTempoInBPM(bpm);
-	 * 
-	 * loops[i].start(); loopStatus[i] = STATUS_PLAYING;
-	 * 
-	 * return i;
-	 * 
-	 * } else { throw new octopus.
-	 * MusicPerformanceException("No sequencer available to loop. Try add more."); }
-	 * 
-	 * } catch (InvalidMidiDataException ex1) { throw new
-	 * octopus.MusicPerformanceException(ex1.getMessage(), ex1); }
-	 * 
-	 * }
-	 */
-
+	
 	public void closeDevices() throws MidiUnavailableException {
 
 		// closing in the reverse order of openning
@@ -330,13 +260,13 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 		seqTransmitter.close();
 		sequencer.close();
 
-		for (int i = 0; i < loops.length; i++) {
-			if (loops[i].isRunning()) {
-				loops[i].stop();
+		for (int i = 0; i < sequencers.length; i++) {
+			if (sequencers[i].isRunning()) {
+				sequencers[i].stop();
 				loopStatus[i] = STATUS_STOPPED;
 			}
 
-			if (loops[i].isOpen())
+			if (sequencers[i].isOpen())
 				sequencer.close();
 
 		}
@@ -346,51 +276,7 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 
 	}
 
-	/*
-	 * public void loop(MusicalEventSequence musicalStructure) throws
-	 * MusicPerformanceException { try {
-	 * 
-	 * //int resolution = 4; int resolution = 96;
-	 * 
-	 * Sequence s = new Sequence(Sequence.PPQ, resolution);
-	 * 
-	 * Track track = s.createTrack(); MusicalEvent[] musicalEvents =
-	 * musicalStructure.getMusicalEvents(); // track.add(new
-	 * ShortMessage().setMessage(ShortMessage.PROGRAM_CHANGE);) for (int i = 0; i <
-	 * musicalEvents.length; i++) { ShortMessage msg = new ShortMessage(); //
-	 * MetaMessage metaMsg = new MetaMessage( Note note = musicalEvents[i].note;
-	 * if(note ==null){ //Pauses are not inserted..instead, notes are escalonated in
-	 * time. throw new
-	 * MusicPerformanceException("Number of rhythmic events must be equal to number of notes."
-	 * ); } if (musicalEvents[i].velocity > 0) {
-	 * 
-	 * 
-	 * int velocity = (int) (MAX_PARAMETER_VALUE * musicalEvents[i].velocity);
-	 * msg.setMessage(ShortMessage.NOTE_ON, note.getMidiValue(), velocity); } else {
-	 * msg.setMessage(ShortMessage.NOTE_OFF, note.getMidiValue(), 0); }
-	 * 
-	 * 
-	 * double timing = (musicalEvents[i].timing * 4.0) * resolution; MidiEvent me =
-	 * new MidiEvent(msg, (int) timing); track.add(me); }
-	 * 
-	 * //== ATTENTION == DONT TRY TO PLACE THIS CODE INTO A PRIVATE METHOD!! // IT
-	 * WILL NOT WORK. NEED TO RUN IMEDIATELLY THE Sequencer.start() //Getting the
-	 * virtual resources. Dont need to get the external // midi port (midiOut)
-	 * because it was created on the super. //
-	 * 
-	 * //Playing inicialization int i = getIndexFreeSequencer(); if(i > -1) {
-	 * loops[i].setSequence(s); loops[i].setTempoInBPM(bpm);
-	 * 
-	 * loops[i].start(); }else { throw new octopus.
-	 * MusicPerformanceException("No sequencer available to loop. Try add more."); }
-	 * 
-	 * } catch (InvalidMidiDataException ex1) { throw new
-	 * octopus.MusicPerformanceException(ex1.getMessage(),ex1); }
-	 * 
-	 * 
-	 * }
-	 */
-
+	
 	public void stopAll() {
 		try {
 			if (sequencer != null) {
@@ -400,7 +286,7 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 			}
 			for (int i = 0; i < loopStatus.length; i++) {
 				if (loopStatus[i] == STATUS_PLAYING) {
-					loops[i].stop();
+					sequencers[i].stop();
 					loopStatus[i] = STATUS_STOPPED;
 
 					// percorrer gearbox
@@ -420,9 +306,9 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 	// como fazer isso? parar todos ligados a ele de uma vez ou deixar morrer o
 	// loop?
 	public void stop(int loopIndex) {
-		if (loops[loopIndex] != null) {
-			if (loops[loopIndex].isRunning()) {
-				loops[loopIndex].stop();
+		if (sequencers[loopIndex] != null) {
+			if (sequencers[loopIndex].isRunning()) {
+				sequencers[loopIndex].stop();
 				loopStatus[loopIndex] = STATUS_STOPPED;
 			}
 		}
