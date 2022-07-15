@@ -31,30 +31,51 @@ import octopus.communication.SynthesizerController;
 import octopus.communication.midi.LiveMidiSynthesizerController;
 import octopus.communication.midi.OctopusMidiSystem;
 
-public class Loop implements Playable {
+public class Loop {//implements Playable {
    
-	static final int STATUS_CREATED = 0; // created, open, and ready to be used. No sequence has been assigned to it
-	// yet.
+	static final int STATUS_CREATED = 0; // created, open, and ready to be used. No sequence has been assigned to it yet.
 	static final int STATUS_STOPPED = 1; // already played but now is free to play another loop.
 	static final int STATUS_PLAYING = 2; // is active
 	static final int STATUS_PAUSED = 3; // is paused...can be resumed at any time so not available.
-	static final int STATUS_WAITING = 4;// is on the eminence to start playing..waiting some other sequence to change
-	// its state.
+	static final int STATUS_WAITING = 4;// is on the eminence to start playing..waiting some other sequence to change its state.
 	
-	Sequencer sequencer;
-	Playable playable; // ou deveria ja ser um MusicalEventSequence?
-	int status;
+	private final Sequencer sequencer;
+	private final MusicalEventSequence musicalEventSequence; // ou deveria ja ser um MusicalEventSequence?
+	private int status;
+	public final int controllerLoopID;
 	
-	public Loop(Sequencer sequencer) {
+	
+	public Loop(int controllerLoopID, Sequencer sequencer, MusicalEventSequence musicalEventSequence) {
 		this.sequencer = sequencer;
 		this.status = this.STATUS_CREATED;
+		this.musicalEventSequence = musicalEventSequence;
+		this.controllerLoopID = controllerLoopID;
+	}
+	
+	
+	public void start() {
+		sequencer.start();
+		status = Loop.STATUS_PLAYING;
+	}
+	
+	public void stop() {
+		sequencer.stop();
+		status = Loop.STATUS_STOPPED;
+	}
+	
+	
+	//method used to indicate that the loop set to start soon (next loop)
+	public void arm() {
+		status = Loop.STATUS_WAITING;
+	}
+	
+	public int getStatus() {
+		return status;
+	}
+	
+	/*public MusicalEventSequence getMusicalEventSequence() {
 		
-	}
-	
-	
-	public MusicalEventSequence getMusicalEventSequence() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return musicalEventSequence;
+	}*/
 
 }

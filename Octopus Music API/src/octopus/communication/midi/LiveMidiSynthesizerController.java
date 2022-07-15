@@ -22,6 +22,9 @@ public class LiveMidiSynthesizerController  implements SynthesizerController {
 
 	protected int midiProgram = 1;
 	protected float bpm = 120;
+	
+	public static int defaultChannel = 1; //para teste
+
 	//protected boolean isLoop = false;
 
 	protected Vector<Receiver> receivers;
@@ -138,17 +141,6 @@ public class LiveMidiSynthesizerController  implements SynthesizerController {
 		mainSequencerTransmitter.setReceiver(sequencer.getReceiver());
 		sequencer.setSlaveSyncMode(Sequencer.SyncMode.MIDI_SYNC);*/
 		
-		///
-	/*	sequencer.addMetaEventListener(new MetaEventListener( ) {
-	        public void meta(MetaMessage m) {
-	            if (m.getType( ) == END_OF_TRACK) {
-	             System.out.println("end of track");
-	             return;
-	            }
-	          }
-	        });*/
-		////
-		
 		
 		//MidiDevice outputDevice= OctopusMidiSystem.getMidiDevice(midiOut);		
 		
@@ -175,27 +167,6 @@ public class LiveMidiSynthesizerController  implements SynthesizerController {
 	
 	}
 
-	// DO NOT WORK ON SUBCLASSES. JAVA SOUND BUG
-	/*public void openDevices() throws MidiUnavailableException {
-
-  if(outputDevice==null){
-    outputDevice = MidiSystem.getSynthesizer();
-  }else{
-    outputDevice = OctopusMidiSystem.getMidiDevice(outputDeviceName);
-  }
-
-  outputDevice.open();
-  synthReceiver = outputDevice.getReceiver();
-
-  sequencer = MidiSystem.getSequencer();
-  sequencer.open();
-  seqTransmitter = sequencer.getTransmitter();
-  seqTransmitter.setReceiver(synthReceiver);
-
-  for (int i = 0; i < receivers.size(); i++) {
-    seqTransmitter.setReceiver((Receiver)receivers.get(i));
-  }
-}*/
 
 	public void closeDevices() throws MidiUnavailableException {
 
@@ -206,7 +177,7 @@ public class LiveMidiSynthesizerController  implements SynthesizerController {
 		outputDevice.close();
 	}
 
-	/*Send to outputDevice*/
+	/*Esse método parece bem defasado. Será que alguem usa? Vou*/
 	@Override
 	public void play(MusicalEvent musicalEvent) throws MusicPerformanceException{
 		try {
@@ -252,9 +223,9 @@ public class LiveMidiSynthesizerController  implements SynthesizerController {
 					msg = new ShortMessage();
 					if (musicalEvents[i].velocity > 0) {		                       		            	
 						int velocity = (int) (MAX_PARAMETER_VALUE * musicalEvents[i].velocity);
-						((ShortMessage)msg).setMessage(ShortMessage.NOTE_ON, note.getMidiValue(), velocity);
+						((ShortMessage)msg).setMessage(ShortMessage.NOTE_ON, defaultChannel, note.getMidiValue(), velocity);
 					}else {
-						((ShortMessage)msg).setMessage(ShortMessage.NOTE_OFF, note.getMidiValue(), 0);
+						((ShortMessage)msg).setMessage(ShortMessage.NOTE_OFF, defaultChannel,note.getMidiValue(), 0);
 					}
 
 				}else {

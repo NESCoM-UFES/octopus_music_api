@@ -12,13 +12,13 @@ import octopus.communication.midi.MidiSynthesizerController;
 public class LivePerformer extends Musician {
 	
 	public static final int LOOP_LOOPS = 0;
-	public static final int LOOP_STOPS= 1;
+	public static final int LOOP_STOPS= 1; //provavelmente vai para a classe Loop
 	//add more in the future.
      
 
 	public LivePerformer() throws MusicPerformanceException {
 		try {
-			player = new LoopMidiController();
+			player = new LoopMidiSynthController();
 		}
 		catch (MidiUnavailableException ex) {
 			throw new MusicPerformanceException("Octopus could not detect any available MIDI device.",ex);
@@ -26,35 +26,37 @@ public class LivePerformer extends Musician {
 	}
 
 
-	public LivePerformer(LoopMidiController synthesizerController) {
+	public LivePerformer(LoopMidiSynthController synthesizerController) {
 		super(synthesizerController);
 		// TODO Auto-generated constructor stub
 	}
-
-		
-
-	public int loop(int primaryLoop, Playable playable)throws MusicPerformanceException{
+	
+	public Loop createLoop(Playable playable)throws MusicPerformanceException{
 		MusicalEventSequence p = playable.getMusicalEventSequence();  
-		return ((LoopMidiController)player).loop(primaryLoop,p);
+		return ((LoopMidiSynthController)player).createLoop(p);
 	}
 	
-	public int loop(Playable playable)throws MusicPerformanceException{
-		MusicalEventSequence p = playable.getMusicalEventSequence();  
-				
-		return ((LoopMidiController)player).loop(p);
-	}
-	
-	 /* public int loopWhen(int primaryLoop, int LOOP_EVENT, int secondaryLoop) throws MusicPerformanceException {
-		  
-	  }*/
-	
-      //This method will allow statements such as :
+   /*   @Override
+	public void play(Playable playable) throws MusicPerformanceException {
+		if(playable instanceof Loop) {
+			((Loop)playable).start();
+		}else {
+			super.play(playable);
+		}
+	}*/
+      
+  	public void play(Loop loop) throws MusicPerformanceException {
+			((Loop)loop).start();		
+	}      
+
+
+	//This method will allow statements such as :
 	  // when(loop(0), LOOPS, loop(A,B,C));
-	  public void loopWhen(int primaryLoop, int LOOP_EVENT, int secondaryLoop) throws MusicPerformanceException {
+	  public void loopWhen(Loop primaryLoop, int LOOP_EVENT, Loop secondaryLoop) throws MusicPerformanceException {
     	
     	switch (LOOP_EVENT) {
 		case LOOP_LOOPS:			
-			((LoopMidiController)player).synchLoops(primaryLoop, secondaryLoop);
+			((LoopMidiSynthController)player).synchLoops(primaryLoop, secondaryLoop);
 				
 			break;
 		case LOOP_STOPS:			
@@ -64,13 +66,17 @@ public class LivePerformer extends Musician {
 		}
     
      }
+	  
+	public Loop getLoop(int controllerLoopID) {
+		return ((LoopMidiSynthController)player).getLoop(controllerLoopID);
+	}
 	
-	public void stop(int loopIndex) {
-		((LoopMidiController)player).stop(loopIndex);		
+	public void stop(Loop loop) {
+		loop.stop();				
 	}
 	
 	public void stopAll() {
-		((LoopMidiController)player).stopAll();		
+		((LoopMidiSynthController)player).stopAll();		
 	}
 
 

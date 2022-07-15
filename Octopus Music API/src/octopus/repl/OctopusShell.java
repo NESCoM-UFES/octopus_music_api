@@ -54,8 +54,8 @@ public class OctopusShell {
 
 	//LOOP EVENTS
 	/**{@value}*/
-	public static final int LOOPS = 0;
-	public static final int STOPS= 1;
+	public  final int LOOPS = 0;
+	public  final int STOPS= 1;
 
 
 	//NOTES
@@ -75,15 +75,15 @@ public class OctopusShell {
 
 	//MIDI SETUP
 
-	LoopMidiController synthController;
-	//synthController = new LoopMidiController();//uncomment this line at jsh file.	
+	LoopMidiSynthController synthController;
+	//synthController = new LoopMidiSynthController();//uncomment this line at jsh file.	
 	LivePerformer musician = new LivePerformer(synthController);
 
 
 	public OctopusShell() { //Remove when copying to jsh file.
 		super();
 		try {
-			synthController = new LoopMidiController();
+			synthController = new LoopMidiSynthController();
 
 			musician = new LivePerformer(synthController);
 		} catch (MidiUnavailableException e) {
@@ -126,6 +126,17 @@ public class OctopusShell {
 		 * musician.setSynthesizerController(synthController);
 		 */
 	}
+	
+	/**
+	 * Forces the sequencer to use a particular channel from this moment onwards.
+	 * Previous sounding playables/loops will carry on within the channel set on
+	 * the moment it starts.
+	 * 
+	 * @param channel midi channel
+	 */
+	public void channel(int channel) {
+		synthController.defaultChannel = channel;
+	}
 
 	//============================  General Utilities ===============================
 
@@ -156,8 +167,19 @@ public class OctopusShell {
 
 	}
 
-	void play(Playable p) throws MusicPerformanceException{
+	/*Playable play(Playable p) throws MusicPerformanceException{ //precisa mesmo retornar playable?
 		musician.play(p);
+		return p;
+	}*/
+	
+	void play(Playable p) throws MusicPerformanceException{ 
+		musician.play(p);
+		//return p;
+	}
+	
+	void play(Loop loop) throws MusicPerformanceException{
+		musician.play(loop);
+		//return p;
 	}
 
 	void play (Chord chord, Arpeggio arpeggio) throws Exception{
@@ -180,8 +202,12 @@ public class OctopusShell {
 		musician.stopAll();
 	}
 	
-	void stop(int loopIndex) {
-		musician.stop(loopIndex);
+	void stop(Loop loop) {
+		musician.stop(loop);
+	}
+	
+	void stop(int loopID) {
+		musician.stop(musician.getLoop(loopID));
 	}
 
 	//Not working...but not really a necessity! Check that latter.
@@ -195,23 +221,27 @@ public class OctopusShell {
 	}*/
 
 
-	//start looping immediately
-	public int loop(Playable playable) throws Exception{
-		return musician.loop(playable);
-	}
+	/* JShell do not accept.
+	 * //Dumb method for syntax purpose 
+	 * public Loop loop(Loop loop) throws
+	 * Exception{ return loop; }
+	 */ 
 	
-	//start the secondary loop when the primary loops.
-	public int loop(int primaryLoop, Playable playable) throws Exception{
-		return musician.loop(primaryLoop,playable);
+	public Loop loop(Playable playable) throws Exception{
+		/*if(playable instanceof Loop) {
+			return (Loop)playable;
+		}*/		
+		return musician.createLoop(playable);
 	}
-
+		
 	//This is a pretty dumb method just of improve the syntax os the language.
 	//i.e when(loop(1), LOOPS, loop(melody(C,D,E))
-	public int loop(int loopIndex) { 
-		return loopIndex;
+	public Loop loop(int loopID) { 
+		return musician.getLoop(loopID);
 	}
-	public void when(int primaryLoop, int LOOP_EVENT, int secondaryLoop) throws Exception{
+	public Loop when(Loop primaryLoop, int LOOP_EVENT, Loop secondaryLoop) throws Exception{
 		 musician.loopWhen(primaryLoop,LOOP_EVENT,secondaryLoop);
+		 return secondaryLoop;
 	}
 
 	
@@ -220,7 +250,14 @@ public class OctopusShell {
 		Music m = new Music();
 		//MusicalEventSequence ms = new MusicalEventSequence();
 		for (Playable p: playables){ 
-			m.insert(p);
+			/*if(p instanceof Loop) {
+				
+			}else {*/
+				m.insert(p);
+			//}
+			
+			
+			
 		}
 		return m;
 	}
@@ -524,29 +561,15 @@ public class OctopusShell {
 		return new Music(playables);
 	}
 
+	
+	//============================   Testing - Do not copu to JSH File  ===============================	
 
 	public static void main(String[] args) {
 		try {
 			//## USE JUST FOR QUICK TESTING...IF NEEDED MORE FANCY STUFF, GO TO TestingOctopusREPL
 			OctopusShell s = new OctopusShell();
 			
-			int l1 = s.loop(s.A);
-			
-			s.when(s.loop(l1),s.LOOPS,s.loop(s.G));
-			
-			/*when(loop(l1),LOOPS,play(C));
-			when(loop(0),STOPS,loop(A,B,C));
-			
-			
-			
-			
-			loop(0).stop();
-			loop(0).midiChannel(2);
-			
-			loop(A,B,C).when(loop(1),LOOPS)*/
-			
-			//System.out.println();
-
+		
 			
 
 		} catch (Exception e) {

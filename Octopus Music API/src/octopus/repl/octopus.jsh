@@ -6,11 +6,7 @@ import examples.*;
 
 import java.util.concurrent.TimeUnit
 
-	// ==== CONSTANTS ===== //Talvez criar classes staticas específicas
-	// para retornar esses valores. Ex dynamics.fortissimo;
-
-
-	// SCALES
+		// SCALES
 	public  final int MAJOR = 0;
 	public  final int MINOR = 5;
 
@@ -46,6 +42,12 @@ import java.util.concurrent.TimeUnit
 	public  final double THIRTY_SECOND_NOTE = 0.03125; //(1/32);
 
 
+	//LOOP EVENTS
+	/**{@value}*/
+	public  final int LOOPS = 0;
+	public  final int STOPS= 1;
+
+
 	//NOTES
 	public  final Note A = Notes.getA();
 	public  final Note B = Notes.getB();
@@ -63,12 +65,12 @@ import java.util.concurrent.TimeUnit
 
 	//MIDI SETUP
 
-	LoopMidiController synthController;	
-	synthController = new LoopMidiController();
+	LoopMidiSynthController synthController;
+	synthController = new LoopMidiSynthController();//uncomment this line at jsh file.	
 	LivePerformer musician = new LivePerformer(synthController);
 
 
-
+	
 	//============================  MIDI utilities ===============================
 	void midi(){
 		OctopusMidiSystem.listDevices(true, true, true);
@@ -103,6 +105,17 @@ import java.util.concurrent.TimeUnit
 		 * musician.setSynthesizerController(synthController);
 		 */
 	}
+	
+	/**
+	 * Forces the sequencer to use a particular channel from this moment onwards.
+	 * Previous sounding playables/loops will carry on within the channel set on
+	 * the moment it starts.
+	 * 
+	 * @param channel midi channel
+	 */
+	public void channel(int channel) {
+		synthController.defaultChannel = channel;
+	}
 
 	//============================  General Utilities ===============================
 
@@ -133,8 +146,19 @@ import java.util.concurrent.TimeUnit
 
 	}
 
-	void play(Playable p) throws MusicPerformanceException{
+	/*Playable play(Playable p) throws MusicPerformanceException{ //precisa mesmo retornar playable?
 		musician.play(p);
+		return p;
+	}*/
+	
+	void play(Playable p) throws MusicPerformanceException{ 
+		musician.play(p);
+		//return p;
+	}
+	
+	void play(Loop loop) throws MusicPerformanceException{
+		musician.play(loop);
+		//return p;
 	}
 
 	void play (Chord chord, Arpeggio arpeggio) throws Exception{
@@ -157,8 +181,12 @@ import java.util.concurrent.TimeUnit
 		musician.stopAll();
 	}
 	
-	void stop(int loopIndex) {
-		musician.stop(loopIndex);
+	void stop(Loop loop) {
+		musician.stop(loop);
+	}
+	
+	void stop(int loopID) {				
+		musician.stop(musician.getLoop(loopID));
 	}
 
 	//Not working...but not really a necessity! Check that latter.
@@ -172,26 +200,42 @@ import java.util.concurrent.TimeUnit
 	}*/
 
 
-	public int loop(Playable playable) throws Exception{
-		return musician.loop(playable);
-	}
+    
 	
-	public int loop(int primaryLoop, Playable playable) throws Exception{
-		return musician.loop(primaryLoop,playable);
+	public Loop loop(Playable playable) throws Exception{
+		/*if(playable instanceof Loop) {
+			return (Loop)playable;
+		}*/		
+		return musician.createLoop(playable);
+	}
+		
+	//This is a pretty dumb method just of improve the syntax os the language.
+	//i.e when(loop(1), LOOPS, loop(melody(C,D,E))
+	public Loop loop(int loopID) { 
+		return musician.getLoop(loopID);
+	}
+	public Loop when(Loop primaryLoop, int LOOP_EVENT, Loop secondaryLoop) throws Exception{
+		 musician.loopWhen(primaryLoop,LOOP_EVENT,secondaryLoop);
+		 return secondaryLoop;
 	}
 
+	
 
 	public Playable together(Playable...playables) {
 		Music m = new Music();
 		//MusicalEventSequence ms = new MusicalEventSequence();
 		for (Playable p: playables){ 
-			m.insert(p);
+			/*if(p instanceof Loop) {
+				
+			}else {*/
+				m.insert(p);
+			//}
+			
+			
+			
 		}
 		return m;
 	}
-
-
-
 	//============================  Information of all the Playables ===============================
 
 	public double duration(Playable playable) {
@@ -490,3 +534,4 @@ import java.util.concurrent.TimeUnit
 	//============================   Music  ===============================
 	public Music music(Playable... playables) {		  
 		return new Music(playables);
+	}

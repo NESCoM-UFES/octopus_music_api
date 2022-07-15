@@ -6,6 +6,7 @@ import octopus.Chord;
 import octopus.Harmony;
 import octopus.Melody;
 import octopus.MusicPerformanceException;
+import octopus.Playable;
 import octopus.RhythmPattern;
 
 /**
@@ -33,8 +34,11 @@ public class TestingOctopusREPL extends OctopusShell{
 			System.out.println(duration(b1));
 			System.out.println(duration(b2));
 
-			loop(together(b1,b2));
-			//loop(together(b1,b2,b3,b4));
+			play(loop(together(b1,b2)));
+			stop(0);
+			
+			play(loop(together(b1,b2,b3,b4)));
+			stop(0);
 
 		} catch (MusicPerformanceException e) {
 			// TODO Auto-generated catch block
@@ -60,16 +64,19 @@ public class TestingOctopusREPL extends OctopusShell{
 			Melody m3 = melody(notes(G),rhythm(b3));
 			Melody m4 = melody(notes(B),rhythm(b4));
 
-			//play(s.together(m1,m2,m3,m4));// OK
+			play(together(m1,m2,m3,m4));
 
 
-			//loop(s.together(m1,m2));
-			loop(together(m1,m2,m3,m4));
+			play(loop(together(m1,m2)));
+			stop(0);
+			
+			play(loop(together(m1,m2,m3,m4)));
+			stop(0);
 
-			loop(m1);
-			loop(m2);
-			loop(m3);
-			loop(m4);
+			play(loop(m1));
+			play(loop(m2));
+			play(loop(m3));
+			play(loop(m4));
 
 		} catch (MusicPerformanceException e) {
 			// TODO Auto-generated catch block
@@ -96,7 +103,7 @@ public class TestingOctopusREPL extends OctopusShell{
 
 			//play(a1);
 
-			loop(a1);
+			play(loop(a1));
 
 
 		} catch (MusicPerformanceException e) {
@@ -125,7 +132,7 @@ public class TestingOctopusREPL extends OctopusShell{
 			//play(a1);
 			play(c,a1);
 
-			loop(c);
+			play(loop(c));
 
 
 		} catch (MusicPerformanceException e) {
@@ -149,16 +156,15 @@ public class TestingOctopusREPL extends OctopusShell{
 
 
 			RhythmPattern r = rhythm(b1,b2);
-
 			play(r);
 
 			Bar bx = bar(4,4,"0+++----0+++++++----0+++----0000", SIXTEENTH_NOTE);
 			RhythmPattern r2 = (rhythm(bx));
 
-			loop(r);
-			stop(0); 
+			play(loop(r));
+			stop(0); //preciso implentar um jeito de parar o loop pelo int.
 
-			loop(r2);
+			play(loop(r2));
 
 		} catch (MusicPerformanceException e) {
 			// TODO Auto-generated catch block
@@ -202,7 +208,7 @@ public class TestingOctopusREPL extends OctopusShell{
 			Arpeggio a1 = arpeggio(b1,b2,b3);
 			Harmony h2 = harmony(chords("C","F","G"),r,a1);
 			play(h2);
-			loop(h2);
+			play(loop(h2));
 
 
 		} catch (MusicPerformanceException e) {
@@ -214,7 +220,7 @@ public class TestingOctopusREPL extends OctopusShell{
 		}
 	}
 
-	public void testLoopScheduling() {
+	public void testLoopWhen() {
 
 		try {
 
@@ -234,13 +240,20 @@ public class TestingOctopusREPL extends OctopusShell{
 			Melody m3 = melody(notes(G),r);
 			Melody m4 = melody(notes(B),r);
 
-			loop(m1);
-			loop(0,m2);
-			loop(0,m3);
-			loop(0,m4);
+			play(loop(m1));
+			LoopMidiSynthController.defaultChannel = 2;			
 			
-			//stopAll();
-			//loop(together(m1,m2,m3,m4));
+			when(loop(0),LOOPS,loop(m2));
+			LoopMidiSynthController.defaultChannel = 3;		
+			
+			when(loop(0),LOOPS,loop(m3));
+			
+			LoopMidiSynthController.defaultChannel = 4;		
+			when(loop(0),LOOPS,loop(m4));
+			
+			stopAll();
+		
+			play(loop(together(m1,m2,m3,m4)));
 
 		} catch (MusicPerformanceException e) {
 			// TODO Auto-generated catch block
@@ -262,11 +275,18 @@ public class TestingOctopusREPL extends OctopusShell{
 
 		try {
 
+			//t.midi();
+			//t.midi(4);
 
-			t.midi(4);
-
-			t.testLoopScheduling();
-
+			
+			//t.testLoopBar(); //OK
+			//t.testLoopMelody();
+			//t.testLoopArpeggio();
+			//t.testLoopChord();
+			//t.testLoopRhythmPattern();
+			//t.testLoopHarmony();
+			t.testLoopWhen();
+	
 			/* Problemas:
 			 * 1) t.loop(t.A) está matando o loop em andamento; O problema ocorre quando um loop 
 			 *   inicia antes de mudar o midiout. Talvez parar automaticamente quando trocar. Resolvido!
