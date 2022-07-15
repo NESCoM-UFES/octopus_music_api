@@ -23,7 +23,7 @@ public class LiveMidiSynthesizerController  implements SynthesizerController {
 	protected int midiProgram = 1;
 	protected float bpm = 120;
 	
-	public static int defaultChannel = 1; //para teste
+	public static int defaultChannel = 0; //para teste
 
 	//protected boolean isLoop = false;
 
@@ -356,7 +356,11 @@ public class LiveMidiSynthesizerController  implements SynthesizerController {
 
 	public void setBPM(float bpm) {
 		this.bpm = bpm;
-		sequencer.setTempoInBPM(bpm);
+		
+		
+		float tempoFactor = bpm/120;		
+		sequencer.setTempoFactor(tempoFactor);
+		//BUG do Java: https://bugs.openjdk.org/browse/JDK-6432024
 	}
 
 

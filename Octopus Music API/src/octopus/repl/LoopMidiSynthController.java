@@ -30,6 +30,9 @@ import octopus.communication.midi.OctopusMidiSystem;
 
 public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 	
+
+
+
 	/*There are 16 midi channels per track. We are using just one track...channel 1 for  
 	 * 
 	 */
@@ -129,6 +132,17 @@ public class LoopMidiSynthController extends LiveMidiSynthesizerController {
 		loopArmed = false;
 	}
 	
+	
+	
+	public void setBPM(float bpm) {		
+		super.setBPM(bpm);
+		
+		for (int i = 0; i < loops.length; i++) {
+			if(loops[i] != null) {
+				loops[i].setBpm(bpm);
+			}
+		}
+	}
 	
 	/**
 	 * Return the next avaliable sequencer.

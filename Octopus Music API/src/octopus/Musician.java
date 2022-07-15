@@ -28,7 +28,7 @@ public class Musician {
 
 
 protected SynthesizerController player;
-  protected float playingSpeed = 120; //used whem the musical stricuture does not have the BPM
+  static float playingSpeed = 120; //used whem the musical stricuture does not have the BPM
 
   public Musician() throws MusicPerformanceException  {
     try {

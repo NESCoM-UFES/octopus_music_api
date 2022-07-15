@@ -24,6 +24,7 @@ import javax.sound.midi.Track;
 import javax.sound.midi.Transmitter;
 
 import octopus.MusicPerformanceException;
+import octopus.Musician;
 import octopus.Note;
 import octopus.communication.MusicalEvent;
 import octopus.communication.MusicalEventSequence;
@@ -38,6 +39,9 @@ public class Loop {//implements Playable {
 	static final int STATUS_PLAYING = 2; // is active
 	static final int STATUS_PAUSED = 3; // is paused...can be resumed at any time so not available.
 	static final int STATUS_WAITING = 4;// is on the eminence to start playing..waiting some other sequence to change its state.
+	
+	
+	
 	
 	private final Sequencer sequencer;
 	private final MusicalEventSequence musicalEventSequence; // ou deveria ja ser um MusicalEventSequence?
@@ -61,6 +65,13 @@ public class Loop {//implements Playable {
 	public void stop() {
 		sequencer.stop();
 		status = Loop.STATUS_STOPPED;
+	}
+	
+	public void setBpm(float bpm) {
+		float tempoFactor = bpm/120;
+		
+		sequencer.setTempoFactor(tempoFactor);
+		
 	}
 	
 	

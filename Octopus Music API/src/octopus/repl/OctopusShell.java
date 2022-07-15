@@ -135,7 +135,9 @@ public class OctopusShell {
 	 * @param channel midi channel
 	 */
 	public void channel(int channel) {
-		synthController.defaultChannel = channel;
+		if((channel > 0) && (channel < 17)){
+			synthController.defaultChannel = channel - 1;
+		}
 	}
 
 	//============================  General Utilities ===============================

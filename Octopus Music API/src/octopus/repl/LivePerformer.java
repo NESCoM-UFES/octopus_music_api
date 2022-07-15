@@ -15,6 +15,7 @@ public class LivePerformer extends Musician {
 	public static final int LOOP_STOPS= 1; //provavelmente vai para a classe Loop
 	//add more in the future.
      
+	
 
 	public LivePerformer() throws MusicPerformanceException {
 		try {

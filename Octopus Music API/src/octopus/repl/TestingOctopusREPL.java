@@ -264,6 +264,32 @@ public class TestingOctopusREPL extends OctopusShell{
 		}
 	}
 
+	public void testBpmChange() {
+		
+		try {
+			
+			bpm(120);
+			play(loop(A));
+			
+			when(loop(0),LOOPS,loop(G));
+			
+			bpm(240);
+			
+			bpm(60);
+			
+			bpm(120);
+			
+			
+		} catch (MusicPerformanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	/* protected void finalize throws Exception 
 	  {  
 	    ((LoopMidiController)this.musician.getSynthesizerController()).closeDevices();
@@ -276,7 +302,7 @@ public class TestingOctopusREPL extends OctopusShell{
 		try {
 
 			//t.midi();
-			//t.midi(4);
+			t.midi(4);
 
 			
 			//t.testLoopBar(); //OK
@@ -285,7 +311,11 @@ public class TestingOctopusREPL extends OctopusShell{
 			//t.testLoopChord();
 			//t.testLoopRhythmPattern();
 			//t.testLoopHarmony();
-			t.testLoopWhen();
+			//t.testLoopWhen();
+			
+			
+			t.testBpmChange();
+			
 	
 			/* Problemas:
 			 * 1) t.loop(t.A) está matando o loop em andamento; O problema ocorre quando um loop 
