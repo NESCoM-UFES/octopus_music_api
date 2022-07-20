@@ -10,6 +10,8 @@ import octopus.communication.MusicalEventSequence;
  * 
  */
 public class Melody  extends MusicalComponent implements Playable{
+	
+	
 
 	/**
 	 * Repeates the notes to match the full extension of the RhythmPattern.
@@ -54,7 +56,9 @@ public class Melody  extends MusicalComponent implements Playable{
 	}
 
 
-
+  
+	
+	
 	@Override
 	public MusicalEventSequence getMusicalEventSequence() {
 		return this.getMusicalEventSequence(getNotes(), //use of MusicalComponent (superclass) implementation.

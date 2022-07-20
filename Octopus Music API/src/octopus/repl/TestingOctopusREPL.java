@@ -220,7 +220,7 @@ public class TestingOctopusREPL extends OctopusShell{
 		}
 	}
 
-	public void testLoopWhen() {
+	public void testLoopWhenLOOPS() {
 
 		try {
 
@@ -262,6 +262,25 @@ public class TestingOctopusREPL extends OctopusShell{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void testLoopWhenSTOPS() {
+		try {
+			midi(5);
+
+			Melody m1 = melody(notes(A),rhythm("0000"));
+
+			Loop l1 = loop(m1);
+			play(l1);
+
+			m1.setVolume(0.5f);
+			when(l1, STOPS, loop(m1));
+
+			stop(l1);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 
 	public void testBpmChange() {

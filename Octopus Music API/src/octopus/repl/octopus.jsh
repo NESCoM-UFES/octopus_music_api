@@ -238,6 +238,18 @@ import java.util.concurrent.TimeUnit
 		}
 		return m;
 	}
+	
+	/* Não funcionou legal.
+	public void unMute(Loop loop) {
+		loop.mute(false);
+	}
+	public void mute(Loop loop) {
+		loop.mute(true);
+	}	
+	public void mute(Loop loop, boolean isMute) {
+		loop.mute(isMute);
+	}*/
+	
 	//============================  Information of all the Playables ===============================
 
 	public double duration(Playable playable) {

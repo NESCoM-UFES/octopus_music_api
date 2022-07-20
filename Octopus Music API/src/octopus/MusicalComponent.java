@@ -10,6 +10,9 @@ import octopus.communication.MusicalEventSequence;
  * @version 1.0
  */
 public abstract class MusicalComponent implements Playable {
+  
+  protected double volume = 1.0; //teste
+	
   protected RhythmPattern rhythmPattern;
 
   boolean circularList = true;
@@ -61,7 +64,7 @@ public abstract class MusicalComponent implements Playable {
 
 		  if(rhythmEvents[i].type==1){ // Note rest
 			  MusicalEvent meOct = new MusicalEvent(i, time, notes[indexNotes], duration,
-					  rhythmEvents[i].velocity);
+					  rhythmEvents[i].velocity * volume);
 			  MusicalEvent meOctOff = new MusicalEvent(i, time + duration,
 					  notes[indexNotes], 0, 0);
 			  musicalEventSequence.addMusicalEvent(meOct);
@@ -116,6 +119,14 @@ public abstract class MusicalComponent implements Playable {
 		return chordMusicalEventSequence;
 
 	}
+
+public double getVolume() {
+	return volume;
+}
+
+public void setVolume(double volume) {
+	this.volume = volume;
+}
  
  // Not yet. Next version 
  // public abstract void transpose(int semitons);

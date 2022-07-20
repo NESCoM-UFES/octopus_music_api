@@ -9,6 +9,8 @@ import octopus.communication.MusicalEventSequence;
  *
  */
 public interface Playable {
+	
+  //float volume = 1.0f;	 //value between 0 and 1 used to scale de volume of the musical events.
 
   public MusicalEventSequence getMusicalEventSequence();
   

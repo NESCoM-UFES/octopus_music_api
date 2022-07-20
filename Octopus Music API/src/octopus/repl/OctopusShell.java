@@ -245,7 +245,12 @@ public class OctopusShell {
 		 musician.loopWhen(primaryLoop,LOOP_EVENT,secondaryLoop);
 		 return secondaryLoop;
 	}
-
+	
+	//pensar em como fazer isso e se realmente é necessário. Perguntar aos músicos.
+/*	public void when(Loop primaryLoop, int LOOP_EVENT, Playable playable) throws Exception{
+		 musician.loopWhen(primaryLoop,LOOP_EVENT,secondaryLoop);
+		 //return secondaryLoop;
+	}*/
 	
 
 	public Playable together(Playable...playables) {
@@ -263,6 +268,18 @@ public class OctopusShell {
 		}
 		return m;
 	}
+	
+	/* Não funcionou legal...verificar se é mesmo necessário.
+	public void unMute(Loop loop) {
+		loop.mute(false);
+	}
+	public void mute(Loop loop) {
+		loop.mute(true);
+	}	
+	public void mute(Loop loop, boolean isMute) {
+		loop.mute(isMute);
+	}*/
+	
 	//============================  Information of all the Playables ===============================
 
 	public double duration(Playable playable) {
@@ -570,9 +587,27 @@ public class OctopusShell {
 		try {
 			//## USE JUST FOR QUICK TESTING...IF NEEDED MORE FANCY STUFF, GO TO TestingOctopusREPL
 			OctopusShell s = new OctopusShell();
-			
 		
-			
+		s.midi(5);	
+		s.channel(1);
+		Melody m1 = s.melody(s.notes(s.A),s.rhythm("0000"));
+		 
+		 /*s.play(m1);
+		 m1.setVolume(0.5f);
+		 s.play(m1);*/
+		 
+		 Loop l1 = s.loop(m1);
+		 s.play(l1);
+		 
+		 m1.setVolume(0.5f);
+		 s.when(l1, s.STOPS, s.loop(m1));
+		 
+		 s.stop(l1);
+		 
+		 //l1.volume(1);
+		 //s.play(l1);
+		 System.out.println();
+		 			
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

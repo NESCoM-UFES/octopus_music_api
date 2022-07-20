@@ -37,6 +37,8 @@ public class LivePerformer extends Musician {
 		return ((LoopMidiSynthController)player).createLoop(p);
 	}
 	
+	
+	
    /*   @Override
 	public void play(Playable playable) throws MusicPerformanceException {
 		if(playable instanceof Loop) {
@@ -57,11 +59,10 @@ public class LivePerformer extends Musician {
     	
     	switch (LOOP_EVENT) {
 		case LOOP_LOOPS:			
-			((LoopMidiSynthController)player).synchLoops(primaryLoop, secondaryLoop);
-				
+			((LoopMidiSynthController)player).synchLoops(primaryLoop, secondaryLoop);				
 			break;
 		case LOOP_STOPS:			
-			//loop(primaryLoop,playable);			
+			((LoopMidiSynthController)player).triggerLoops(primaryLoop,secondaryLoop);	
 			break;
 
 		}

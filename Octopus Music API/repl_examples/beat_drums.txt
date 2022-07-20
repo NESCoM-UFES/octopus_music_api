@@ -1,0 +1,34 @@
+Ableton Live => Drums
+
+midi(5)
+Melody m1 = melody(notes(G),rhythm("0+++0+++0+++0+++"))
+play(loop(m1))
+
+Melody m2 = melody(notes(A),rhythm("----0+++----0+++"))
+when(loop(0), LOOPS, loop(m2))
+
+Melody m3 = melody(notes(F), rhythm("------------0000"))
+when(loop(0), LOOPS, loop(m3))
+
+Melody m4 = melody(notes(E), rhythm("----0+++++++++++"))
+when(loop(0), LOOPS, loop(m4))
+
+Melody m5 = melody(notes(D), rhythm("------------0+0+------------0000"))
+when(loop(0), LOOPS, loop(m5))
+
+//Harmony
+
+RhythmPattern r = rhythm("0+++----0+++++++----0+++----0+0+", SIXTEENTH_NOTE);
+
+Harmony h = harmony(chords("C","F","G"),r);
+
+when(loop(0), LOOPS, loop(h))
+
+			
+
+			
+
+
+			
+
+		
