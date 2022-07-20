@@ -6,8 +6,10 @@ import octopus.Chord;
 import octopus.Harmony;
 import octopus.Melody;
 import octopus.MusicPerformanceException;
+import octopus.NoteException;
 import octopus.Playable;
 import octopus.RhythmPattern;
+import octopus.Scale;
 
 /**
  * The purpose of this class is basically to test the implementations of the OctopusShell
@@ -314,6 +316,48 @@ public class TestingOctopusREPL extends OctopusShell{
 	    ((LoopMidiController)this.musician.getSynthesizerController()).closeDevices();
 	  }*/  
 
+	
+	public void testMelodyScale() {
+
+		try {
+			Scale s = scale.pentatonic(C, MAJOR);
+			
+			//Melody m1 = melody(s.getNotes(),RhythmPattern.getRandomRhythmPattern(s.getSize()));
+			Melody m1 = melody(s.getNotes(),rhythm.random(s.getSize()));
+			play(loop(m1));
+			
+			
+
+			while(true) {
+
+				Melody m2 = melody(suffle(s.getNotes()),rhythm.random(s.getSize()));
+
+				when(loop(0),STOPS,loop(m2));
+				pause(random(1000, 10000));
+				stop(0);
+
+				when(loop(1),STOPS,loop(m1));
+				pause(random(1000, 10000));
+				stop(1);
+			}
+		
+		
+		
+		
+		
+		} catch (NoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MusicPerformanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 	public static void main(String[] args) {
 
 		TestingOctopusREPL t = new TestingOctopusREPL();
@@ -321,7 +365,7 @@ public class TestingOctopusREPL extends OctopusShell{
 		try {
 
 			//t.midi();
-			t.midi(4);
+			t.midi(5);
 
 			
 			//t.testLoopBar(); //OK
@@ -333,7 +377,9 @@ public class TestingOctopusREPL extends OctopusShell{
 			//t.testLoopWhen();
 			
 			
-			t.testBpmChange();
+			//t.testBpmChange();
+			
+			t.testMelodyScale();
 			
 	
 			/* Problemas:

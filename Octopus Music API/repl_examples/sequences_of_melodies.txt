@@ -1,0 +1,14 @@
+midi(5)
+Scale s = scale.pentatonic(C, MAJOR);
+			
+Melody m1 = melody(s.getNotes(),rhythm.random(s.getSize()));
+play(loop(m1));
+
+Melody m2 = melody(suffle(s.getNotes()),rhythm.random(s.getSize()));
+
+when(loop(0),STOPS,loop(m2));
+stop(0); //depois de um tempo
+
+when(loop(1),STOPS,loop(m1));
+//pause(random(1000, 10000));
+stop(1);

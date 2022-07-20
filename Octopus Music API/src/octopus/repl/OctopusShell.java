@@ -71,7 +71,9 @@ public class OctopusShell {
 
 	//SCALE
 	final ScaleREPL scale = new ScaleREPL();
-
+	
+	//RHYTHM_PATTERN
+	final RhythmREPL rhythm = new RhythmREPL();
 
 	//MIDI SETUP
 

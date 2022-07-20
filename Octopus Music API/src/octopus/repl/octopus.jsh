@@ -61,6 +61,9 @@ import java.util.concurrent.TimeUnit
 
 	//SCALE
 	final ScaleREPL scale = new ScaleREPL();
+	
+	//RHYTHM_PATTERN
+	final RhythmREPL rhythm = new RhythmREPL();
 
 
 	//MIDI SETUP

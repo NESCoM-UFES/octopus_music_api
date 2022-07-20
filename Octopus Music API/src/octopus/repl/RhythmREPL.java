@@ -7,12 +7,27 @@ import octopus.RhythmPattern;
 public class RhythmREPL {
 	
 	
+	
+	
 	public static Mark mark(String name) {
 		return new Mark(name);
 	}
 	
 	public static ReturnPoint returnTo(String markName, int repetitions) {
 		return new ReturnPoint(markName,repetitions);
+	}
+	
+	
+	public RhythmPattern random(int nNotes) {
+		return RhythmPattern.getRandomRhythmPattern(nNotes);
+	}
+	
+	public RhythmPattern constant(double rhythmPatterDuration, double noteDuration) {
+		return RhythmPattern.getConstantRhythmPattern(rhythmPatterDuration, noteDuration);
+	}
+	
+	public RhythmPattern constant(int nNotes, double noteDuration) {
+		return RhythmPattern.getConstantRhythmPattern(nNotes,noteDuration);
 	}
 	
 	
